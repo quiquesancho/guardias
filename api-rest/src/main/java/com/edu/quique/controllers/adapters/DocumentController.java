@@ -1,4 +1,4 @@
-package com.edu.quique.guardias.Controllers;
+package com.edu.quique.controllers.adapters;
 
 import com.edu.quique.guardias.Entity.AbstractEntity;
 import com.edu.quique.guardias.ServiceImpl.DocumentServiceImpl;

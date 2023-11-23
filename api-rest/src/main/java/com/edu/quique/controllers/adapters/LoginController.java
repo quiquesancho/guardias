@@ -1,4 +1,4 @@
-package com.edu.quique.guardias.Controllers;
+package com.edu.quique.controllers.adapters;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

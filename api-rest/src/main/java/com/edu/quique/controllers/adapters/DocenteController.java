@@ -1,4 +1,4 @@
-package com.edu.quique.guardias.Controllers;
+package com.edu.quique.controllers.adapters;
 
 import java.util.List;
 import java.util.Optional;

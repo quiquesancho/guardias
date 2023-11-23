@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: guardiaslavereda
+  datasource:
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/guardias2?serverTimezone=UTC
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update
+fwk:
+  ldap:
+    username: cn=admin,dc=ieslavereda,dc=local
+    password: 12345678
+    base: dc=ieslavereda,dc=local
+    urls: ldap://192.168.1.143:389/
+server:
+  port: 8081
