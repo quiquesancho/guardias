@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: guardiaslavereda
+  datasource:
+    username: sa
+    password: root
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:guardiadb
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update
+      envers:
+        store_data_at_delete: true
+        audit_table_suffix: _aud
+  flyway:
+    locations: classpath:migration/versions
+    baselineOnMigrate: true
+    baselineVersion: 0
+    user: sa
+    password: root
+  security:
+    ldap:
+      url: ldap://localhost:389
+      base: ieslavereda,dc=local
+      username: cn=admin,dc=ieslavereda,dc=local
+      password: 123456789
+fwk:
+  ldap:
+    username: cn=admin,dc=ieslavereda,dc=local
+    password: 12345678
+    base: dc=ieslavereda,dc=local
+    urls: ldap://192.168.1.143:389/
+server:
+  port: 8081

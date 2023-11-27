@@ -59,8 +59,7 @@ public class DocumentServiceImpl implements DocumentoService{
     public void subirXML(InputStream archivo) throws ParserConfigurationException, SAXException, IOException, ParseException {
         
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder;
-        dBuilder = dbFactory.newDocumentBuilder();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(archivo);
         NodeList nodeList = doc.getDocumentElement().getChildNodes();
         
