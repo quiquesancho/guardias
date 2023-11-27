@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -38,17 +39,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		auth.ldapAuthentication()
-        .userSearchFilter("(uid={0})")
-        .userSearchBase("dc=ieslavereda,dc=local")
-        .groupSearchBase("ou=Users,dc=ieslavereda,dc=local")
-        .groupSearchFilter("cn={0}")
-        .contextSource()
-        .url("ldap://192.168.1.143")
-        .port(389)
-        .managerDn("cn=admin,dc=ieslavereda,dc=local")
-        .managerPassword("12345678");
+//		auth.ldapAuthentication()
+//        .userSearchFilter("(uid={0})")
+//        .userSearchBase("dc=ieslavereda,dc=local")
+//        .groupSearchBase("ou=Users,dc=ieslavereda,dc=local")
+//        .groupSearchFilter("cn={0}")
+//        .contextSource()
+//        .url("ldap://192.168.1.143")
+//        .port(389)
+//        .managerDn("cn=admin,dc=ieslavereda,dc=local")
+//        .managerPassword("12345678");
+		auth.authenticationProvider(activeDirectoryLdapAuthenticationProvider());
     }
+
+	@Bean
+	public ActiveDirectoryLdapAuthenticationProvider activeDirectoryLdapAuthenticationProvider() {
+		ActiveDirectoryLdapAuthenticationProvider provider =
+				new ActiveDirectoryLdapAuthenticationProvider("ieslavereda.local", "ldap://localhost:389");
+		provider.setConvertSubErrorCodesToExceptions(true);
+		provider.setUseAuthenticationRequestCredentials(true);
+		return provider;
+	}
 
 	@Override
 	@Bean

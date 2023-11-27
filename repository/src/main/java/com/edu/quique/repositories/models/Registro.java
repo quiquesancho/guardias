@@ -1,4 +1,4 @@
-package com.edu.quique.guardias.Models;
+package com.edu.quique.repositories.models;
 
 import java.util.Date;
 
@@ -37,9 +37,9 @@ public class Registro {
     private String observaciones;
 
     @ManyToOne
-    private Docente docenteGuardia;
+    private TeacherMO docenteGuardia;
 
     @ManyToOne
-    private Docente docenteAusente;
+    private TeacherMO docenteAusente;
     
 }

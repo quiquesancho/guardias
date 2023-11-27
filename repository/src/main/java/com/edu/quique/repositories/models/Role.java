@@ -1,4 +1,4 @@
-package com.edu.quique.guardias.Models;
+package com.edu.quique.repositories.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
