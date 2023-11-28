@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import com.edu.quique.repositories.BaseMO;
 import lombok.*;
 
+import java.io.Serializable;
+
 
 @Entity
 @Getter
@@ -18,7 +20,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(name="teachers")
-public class TeacherMO extends BaseMO {
+public class TeacherMO extends BaseMO implements Serializable {
     
     @Id
     @Column(name = "teacher_id",length = 9)

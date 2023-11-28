@@ -10,9 +10,11 @@ tags:
   - name: Login Actions
     description: Operation related with login
 paths:
-  /docentes:
+  /teachers:
     get:
-      summary: Get all docents
+      summary: Get all teachers
+      description: Get all teachers
+      operationId: getAllTeachers
       tags:
         - Docente Views
       responses:
@@ -22,6 +24,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DocentesResponse'
+  /document/updateXML:
+    post:
+      summary: Update XML
+      description: Update XML data using a file
+      operationId: updateXML
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful update
 components:
   schemas:
     DocentesResponse:

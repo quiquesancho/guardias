@@ -1,6 +1,12 @@
 spring:
   application:
     name: guardiaslavereda
+  flyway:
+    locations: classpath:migration/versions
+    baselineOnMigrate: true
+    baselineVersion: 0
+    user: sa
+    password: root
   datasource:
     username: sa
     password: root
@@ -12,17 +18,14 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     generate-ddl: false
-    hibernate:
-      ddl-auto: none
-      envers:
-        store_data_at_delete: true
-        audit_table_suffix: _aud
-  flyway:
-    locations: classpath:migration/versions
-    baselineOnMigrate: true
-    baselineVersion: 0
-    user: sa
-    password: root
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        envers:
+          enabled: true
+          store_data_at_delete: true
+          audit_table_suffix: _aud
+        ddl-auto: update
   security:
     ldap:
       url: ldap://localhost:389

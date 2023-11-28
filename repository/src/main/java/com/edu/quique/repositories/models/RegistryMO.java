@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Registros_ausencias")
+@Table(name = "registry_absence")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Registro {
+public class RegistryMO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
