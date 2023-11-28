@@ -6,11 +6,14 @@ spring:
     password: root
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:guardiadb
+  h2:
+    console:
+      enabled: true
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     generate-ddl: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       envers:
         store_data_at_delete: true
         audit_table_suffix: _aud
@@ -26,11 +29,5 @@ spring:
       base: ieslavereda,dc=local
       username: cn=admin,dc=ieslavereda,dc=local
       password: 123456789
-fwk:
-  ldap:
-    username: cn=admin,dc=ieslavereda,dc=local
-    password: 12345678
-    base: dc=ieslavereda,dc=local
-    urls: ldap://192.168.1.143:389/
 server:
   port: 8081

@@ -22,15 +22,19 @@ public class TeachingHoursMO extends BaseMO {
     @Column(name = "teaching_hours_id")
     private Long teachingHoursId;
 
+
     private LocalTime startHour;
 
+
     private LocalTime endHour;
+
 
     private DaysOfWeek dayOfWeek;
 
     @ManyToOne
-    private TeacherMO docente;
+    private TeacherMO teacher;
 
-    private String ocupacion;
+
+    private String occupation;
     
 }

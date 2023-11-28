@@ -1,3 +1,4 @@
+/*
 package com.edu.quique;
 
 import org.springframework.context.annotation.Bean;
@@ -14,16 +15,6 @@ import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAu
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-	private final static String USER_SEARCH_FILTER = "config.ldap.userFilter";
-	private final static String USER_SEARCH_BASE = "dc=ieslavereda,dc=local";
-	private final static String GROUP_SEARCH_BASE = "ou=Users,dc=ieslavereda,dc=local";
-	private final static String GROUP_SEARCH_FILTER = "cn={0}";
-	private final static String URL = "ldap://192.168.1.143";
-	private final static int PORT = 389;
-	private final static String USER =  "cn=admin,dc=ieslavereda,dc=local";
-	private final static String PASSWORD = "12345678";
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -67,4 +58,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
-}
+}*/
