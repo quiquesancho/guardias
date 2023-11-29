@@ -1,6 +1,5 @@
 package com.edu.quique.application.domain;
 
-import com.edu.quique.application.utils.DaysOfWeek;
 import java.time.LocalTime;
 
 import lombok.*;
@@ -11,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class TimetableGroup implements Comparable<TimetableGroup> {
   private Long timetableGroupId;
-  private DaysOfWeek dayOfWeek;
+  private String dayOfWeek;
   private LocalTime startHour;
   private LocalTime endHour;
   private String group;

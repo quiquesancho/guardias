@@ -1,17 +1,10 @@
 package com.edu.quique.repositories.models;
 
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-
-import com.edu.quique.repositories.BaseMO;
 import lombok.*;
 
 import java.io.Serializable;
-
 
 @Entity
 @Getter
@@ -19,31 +12,30 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name="teachers")
-public class TeacherMO extends BaseMO implements Serializable {
-    
-    @Id
-    @Column(name = "teacher_id",length = 9)
-    private String teacherId;
+@Table(name = "teachers")
+public class TeacherMO implements Serializable {
 
-    @Column(name = "email")
-    private String email;
+  @Id
+  @Column(name = "teacher_id", length = 9)
+  private String teacherId;
 
-    @Column(name = "name")
-    private String name;
+  @Column(name = "email")
+  private String email;
 
-    @Column(name = "first_surname")
-    private String firstSurname;
+  @Column(name = "name")
+  private String name;
 
-    @Column(name = "second_surname")
-    private String secondSurname;
+  @Column(name = "first_surname")
+  private String firstSurname;
 
-    public boolean equals(Object o) {
-        if(this == o) return true;
-        if ((o instanceof TeacherMO teacher)){
-            return this.teacherId.equals(teacher.getTeacherId());
-        }
-        return false;
+  @Column(name = "second_surname")
+  private String secondSurname;
+
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if ((o instanceof TeacherMO teacher)) {
+      return this.teacherId.equals(teacher.getTeacherId());
     }
-    
+    return false;
+  }
 }

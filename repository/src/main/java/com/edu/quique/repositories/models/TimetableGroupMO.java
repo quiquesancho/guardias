@@ -1,10 +1,6 @@
 package com.edu.quique.repositories.models;
 
-import com.edu.quique.application.utils.DaysOfWeek;
-import com.edu.quique.repositories.BaseMO;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,16 +10,18 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "timetable_group")
-public class TimetableGroupMO extends BaseMO implements Serializable {
+public class TimetableGroupMO implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "timetable_group_id")
   private Long timeTableGroupId;
 
-  @Column(name = "day_of_week")
-  private DaysOfWeek dayOfWeek;
+  @Column(name = "day_of_week", length = 1)
+  private String dayOfWeek;
 
   @Column(name = "start_hour")
   private LocalTime startHour;

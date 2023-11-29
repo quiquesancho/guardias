@@ -1,6 +1,5 @@
 package com.edu.quique.application.domain;
 
-import com.edu.quique.application.utils.DaysOfWeek;
 import java.time.LocalTime;
 import lombok.*;
 
@@ -12,7 +11,7 @@ public class TeachingHours implements Comparable<TeachingHours> {
   private Long teachingHoursId;
   private LocalTime startHour;
   private LocalTime endHour;
-  private DaysOfWeek dayOfWeek;
+  private String dayOfWeek;
   private Teacher teacher;
   private String occupation;
 

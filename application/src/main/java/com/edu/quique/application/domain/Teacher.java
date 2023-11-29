@@ -2,6 +2,7 @@ package com.edu.quique.application.domain;
 
 import lombok.*;
 
+
 @Data
 @Builder
 @AllArgsConstructor

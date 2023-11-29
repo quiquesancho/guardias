@@ -5,8 +5,6 @@ import java.time.LocalTime;
 
 import javax.persistence.*;
 
-import com.edu.quique.application.utils.DaysOfWeek;
-import com.edu.quique.repositories.BaseMO;
 import lombok.*;
 
 @Entity
@@ -16,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(name="teaching_hours")
-public class TeachingHoursMO extends BaseMO implements Serializable {
+public class TeachingHoursMO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +27,8 @@ public class TeachingHoursMO extends BaseMO implements Serializable {
     @Column(name = "end_hour")
     private LocalTime endHour;
 
-    @Column(name = "day_of_week")
-    private DaysOfWeek dayOfWeek;
+    @Column(name = "day_of_week", length = 1)
+    private String dayOfWeek;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
