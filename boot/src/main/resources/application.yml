@@ -4,19 +4,18 @@ spring:
   datasource:
     username: sa
     password: root
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:guardiadb
-  h2:
-    console:
-      enabled: true
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/guardias
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: false
-    hibernate:
-      ddl-auto: none
-      envers:
-        store_data_at_delete: true
-        audit_table_suffix: _aud
+    properties:
+      hibernate:
+        ddl-auto: update
+        envers:
+          enabled: true
+          store_data_at_delete: true
+          audit_table_suffix: _aud
   flyway:
     locations: classpath:migration/versions
     baselineOnMigrate: true

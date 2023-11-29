@@ -18,7 +18,6 @@ import java.time.LocalTime;
 public class AbsenceMO extends BaseMO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "absence_teacher_id")
     private Long id;
 

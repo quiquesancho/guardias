@@ -8,8 +8,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-public interface DocumentoService {
+public interface DocumentServicePort {
 
-    public void subirXML(InputStream archivo) throws ParserConfigurationException, SAXException, IOException, ParseException;
-    
+  void updateXML(InputStream file)
+      throws ParserConfigurationException, SAXException, IOException, ParseException;
 }
