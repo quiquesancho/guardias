@@ -23,4 +23,5 @@ public class AppConstants {
     public final static String CONTENT = "contenido";
     public final static String GROUP = "grupo";
     public static final DateTimeFormatter FORMAT_TIME = DateTimeFormatter.ofPattern("H:mm");
+    public static final Long INTERVAL_MINUTES = 55L;
 }

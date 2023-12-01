@@ -14,6 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import com.edu.quique.application.domain.Teacher;
 import com.edu.quique.application.domain.TeachingHours;
 import com.edu.quique.application.domain.TimetableGroup;
+import com.edu.quique.application.exceptions.ErrorUpdateXMLException;
 import com.edu.quique.application.ports.in.services.DocumentServicePort;
 import com.edu.quique.application.ports.in.services.TeacherServicePort;
 import com.edu.quique.application.ports.in.services.TeachingHoursServicePort;
@@ -41,12 +42,17 @@ public class DocumentService implements DocumentServicePort {
   private TeachingHoursServicePort teachingHoursService;
   private TimetableGroupServicePort timetableGroupService;
 
-  public void updateXML(InputStream file)
-      throws ParserConfigurationException, SAXException, IOException {
+  public void updateXML(InputStream file) {
 
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-    Document doc = dBuilder.parse(file);
+    DocumentBuilder dBuilder = null;
+    Document doc = null;
+    try {
+      dBuilder = dbFactory.newDocumentBuilder();
+      doc = dBuilder.parse(file);
+    } catch (SAXException | IOException | ParserConfigurationException e) {
+      throw new ErrorUpdateXMLException(e.getMessage());
+    }
     NodeList nodeList = doc.getDocumentElement().getChildNodes();
     Map<String, Teacher> teachersMap = new HashMap<>();
 

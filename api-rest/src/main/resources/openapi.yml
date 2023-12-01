@@ -10,20 +10,30 @@ tags:
   - name: Login Actions
     description: Operation related with login
 paths:
-  /teachers:
-    get:
-      summary: Get all teachers
-      description: Get all teachers
-      operationId: getAllTeachers
-      tags:
-        - Docente Views
+  /absence:
+    post:
+      summary: Create a absence
+      description: Create a absence
+      operationId: createAbsence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbsenceRequest'
       responses:
-        '200':
-          description: List of docents
+        '201':
+          description: Absence create successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DocentesResponse'
+                $ref: '#/components/schemas/AbsenceResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorType'
   /document/updateXML:
     post:
       summary: Update XML
@@ -40,21 +50,99 @@ paths:
                   type: string
                   format: binary
       responses:
-        '200':
-          description: Successful update
+        '201':
+          description: Update XML successfully
 components:
   schemas:
-    DocentesResponse:
-      type: array
-      description: Docente Response
-      items:
-        $ref: '#/components/schemas/Docente'
-    Docente:
+    AbsenceRequest:
       type: object
-      description: Docente model
+      description: Request to create absence
       properties:
-        id:
+        absenceDate:
+          type: string
+          format: date
+          description: Date of absence
+        startHour:
+          type: string
+          format: time
+          description: Hour to start the absence
+        endHour:
+          type: string
+          format: time
+          description: Hour to end the absence
+        teacherId:
+          type: string
+          description: ID of teacher
+    TimeInterval:
+      type: object
+      description: Time interval
+      properties:
+        startHour:
+          type: string
+          format: time
+          description: Start date of the interval
+        endHour:
+          type: string
+          format: time
+          description: End date of the interval
+    Teacher:
+      type: object
+      description: TeacherExtended information
+      properties:
+        email:
+          type: string
+          description: Email of teacher
+        name:
+          type: string
+          description: Name of teacher
+        firstSurname:
+          type: string
+          description: First surname of teacher
+        secondSurname:
+          type: string
+          description: Second surname of teacher
+    Absence:
+      type: object
+      description: Absence information
+      properties:
+        absenceId:
           type: integer
-          format: int64
-          description: ID docente
-          example: 452346
+          description: ID of the absence
+        dayOfWeek:
+          type: string
+          description: Day of the week
+        absenceDate:
+          type: string
+          format: date
+          description: Date of the absence
+        timeInterval:
+          $ref: '#/components/schemas/TimeInterval'
+        absentTeacher:
+          $ref: '#/components/schemas/Teacher'
+        isAssigned:
+          type: boolean
+          description: Indicate if the absence is assigned
+    AbsenceResponse:
+      type: object
+      description: Absence response
+      properties:
+        absences:
+          type: array
+          items:
+            $ref: '#/components/schemas/Absence'
+    ErrorType:
+      type: object
+      description: Error response
+      properties:
+        code:
+          type: string
+          description: Error code
+        description:
+          type: string
+          description: Error description
+      required:
+        - code
+        - description
+      example:
+        code: "400"
+        description: "Bad Request"

@@ -1,10 +1,9 @@
 package com.edu.quique.repositories.models;
 
-import com.edu.quique.application.utils.DaysOfWeek;
-import com.edu.quique.repositories.BaseMO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -14,30 +13,30 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "absence_teacher")
-public class AbsenceMO extends BaseMO {
+@Table(name = "absence")
+public class AbsenceMO implements Serializable {
 
-    @Id
-    @Column(name = "absence_teacher_id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "absence_id")
+  private Long absenceId;
 
-    @Column(name = "day_of_week")
-    @Enumerated(EnumType.STRING)
-    private DaysOfWeek dayOfWeek;
+  @Column(name = "day_of_week")
+  private String dayOfWeek;
 
-    @Column(name = "absence_date")
-    private LocalDate absenceDate;
+  @Column(name = "absence_date")
+  private LocalDate absenceDate;
 
-    @Column(name = "start_hour")
-    private LocalTime startHour;
+  @Column(name = "start_hour")
+  private LocalTime startHour;
 
-    @Column(name = "end_hour")
-    private LocalTime endHour;
+  @Column(name = "end_hour")
+  private LocalTime endHour;
 
-    @ManyToOne
-    @JoinColumn(name = "absent_teacher")
-    private TeacherMO absentTeacher;
+  @ManyToOne
+  @JoinColumn(name = "teacher_id")
+  private TeacherMO absentTeacher;
 
-    @Column(name = "is_assigned")
-    private Long idAssigned;
+  @Column(name = "is_assigned")
+  private Boolean isAssigned;
 }
