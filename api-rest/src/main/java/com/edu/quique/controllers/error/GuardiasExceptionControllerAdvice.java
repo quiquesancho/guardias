@@ -1,6 +1,7 @@
 package com.edu.quique.controllers.error;
 
 import com.edu.quique.api.model.ErrorType;
+import com.edu.quique.application.exceptions.AbsenceAlreadyExistsException;
 import com.edu.quique.application.exceptions.ErrorUpdateXMLException;
 import com.edu.quique.application.exceptions.TeacherNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,14 @@ public class GuardiasExceptionControllerAdvice {
     log.error("TeacherNotFoundException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
     errorType = errorType.code(HttpStatus.INTERNAL_SERVER_ERROR.toString()).description(ex.getMessage());
+    return ResponseEntity.status(HttpStatus.OK).body(errorType);
+  }
+
+  @ExceptionHandler(AbsenceAlreadyExistsException.class)
+  public ResponseEntity<ErrorType> handelAbsenceAlreadyExistsException(AbsenceAlreadyExistsException ex) {
+    log.error("AbsenceAlreadyExistsException: {}", ex.getMessage());
+    ErrorType errorType = new ErrorType();
+    errorType = errorType.code(HttpStatus.BAD_REQUEST.toString()).description(ex.getMessage());
     return ResponseEntity.status(HttpStatus.OK).body(errorType);
   }
 }

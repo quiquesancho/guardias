@@ -2,6 +2,7 @@ package com.edu.quique.application.service;
 
 import com.edu.quique.application.domain.Absence;
 import com.edu.quique.application.domain.Teacher;
+import com.edu.quique.application.exceptions.AbsenceAlreadyExistsException;
 import com.edu.quique.application.ports.in.services.AbsenceServicePort;
 import com.edu.quique.application.ports.in.services.TeacherServicePort;
 import com.edu.quique.application.ports.out.AbsenceRepositoryPort;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,22 +26,38 @@ public class AbsenceService implements AbsenceServicePort {
 
   @Override
   public List<Absence> createAbsence(Absence absence) {
-    List<Absence> absencesList = new ArrayList<>();
+    log.info(absence.toString());
     Teacher teacher = teacherService.findByEmail(absence.getAbsentTeacher().getEmail());
+    log.info(teacher.toString());
+    absence.setAbsentTeacher(teacher);
+    throwExceptionIfExistsAbsence(absence);
+    List<Absence> absencesList = new ArrayList<>();
+    log.info(teacher.toString());
     List<TimeInterval> timeIntervalAbsences =
         TimeInterval.generateIntervals(absence.getTimeInterval());
     timeIntervalAbsences.forEach(
-        timeInterval -> absencesList.add(
-            absenceRepository.save(
-                Absence.builder()
-                    .dayOfWeek(absence.getDayOfWeek())
-                    .absenceDate(absence.getAbsenceDate())
-                    .timeInterval(timeInterval)
-                    .absentTeacher(teacher)
-                    .isAssigned(absence.getIsAssigned())
-                    .build())));
+        timeInterval ->
+            absencesList.add(
+                absenceRepository.save(
+                    Absence.builder()
+                        .dayOfWeek(absence.getDayOfWeek())
+                        .absenceDate(absence.getAbsenceDate())
+                        .timeInterval(timeInterval)
+                        .absentTeacher(teacher)
+                        .isAssigned(absence.getIsAssigned())
+                        .build())));
     return absencesList;
   }
 
-  private void throwExceptionIfExistsAbsence(Absence absence) {}
+  private void throwExceptionIfExistsAbsence(Absence absence) {
+    List<Absence> absencesList =
+        absenceRepository.findByAbsenceDateAndStartHourOrAbsenceDateAndEndHourAndAbsentTeacher(absence);
+    log.info(absencesList.toString());
+    if (!absencesList.isEmpty())
+      throw new AbsenceAlreadyExistsException(
+          String.format(
+              "Already exists absences for this date: %s and between the hours %s",
+              absence.getAbsenceDate().format(DateTimeFormatter.ISO_DATE),
+              absence.getTimeInterval().toStringHours()));
+  }
 }

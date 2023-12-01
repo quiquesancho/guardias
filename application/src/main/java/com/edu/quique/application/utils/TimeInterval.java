@@ -6,10 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.edu.quique.application.utils.AppConstants.INTERVAL_MINUTES;
+import static com.edu.quique.application.utils.AppConstants.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,9 +35,19 @@ public class TimeInterval {
 
       timeIntervalList.add(interval);
 
-      startDate = interval.getEndHour();
+      startDate = (checkIsBreak(interval.getEndHour())) ? BREAK_END_HOUR : interval.getEndHour();
     }
 
     return timeIntervalList;
+  }
+
+  private static boolean checkIsBreak(LocalTime endHour) {
+    return endHour.equals(BREAK_START_HOUR);
+  }
+
+  public String toStringHours() {
+    return this.startHour.format(DateTimeFormatter.ISO_TIME)
+        + " - "
+        + this.endHour.format(DateTimeFormatter.ISO_TIME);
   }
 }
