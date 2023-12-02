@@ -7,6 +7,7 @@ import com.edu.quique.api.model.AbsenceResponse;
 import com.edu.quique.application.dto.AbsenceResponseDTO;
 import com.edu.quique.application.ports.in.usecases.CreateAbsenceUseCasePort;
 import com.edu.quique.application.ports.in.usecases.DeleteAbsenceUseCasePort;
+import com.edu.quique.application.ports.in.usecases.ModifyAbsenceUseCasePort;
 import com.edu.quique.controllers.mappers.AbsenceMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AbsenceControllerAdapter implements AbsenceApi {
   private CreateAbsenceUseCasePort createAbsenceUseCase;
   private DeleteAbsenceUseCasePort deleteAbsenceUseCase;
+  private ModifyAbsenceUseCasePort modifyAbsenceUseCase;
   private AbsenceMapper absenceMapper;
 
   @Override
@@ -35,7 +37,10 @@ public class AbsenceControllerAdapter implements AbsenceApi {
 
   @Override
   public ResponseEntity<Absence> modifyAbsence(AbsenceRequest absenceRequest) {
-    return AbsenceApi.super.modifyAbsence(absenceRequest);
+    log.info("PATCH /absence");
+    return ResponseEntity.ok(
+        absenceMapper.fromAbsence(
+            modifyAbsenceUseCase.execute(absenceMapper.fromAbsenceRequest(absenceRequest))));
   }
 
   @Override

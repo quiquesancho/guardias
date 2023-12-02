@@ -34,4 +34,6 @@ public interface AbsenceMapper {
   }
 
   AbsenceResponse toAbsenceResponse(AbsenceResponseDTO absenceResponseDTO);
+
+  com.edu.quique.api.model.Absence fromAbsence(Absence absence);
 }

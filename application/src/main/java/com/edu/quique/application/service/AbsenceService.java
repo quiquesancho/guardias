@@ -4,6 +4,7 @@ import com.edu.quique.application.domain.Absence;
 import com.edu.quique.application.domain.Teacher;
 import com.edu.quique.application.exceptions.AbsenceAlreadyExistsException;
 import com.edu.quique.application.exceptions.AbsenceAlreadyInCurseException;
+import com.edu.quique.application.exceptions.AbsenceCannotBeModifiedException;
 import com.edu.quique.application.exceptions.AbsenceNotFoundException;
 import com.edu.quique.application.ports.in.services.AbsenceServicePort;
 import com.edu.quique.application.ports.in.services.TeacherServicePort;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -26,6 +28,13 @@ import java.util.List;
 public class AbsenceService implements AbsenceServicePort {
   private TeacherServicePort teacherService;
   private AbsenceRepositoryPort absenceRepository;
+
+  @Override
+  public Absence findById(Long id) {
+    return absenceRepository
+        .findById(id)
+        .orElseThrow(() -> new AbsenceNotFoundException("Absence with id: " + id + " not found."));
+  }
 
   @Override
   public List<Absence> createAbsence(Absence absence) {
@@ -52,12 +61,16 @@ public class AbsenceService implements AbsenceServicePort {
 
   @Override
   public void deleteAbsence(Long id) {
-    Absence absenceToDelete =
-        absenceRepository
-            .findById(id)
-            .orElseThrow(
-                () -> new AbsenceNotFoundException("Absence with id: " + id + " not found."));
+    Absence absenceToDelete = findById(id);
     throwExceptionIfInCurseAbsence(absenceToDelete);
+    absenceRepository.deleteAbsence(absenceToDelete);
+  }
+
+  @Override
+  public Absence modifyAbsence(Absence absence) {
+    Absence absenceToModify = findById(absence.getAbsenceId());
+    throwExceptionIfCannotModifyAbsence(absenceToModify);
+    return absenceRepository.save(absence);
   }
 
   private void throwExceptionIfExistsAbsence(Absence absence) {
@@ -76,5 +89,13 @@ public class AbsenceService implements AbsenceServicePort {
     if (LocalTime.now().isAfter(absence.getTimeInterval().getStartHour()))
       throw new AbsenceAlreadyInCurseException(
           "Absence is already in curse, start at: " + absence.getTimeInterval().getStartHour());
+  }
+
+  private void throwExceptionIfCannotModifyAbsence(Absence absence) {
+    var today = LocalDate.now();
+    if (today.isEqual(absence.getAbsenceDate()) || today.isAfter(absence.getAbsenceDate())) {
+      throwExceptionIfInCurseAbsence(absence);
+      throw new AbsenceCannotBeModifiedException("Absence cannot be modified.");
+    }
   }
 }
