@@ -30,12 +30,4 @@ public class TeacherMO implements Serializable {
 
   @Column(name = "second_surname")
   private String secondSurname;
-
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if ((o instanceof TeacherMO teacher)) {
-      return this.teacherId.equals(teacher.getTeacherId());
-    }
-    return false;
-  }
 }

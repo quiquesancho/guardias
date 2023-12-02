@@ -40,6 +40,7 @@ public class AbsenceControllerAdapter implements AbsenceApi {
 
   @Override
   public ResponseEntity<Void> deleteAbsence(Long absenceId) {
+    log.info("DELETE /absence?absenceId={}", absenceId);
     deleteAbsenceUseCase.execute(absenceId);
     return ResponseEntity.ok().build();
   }
