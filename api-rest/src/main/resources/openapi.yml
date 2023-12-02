@@ -34,6 +34,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorType'
+    patch:
+      summary: Modify a absence
+      description: Modify a absence
+      operationId: modifyAbsence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbsenceRequest'
+      responses:
+        '201':
+          description: Absence modified successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Absence'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorType'
+    delete:
+      summary: Delete a absence
+      description: Delete a absence
+      operationId: deleteAbsence
+      parameters:
+        - $ref: '#/components/parameters/AbsenceIdParam'
+      responses:
+        '200':
+          description: Absence deleted successfully
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorType'
   /document/updateXML:
     post:
       summary: Update XML
@@ -53,11 +91,26 @@ paths:
         '201':
           description: Update XML successfully
 components:
+  parameters:
+    AbsenceIdParam:
+      name: absenceId
+      in: path
+      required: true
+      description: ID of the absence to delete
+      schema:
+        $ref: '#/component/schemas/AbsenceIdSchema'
   schemas:
+    AbsenceIdSchema:
+      type: integer
+      format: int64
     AbsenceRequest:
       type: object
       description: Request to create absence
       properties:
+        absenceId:
+          type: integer
+          format: int64
+          description: ID of the absence
         absenceDate:
           type: string
           format: date

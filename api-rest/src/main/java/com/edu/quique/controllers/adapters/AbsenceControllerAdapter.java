@@ -1,6 +1,7 @@
 package com.edu.quique.controllers.adapters;
 
 import com.edu.quique.api.AbsenceApi;
+import com.edu.quique.api.model.Absence;
 import com.edu.quique.api.model.AbsenceRequest;
 import com.edu.quique.api.model.AbsenceResponse;
 import com.edu.quique.application.dto.AbsenceResponseDTO;
@@ -28,5 +29,15 @@ public class AbsenceControllerAdapter implements AbsenceApi {
                 createAbsenceUseCase.execute(absenceMapper.fromAbsenceRequest(absenceRequest)))
             .build();
     return ResponseEntity.status(HttpStatus.OK).body(absenceMapper.toAbsenceResponse(responseDTO));
+  }
+
+  @Override
+  public ResponseEntity<Absence> modifyAbsence(AbsenceRequest absenceRequest) {
+    return AbsenceApi.super.modifyAbsence(absenceRequest);
+  }
+
+  @Override
+  public ResponseEntity<Void> deleteAbsence(Object absenceId) {
+    return AbsenceApi.super.deleteAbsence(absenceId);
   }
 }

@@ -26,9 +26,7 @@ public class AbsenceService implements AbsenceServicePort {
 
   @Override
   public List<Absence> createAbsence(Absence absence) {
-    log.info(absence.toString());
     Teacher teacher = teacherService.findByEmail(absence.getAbsentTeacher().getEmail());
-    log.info(teacher.toString());
     absence.setAbsentTeacher(teacher);
     throwExceptionIfExistsAbsence(absence);
     List<Absence> absencesList = new ArrayList<>();
@@ -49,10 +47,14 @@ public class AbsenceService implements AbsenceServicePort {
     return absencesList;
   }
 
+  @Override
+  public void deleteAbsence(Long id) {
+
+  }
+
   private void throwExceptionIfExistsAbsence(Absence absence) {
     List<Absence> absencesList =
         absenceRepository.findByAbsenceDateAndStartHourOrAbsenceDateAndEndHourAndAbsentTeacher(absence);
-    log.info(absencesList.toString());
     if (!absencesList.isEmpty())
       throw new AbsenceAlreadyExistsException(
           String.format(

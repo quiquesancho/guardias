@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface AbsenceServicePort {
   List<Absence> createAbsence(Absence absence);
+  void deleteAbsence(Long id);
 }

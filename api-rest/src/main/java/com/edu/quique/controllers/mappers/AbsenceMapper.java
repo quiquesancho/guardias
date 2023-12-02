@@ -18,6 +18,7 @@ public interface AbsenceMapper {
   default Absence fromAbsenceRequest(AbsenceRequest absenceRequest) {
     var builder = Absence.builder();
 
+    builder.absenceId(absenceRequest.getAbsenceId());
     builder.dayOfWeek(
         DaysOfWeek.valueOf(absenceRequest.getAbsenceDate().getDayOfWeek().name()).getDay());
     builder.absenceDate(absenceRequest.getAbsenceDate());
@@ -31,5 +32,6 @@ public interface AbsenceMapper {
 
     return builder.build();
   }
+
   AbsenceResponse toAbsenceResponse(AbsenceResponseDTO absenceResponseDTO);
 }

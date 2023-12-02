@@ -97,7 +97,6 @@ public class DocumentService implements DocumentServicePort {
             .firstSurname(elem2.getAttribute(FIRST_SURNAME))
             .secondSurname(elem2.getAttribute(SECOND_SURNAME))
             .build();
-    log.info(teacher.toString());
     teachersMap.put(teacher.getTeacherId(), teacherService.save(teacher));
   }
 
@@ -110,7 +109,6 @@ public class DocumentService implements DocumentServicePort {
             .teacher(teachersMap.getOrDefault(elem2.getAttribute(DOCUMENT), null))
             .occupation(elem2.getAttribute(OCCUPATION))
             .build();
-    log.info(teachingHours.toString());
     teachingHoursService.save(teachingHours);
   }
 
@@ -125,7 +123,6 @@ public class DocumentService implements DocumentServicePort {
             .content(elem2.getAttribute(CONTENT))
             .teacher(teachersMap.getOrDefault(elem2.getAttribute(TEACHER), null))
             .build();
-    log.info(timetableGroup.toString());
     timetableGroupService.save(timetableGroup);
   }
 }
