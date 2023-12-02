@@ -36,14 +36,6 @@ public class GuardiasExceptionControllerAdvice {
     return ResponseEntity.status(HttpStatus.OK).body(errorType);
   }
 
-  @ExceptionHandler(AbsenceAlreadyInCurseException.class)
-  public ResponseEntity<ErrorType> handleAbsenceAlreadyInCurseException(AbsenceAlreadyInCurseException ex) {
-    log.error("AbsenceAlreadyInCurseException: {}", ex.getMessage());
-    ErrorType errorType = new ErrorType();
-    errorType = errorType.code(HttpStatus.BAD_REQUEST.toString()).description(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.OK).body(errorType);
-  }
-
   @ExceptionHandler(AbsenceNotFoundException.class)
   public ResponseEntity<ErrorType> handleAbsenceNotFoundException(AbsenceNotFoundException ex) {
     log.error("AbsenceNotFoundException: {}", ex.getMessage());
