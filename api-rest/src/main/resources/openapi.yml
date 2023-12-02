@@ -10,20 +10,68 @@ tags:
   - name: Login Actions
     description: Operation related with login
 paths:
-  /teachers:
-    get:
-      summary: Get all teachers
-      description: Get all teachers
-      operationId: getAllTeachers
-      tags:
-        - Docente Views
+  /absence:
+    post:
+      summary: Create a absence
+      description: Create a absence
+      operationId: createAbsence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbsenceRequest'
       responses:
-        '200':
-          description: List of docents
+        '201':
+          description: Absence create successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DocentesResponse'
+                $ref: '#/components/schemas/AbsenceResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorType'
+    patch:
+      summary: Modify a absence
+      description: Modify a absence
+      operationId: modifyAbsence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbsenceRequest'
+      responses:
+        '201':
+          description: Absence modified successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Absence'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorType'
+    delete:
+      summary: Delete a absence
+      description: Delete a absence
+      operationId: deleteAbsence
+      parameters:
+        - $ref: '#/components/parameters/AbsenceIdParam'
+      responses:
+        '200':
+          description: Absence deleted successfully
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorType'
   /document/updateXML:
     post:
       summary: Update XML
@@ -40,21 +88,113 @@ paths:
                   type: string
                   format: binary
       responses:
-        '200':
-          description: Successful update
+        '201':
+          description: Update XML successfully
 components:
+  parameters:
+    AbsenceIdParam:
+      name: absenceId
+      in: query
+      required: true
+      description: ID of the absence to delete
+      schema:
+        $ref: '#/components/schemas/AbsenceIdSchema'
   schemas:
-    DocentesResponse:
-      type: array
-      description: Docente Response
-      items:
-        $ref: '#/components/schemas/Docente'
-    Docente:
+    AbsenceIdSchema:
+      type: integer
+      format: int64
+    AbsenceRequest:
       type: object
-      description: Docente model
+      description: AbsenceRequest information
       properties:
-        id:
+        absenceId:
           type: integer
           format: int64
-          description: ID docente
-          example: 452346
+          description: ID of the absence
+        dayOfWeek:
+          type: string
+          description: Day of the week
+        absenceDate:
+          type: string
+          format: date
+          description: Date of the absence
+        timeInterval:
+          $ref: '#/components/schemas/TimeInterval'
+        absentTeacher:
+          $ref: '#/components/schemas/Teacher'
+        isAssigned:
+          type: boolean
+          description: Indicate if the absence is assigned
+    TimeInterval:
+      type: object
+      description: Time interval
+      properties:
+        startHour:
+          type: string
+          format: time
+          description: Start date of the interval
+        endHour:
+          type: string
+          format: time
+          description: End date of the interval
+    Teacher:
+      type: object
+      description: TeacherExtended information
+      properties:
+        email:
+          type: string
+          description: Email of teacher
+        name:
+          type: string
+          description: Name of teacher
+        firstSurname:
+          type: string
+          description: First surname of teacher
+        secondSurname:
+          type: string
+          description: Second surname of teacher
+    Absence:
+      type: object
+      description: Absence information
+      properties:
+        absenceId:
+          type: integer
+          description: ID of the absence
+        dayOfWeek:
+          type: string
+          description: Day of the week
+        absenceDate:
+          type: string
+          format: date
+          description: Date of the absence
+        timeInterval:
+          $ref: '#/components/schemas/TimeInterval'
+        absentTeacher:
+          $ref: '#/components/schemas/Teacher'
+        isAssigned:
+          type: boolean
+          description: Indicate if the absence is assigned
+    AbsenceResponse:
+      type: object
+      description: Absence response
+      properties:
+        absences:
+          type: array
+          items:
+            $ref: '#/components/schemas/Absence'
+    ErrorType:
+      type: object
+      description: Error response
+      properties:
+        code:
+          type: string
+          description: Error code
+        description:
+          type: string
+          description: Error description
+      required:
+        - code
+        - description
+      example:
+        code: "400"
+        description: "Bad Request"

@@ -2,7 +2,6 @@ package com.edu.quique.application.domain;
 
 import lombok.*;
 
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -31,5 +30,9 @@ public class Teacher implements Comparable<Teacher> {
   @Override
   public int compareTo(Teacher o) {
     return this.teacherId.compareTo(o.getTeacherId());
+  }
+
+  public String fullName() {
+    return this.name + " " + this.firstSurname + " " + this.secondSurname;
   }
 }

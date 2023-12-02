@@ -16,8 +16,8 @@ public class TeacherRepositoryAdapter implements TeacherRepositoryPort {
   private TeacherMOMapper teacherMOMapper;
 
   @Override
-  public Optional<Teacher> findByTeacherId(String id) {
-    return Optional.ofNullable(teacherMOMapper.toTeacher(teacherJpaRepository.findByTeacherId(id)));
+  public Optional<Teacher> findByEmail(String id) {
+    return Optional.ofNullable(teacherMOMapper.toTeacher(teacherJpaRepository.findByEmail(id)));
   }
 
   @Override

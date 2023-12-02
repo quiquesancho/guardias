@@ -1,17 +1,21 @@
-DROP SEQUENCE IF EXISTS teaching_hours_id_seq;
-DROP SEQUENCE IF EXISTS timetable_group_id_seq;
-
-CREATE SEQUENCE teaching_hours_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
-CREATE SEQUENCE timetable_group_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
-
-DROP TABLE IF EXISTS ABSENCE_TEACHER CASCADE;
+DROP TABLE IF EXISTS ABSENCE CASCADE;
 DROP TABLE IF EXISTS REGISTRY_ABSENCE CASCADE;
 DROP TABLE IF EXISTS TEACHERS CASCADE;
 DROP TABLE IF EXISTS TEACHING_HOURS CASCADE;
 DROP TABLE IF EXISTS TIMETABLE_GROUP CASCADE;
+DROP TABLE IF EXISTS ABSENCE_AUD CASCADE;
 DROP TABLE IF EXISTS TEACHERS_AUD CASCADE;
 DROP TABLE IF EXISTS TEACHING_HOURS_AUD CASCADE;
 DROP TABLE IF EXISTS TIMETABLE_GROUP_AUD CASCADE;
+
+DROP SEQUENCE IF EXISTS teaching_hours_id_seq;
+DROP SEQUENCE IF EXISTS timetable_group_id_seq;
+DROP SEQUENCE IF EXISTS absence_id_seq;
+
+CREATE SEQUENCE teaching_hours_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
+CREATE SEQUENCE timetable_group_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
+CREATE SEQUENCE absence_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
+
 
 /*==============================================================*/
 /* Table: TEACHERS                                              */
@@ -68,6 +72,26 @@ CREATE TABLE timetable_group (
 );
 
 /*==============================================================*/
+/* Table: ABSENCE                                               */
+/*==============================================================*/
+CREATE TABLE absence (
+    absence_id BIGINT DEFAULT nextval('absence_id_seq '::regclass),
+    day_of_week VARCHAR(1),
+    absence_date DATE,
+    start_hour TIME,
+    end_hour TIME,
+    teacher_id VARCHAR(9),
+    is_assigned BOOLEAN,
+/*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
+    creation_date TIMESTAMP NOT NULL,
+    cod_user_modification VARCHAR(255),
+    modification_date TIMESTAMP,*/
+    PRIMARY KEY (absence_id),
+    FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id),
+    CONSTRAINT absence_unq UNIQUE (absence_date, start_hour, end_hour, teacher_id)
+);
+
+/*==============================================================*/
 /* Table: TEACHERS_AUD                                          */
 /*==============================================================*/
 CREATE TABLE teachers_aud (
@@ -119,4 +143,22 @@ CREATE TABLE timetable_group_aud (
     modification_date TIMESTAMP,*/
     PRIMARY KEY (timetable_group_id),
     FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id)
+);
+
+/*==============================================================*/
+/* Table: ABSENCE_AUD                                           */
+/*==============================================================*/
+CREATE TABLE absence_aud (
+    absence_id BIGINT NOT NULL,
+    day_of_week VARCHAR(1),
+    absence_date DATE,
+    start_hour TIME,
+    end_hour TIME,
+    teacher_id VARCHAR(9),
+    is_assigned BOOLEAN,
+/*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
+    creation_date TIMESTAMP NOT NULL,
+    cod_user_modification VARCHAR(255),
+    modification_date TIMESTAMP,*/
+    PRIMARY KEY (absence_id)
 );

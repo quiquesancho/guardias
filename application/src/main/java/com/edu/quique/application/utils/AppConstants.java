@@ -1,6 +1,7 @@
 package com.edu.quique.application.utils;
 
 
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class AppConstants {
@@ -23,4 +24,7 @@ public class AppConstants {
     public final static String CONTENT = "contenido";
     public final static String GROUP = "grupo";
     public static final DateTimeFormatter FORMAT_TIME = DateTimeFormatter.ofPattern("H:mm");
+    public static final LocalTime BREAK_START_HOUR = LocalTime.parse("11:00",FORMAT_TIME);
+    public static final LocalTime BREAK_END_HOUR = LocalTime.parse("11:30",FORMAT_TIME);
+    public static final Long INTERVAL_MINUTES = 55L;
 }
