@@ -3,37 +3,22 @@ package com.edu.quique.controllers.mappers;
 import com.edu.quique.api.model.AbsenceRequest;
 import com.edu.quique.api.model.AbsenceResponse;
 import com.edu.quique.application.domain.Absence;
-import com.edu.quique.application.domain.Teacher;
 import com.edu.quique.application.dto.AbsenceResponseDTO;
-import com.edu.quique.application.utils.DaysOfWeek;
-import com.edu.quique.application.utils.TimeInterval;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalTime;
-
-import static com.edu.quique.application.utils.AppConstants.FORMAT_TIME;
-
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {TeacherMapper.class})
 public interface AbsenceMapper {
-  default Absence fromAbsenceRequest(AbsenceRequest absenceRequest) {
-    var builder = Absence.builder();
+  @Mapping(target = "timeInterval.startHour", dateFormat = "H:mm")
+  @Mapping(target = "timeInterval.endHour", dateFormat = "H:mm")
+  Absence fromAbsenceRequest(AbsenceRequest absenceRequest);
 
-    builder.absenceId(absenceRequest.getAbsenceId());
-    builder.dayOfWeek(
-        DaysOfWeek.valueOf(absenceRequest.getAbsenceDate().getDayOfWeek().name()).getDay());
-    builder.absenceDate(absenceRequest.getAbsenceDate());
-    builder.timeInterval(
-        TimeInterval.builder()
-            .startHour(LocalTime.parse(absenceRequest.getStartHour(), FORMAT_TIME))
-            .endHour(LocalTime.parse(absenceRequest.getEndHour(), FORMAT_TIME))
-            .build());
-    builder.absentTeacher(Teacher.builder().email(absenceRequest.getTeacherId()).build());
-    builder.isAssigned(Boolean.FALSE);
-
-    return builder.build();
-  }
-
+  @Mapping(target = "absences.timeInterval.startHour", dateFormat = "H:mm")
+  @Mapping(target = "absences.timeInterval.endHour", dateFormat = "H:mm")
   AbsenceResponse toAbsenceResponse(AbsenceResponseDTO absenceResponseDTO);
 
+  @Mapping(target = "timeInterval.startHour", dateFormat = "H:mm")
+  @Mapping(target = "timeInterval.endHour", dateFormat = "H:mm")
   com.edu.quique.api.model.Absence fromAbsence(Absence absence);
 }

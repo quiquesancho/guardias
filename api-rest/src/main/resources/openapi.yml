@@ -105,27 +105,26 @@ components:
       format: int64
     AbsenceRequest:
       type: object
-      description: Request to create absence
+      description: AbsenceRequest information
       properties:
         absenceId:
           type: integer
           format: int64
           description: ID of the absence
+        dayOfWeek:
+          type: string
+          description: Day of the week
         absenceDate:
           type: string
           format: date
-          description: Date of absence
-        startHour:
-          type: string
-          format: time
-          description: Hour to start the absence
-        endHour:
-          type: string
-          format: time
-          description: Hour to end the absence
-        teacherId:
-          type: string
-          description: ID of teacher
+          description: Date of the absence
+        timeInterval:
+          $ref: '#/components/schemas/TimeInterval'
+        absentTeacher:
+          $ref: '#/components/schemas/Teacher'
+        isAssigned:
+          type: boolean
+          description: Indicate if the absence is assigned
     TimeInterval:
       type: object
       description: Time interval

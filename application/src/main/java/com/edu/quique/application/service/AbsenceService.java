@@ -9,6 +9,7 @@ import com.edu.quique.application.exceptions.AbsenceNotFoundException;
 import com.edu.quique.application.ports.in.services.AbsenceServicePort;
 import com.edu.quique.application.ports.in.services.TeacherServicePort;
 import com.edu.quique.application.ports.out.AbsenceRepositoryPort;
+import com.edu.quique.application.utils.DaysOfWeek;
 import com.edu.quique.application.utils.TimeInterval;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,12 +51,15 @@ public class AbsenceService implements AbsenceServicePort {
             absencesList.add(
                 absenceRepository.save(
                     Absence.builder()
-                        .dayOfWeek(absence.getDayOfWeek())
+                        .dayOfWeek(
+                            DaysOfWeek.valueOf(absence.getAbsenceDate().getDayOfWeek().name())
+                                .getDay())
                         .absenceDate(absence.getAbsenceDate())
                         .timeInterval(timeInterval)
                         .absentTeacher(teacher)
-                        .isAssigned(absence.getIsAssigned())
+                        .isAssigned(Boolean.FALSE)
                         .build())));
+    log.info(absencesList.toString());
     return absencesList;
   }
 
@@ -70,6 +74,7 @@ public class AbsenceService implements AbsenceServicePort {
   public Absence modifyAbsence(Absence absence) {
     Absence absenceToModify = findById(absence.getAbsenceId());
     throwExceptionIfCannotModifyAbsence(absenceToModify);
+
     return absenceRepository.save(absence);
   }
 
@@ -94,7 +99,6 @@ public class AbsenceService implements AbsenceServicePort {
   private void throwExceptionIfCannotModifyAbsence(Absence absence) {
     var today = LocalDate.now();
     if (today.isEqual(absence.getAbsenceDate()) || today.isAfter(absence.getAbsenceDate())) {
-      throwExceptionIfInCurseAbsence(absence);
       throw new AbsenceCannotBeModifiedException("Absence cannot be modified.");
     }
   }
