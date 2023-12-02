@@ -9,12 +9,19 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class AbsenceRepositoryAdapter implements AbsenceRepositoryPort {
   private AbsenceJpaRepository absenceJpaRepository;
   private AbsenceMOMapper absenceMOMapper;
+
+  @Override
+  public Optional<Absence> findById(Long id) {
+    return Optional.ofNullable(
+        absenceMOMapper.fromAbsenceMO(absenceJpaRepository.findByAbsenceId(id)));
+  }
 
   @Override
   public List<Absence> findByAbsenceDateAndStartHourOrAbsenceDateAndEndHourAndAbsentTeacher(
@@ -33,5 +40,10 @@ public class AbsenceRepositoryAdapter implements AbsenceRepositoryPort {
   public Absence save(Absence absence) {
     return absenceMOMapper.fromAbsenceMO(
         absenceJpaRepository.save(absenceMOMapper.toAbsenceMO(absence)));
+  }
+
+  @Override
+  public void deleteAbsence(Absence absence) {
+    absenceJpaRepository.delete(absenceMOMapper.toAbsenceMO(absence));
   }
 }

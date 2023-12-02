@@ -1,9 +1,7 @@
 package com.edu.quique.controllers.error;
 
 import com.edu.quique.api.model.ErrorType;
-import com.edu.quique.application.exceptions.AbsenceAlreadyExistsException;
-import com.edu.quique.application.exceptions.ErrorUpdateXMLException;
-import com.edu.quique.application.exceptions.TeacherNotFoundException;
+import com.edu.quique.application.exceptions.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +31,22 @@ public class GuardiasExceptionControllerAdvice {
   @ExceptionHandler(AbsenceAlreadyExistsException.class)
   public ResponseEntity<ErrorType> handelAbsenceAlreadyExistsException(AbsenceAlreadyExistsException ex) {
     log.error("AbsenceAlreadyExistsException: {}", ex.getMessage());
+    ErrorType errorType = new ErrorType();
+    errorType = errorType.code(HttpStatus.BAD_REQUEST.toString()).description(ex.getMessage());
+    return ResponseEntity.status(HttpStatus.OK).body(errorType);
+  }
+
+  @ExceptionHandler(AbsenceAlreadyInCurseException.class)
+  public ResponseEntity<ErrorType> handleAbsenceAlreadyInCurseException(AbsenceAlreadyInCurseException ex) {
+    log.error("AbsenceAlreadyInCurseException: {}", ex.getMessage());
+    ErrorType errorType = new ErrorType();
+    errorType = errorType.code(HttpStatus.BAD_REQUEST.toString()).description(ex.getMessage());
+    return ResponseEntity.status(HttpStatus.OK).body(errorType);
+  }
+
+  @ExceptionHandler(AbsenceNotFoundException.class)
+  public ResponseEntity<ErrorType> handleAbsenceNotFoundException(AbsenceNotFoundException ex) {
+    log.error("AbsenceNotFoundException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
     errorType = errorType.code(HttpStatus.BAD_REQUEST.toString()).description(ex.getMessage());
     return ResponseEntity.status(HttpStatus.OK).body(errorType);

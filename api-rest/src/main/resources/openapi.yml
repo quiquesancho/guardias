@@ -94,11 +94,11 @@ components:
   parameters:
     AbsenceIdParam:
       name: absenceId
-      in: path
+      in: query
       required: true
       description: ID of the absence to delete
       schema:
-        $ref: '#/component/schemas/AbsenceIdSchema'
+        $ref: '#/components/schemas/AbsenceIdSchema'
   schemas:
     AbsenceIdSchema:
       type: integer

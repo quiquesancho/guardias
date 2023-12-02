@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class DeleteAbsenceUseCase implements DeleteAbsenceUseCasePort {
-    private AbsenceServicePort absenceService;
-    @Override
-    public void execute(Long id) {
+  private AbsenceServicePort absenceService;
 
-    }
+  @Override
+  public void execute(Long id) {
+    absenceService.deleteAbsence(id);
+  }
 }

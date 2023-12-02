@@ -9,6 +9,8 @@ import java.time.LocalTime;
 import java.util.List;
 
 public interface AbsenceJpaRepository extends JpaRepository<AbsenceMO, Long> {
+
+  AbsenceMO findByAbsenceId(Long id);
   List<AbsenceMO> findByAbsenceDateAndStartHourOrAbsenceDateAndEndHourAndAbsentTeacher(
       LocalDate absenceDate,
       LocalTime startHour,
