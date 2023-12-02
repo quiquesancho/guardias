@@ -57,7 +57,6 @@ public class AbsenceService implements AbsenceServicePort {
                         .absenceDate(absence.getAbsenceDate())
                         .timeInterval(timeInterval)
                         .absentTeacher(teacher)
-                        .isAssigned(Boolean.FALSE)
                         .build())));
     return absencesList;
   }

@@ -1,12 +1,9 @@
 package com.edu.quique.repositories.models;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.*;
 
@@ -16,27 +13,32 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "registry_absence")
+@Table(name = "registry")
 public class RegistryMO {
 
-    @Id
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "registry_id")
+  private Long registryId;
 
-    private Date fecha;
+  @OneToOne
+  @JoinColumn(name = "absence_id")
+  private AbsenceMO absence;
 
-    private Date hora;
+  @ManyToOne
+  @JoinColumn(name = "timetable_group_id")
+  private TimetableGroupMO timetableGroup;
 
-    private String grupo;
+  @ManyToOne
+  @JoinColumn(name = "guard_teacher_id")
+  private TeacherMO teacherGuard;
 
-    private String aula;
+  @Column(name = "observation",columnDefinition = "TEXT")
+  private String observation;
 
-    @Column(columnDefinition="TEXT")
-    private String observaciones;
+  @Column(name = "assigned_time")
+  private OffsetDateTime assignedTime;
 
-    @ManyToOne
-    private TeacherMO docenteGuardia;
-
-    @ManyToOne
-    private TeacherMO docenteAusente;
-    
+  @Column(name = "is_assigned")
+  private Boolean isAssigned;
 }

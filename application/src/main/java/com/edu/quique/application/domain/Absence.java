@@ -18,7 +18,6 @@ public class Absence implements Comparable<Absence> {
   private LocalDate absenceDate;
   private TimeInterval timeInterval;
   private Teacher absentTeacher;
-  private Boolean isAssigned;
 
   @Override
   public boolean equals(Object o) {

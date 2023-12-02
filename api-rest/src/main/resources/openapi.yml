@@ -122,9 +122,6 @@ components:
           $ref: '#/components/schemas/TimeInterval'
         absentTeacher:
           $ref: '#/components/schemas/Teacher'
-        isAssigned:
-          type: boolean
-          description: Indicate if the absence is assigned
     TimeInterval:
       type: object
       description: Time interval
@@ -171,9 +168,6 @@ components:
           $ref: '#/components/schemas/TimeInterval'
         absentTeacher:
           $ref: '#/components/schemas/Teacher'
-        isAssigned:
-          type: boolean
-          description: Indicate if the absence is assigned
     AbsenceResponse:
       type: object
       description: Absence response
