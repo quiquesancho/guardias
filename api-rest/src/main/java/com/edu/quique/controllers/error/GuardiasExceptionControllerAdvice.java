@@ -36,6 +36,14 @@ public class GuardiasExceptionControllerAdvice {
     return ResponseEntity.status(HttpStatus.OK).body(errorType);
   }
 
+  @ExceptionHandler(AbsenceCannotBeModifiedOrDeletedException.class)
+  public ResponseEntity<ErrorType> handleAbsenceCannotBeModifiedException(AbsenceCannotBeModifiedOrDeletedException ex) {
+    log.error("AbsenceAlreadyInCurseException: {}", ex.getMessage());
+    ErrorType errorType = new ErrorType();
+    errorType = errorType.code(HttpStatus.BAD_REQUEST.toString()).description(ex.getMessage());
+    return ResponseEntity.status(HttpStatus.OK).body(errorType);
+  }
+
   @ExceptionHandler(AbsenceNotFoundException.class)
   public ResponseEntity<ErrorType> handleAbsenceNotFoundException(AbsenceNotFoundException ex) {
     log.error("AbsenceNotFoundException: {}", ex.getMessage());

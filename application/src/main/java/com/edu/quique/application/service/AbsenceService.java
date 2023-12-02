@@ -3,7 +3,7 @@ package com.edu.quique.application.service;
 import com.edu.quique.application.domain.Absence;
 import com.edu.quique.application.domain.Teacher;
 import com.edu.quique.application.exceptions.AbsenceAlreadyExistsException;
-import com.edu.quique.application.exceptions.AbsenceCannotBeModifiedException;
+import com.edu.quique.application.exceptions.AbsenceCannotBeModifiedOrDeletedException;
 import com.edu.quique.application.exceptions.AbsenceNotFoundException;
 import com.edu.quique.application.ports.in.services.AbsenceServicePort;
 import com.edu.quique.application.ports.in.services.TeacherServicePort;
@@ -40,6 +40,7 @@ public class AbsenceService implements AbsenceServicePort {
   public List<Absence> createAbsence(Absence absence) {
     Teacher teacher = teacherService.findByEmail(absence.getAbsentTeacher().getEmail());
     absence.setAbsentTeacher(teacher);
+    checkAbsenceIsBeforeToday(absence);
     throwExceptionIfExistsAbsence(absence);
     List<Absence> absencesList = new ArrayList<>();
     log.info(teacher.toString());
@@ -64,16 +65,28 @@ public class AbsenceService implements AbsenceServicePort {
   @Override
   public void deleteAbsence(Long id) {
     Absence absenceToDelete = findById(id);
-    throwExceptionIfCannotModifyOrDeleteAbsence(absenceToDelete);
+    checkAbsenceIsBeforeToday(absenceToDelete);
     absenceRepository.deleteAbsence(absenceToDelete);
   }
 
   @Override
   public Absence modifyAbsence(Absence absence) {
     Absence absenceToModify = findById(absence.getAbsenceId());
-    throwExceptionIfCannotModifyOrDeleteAbsence(absenceToModify);
+    checkAbsenceIsBeforeToday(absenceToModify);
+    checkAbsenceIsBeforeToday(absence);
+    checkIfExistsAbsenceInThisDateAndHours(absence);
+    absenceToModify.setAbsenceDate(absence.getAbsenceDate());
+    absenceToModify.setTimeInterval(absence.getTimeInterval());
+    return absenceRepository.save(absenceToModify);
+  }
 
-    return absenceRepository.save(absence);
+  private void checkIfExistsAbsenceInThisDateAndHours(Absence absence) {
+    if (absenceRepository.existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacher_Email(absence))
+      throw new AbsenceAlreadyExistsException(
+          String.format(
+              "Already exists absences for this date: %s and between the hours %s",
+              absence.getAbsenceDate().format(DateTimeFormatter.ISO_DATE),
+              absence.getTimeInterval().toStringHours()));
   }
 
   private void throwExceptionIfExistsAbsence(Absence absence) {
@@ -88,10 +101,12 @@ public class AbsenceService implements AbsenceServicePort {
               absence.getTimeInterval().toStringHours()));
   }
 
-  private void throwExceptionIfCannotModifyOrDeleteAbsence(Absence absence) {
+  private void checkAbsenceIsBeforeToday(Absence absence) {
     var today = LocalDate.now();
-    if (today.isEqual(absence.getAbsenceDate()) || today.isAfter(absence.getAbsenceDate()) || LocalTime.now().isAfter(absence.getTimeInterval().getStartHour())) {
-      throw new AbsenceCannotBeModifiedException("Absence cannot be modified or deleted.");
+    if (today.isEqual(absence.getAbsenceDate())
+        || today.isAfter(absence.getAbsenceDate())
+            && LocalTime.now().isAfter(absence.getTimeInterval().getStartHour())) {
+      throw new AbsenceCannotBeModifiedOrDeletedException("Absence cannot be modified or deleted.");
     }
   }
 }

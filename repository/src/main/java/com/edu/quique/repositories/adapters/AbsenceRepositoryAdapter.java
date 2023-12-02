@@ -24,6 +24,15 @@ public class AbsenceRepositoryAdapter implements AbsenceRepositoryPort {
   }
 
   @Override
+  public boolean existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacher_Email(Absence absence) {
+    return absenceJpaRepository.existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacher_Email(
+        absence.getAbsenceDate(),
+        absence.getTimeInterval().getStartHour(),
+        absence.getTimeInterval().getEndHour(),
+        absence.getAbsentTeacher().getEmail());
+  }
+
+  @Override
   public List<Absence> findByAbsenceDateAndStartHourOrAbsenceDateAndEndHourAndAbsentTeacher(
       Absence absence) {
     AbsenceMO absenceMO = absenceMOMapper.toAbsenceMO(absence);
