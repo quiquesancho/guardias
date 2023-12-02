@@ -3,7 +3,6 @@ package com.edu.quique.application.service;
 import com.edu.quique.application.domain.Absence;
 import com.edu.quique.application.domain.Teacher;
 import com.edu.quique.application.exceptions.AbsenceAlreadyExistsException;
-import com.edu.quique.application.exceptions.AbsenceAlreadyInCurseException;
 import com.edu.quique.application.exceptions.AbsenceCannotBeModifiedException;
 import com.edu.quique.application.exceptions.AbsenceNotFoundException;
 import com.edu.quique.application.ports.in.services.AbsenceServicePort;
@@ -59,21 +58,20 @@ public class AbsenceService implements AbsenceServicePort {
                         .absentTeacher(teacher)
                         .isAssigned(Boolean.FALSE)
                         .build())));
-    log.info(absencesList.toString());
     return absencesList;
   }
 
   @Override
   public void deleteAbsence(Long id) {
     Absence absenceToDelete = findById(id);
-    throwExceptionIfInCurseAbsence(absenceToDelete);
+    throwExceptionIfCannotModifyOrDeleteAbsence(absenceToDelete);
     absenceRepository.deleteAbsence(absenceToDelete);
   }
 
   @Override
   public Absence modifyAbsence(Absence absence) {
     Absence absenceToModify = findById(absence.getAbsenceId());
-    throwExceptionIfCannotModifyAbsence(absenceToModify);
+    throwExceptionIfCannotModifyOrDeleteAbsence(absenceToModify);
 
     return absenceRepository.save(absence);
   }
@@ -90,16 +88,10 @@ public class AbsenceService implements AbsenceServicePort {
               absence.getTimeInterval().toStringHours()));
   }
 
-  private void throwExceptionIfInCurseAbsence(Absence absence) {
-    if (LocalTime.now().isAfter(absence.getTimeInterval().getStartHour()))
-      throw new AbsenceAlreadyInCurseException(
-          "Absence is already in curse, start at: " + absence.getTimeInterval().getStartHour());
-  }
-
-  private void throwExceptionIfCannotModifyAbsence(Absence absence) {
+  private void throwExceptionIfCannotModifyOrDeleteAbsence(Absence absence) {
     var today = LocalDate.now();
-    if (today.isEqual(absence.getAbsenceDate()) || today.isAfter(absence.getAbsenceDate())) {
-      throw new AbsenceCannotBeModifiedException("Absence cannot be modified.");
+    if (today.isEqual(absence.getAbsenceDate()) || today.isAfter(absence.getAbsenceDate()) || LocalTime.now().isAfter(absence.getTimeInterval().getStartHour())) {
+      throw new AbsenceCannotBeModifiedException("Absence cannot be modified or deleted.");
     }
   }
 }
