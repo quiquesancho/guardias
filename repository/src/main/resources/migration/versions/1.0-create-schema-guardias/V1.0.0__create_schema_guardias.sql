@@ -1,5 +1,6 @@
+DROP TABLE IF EXISTS REGISTRY CASCADE;
+DROP TABLE IF EXISTS REGISTRY_AUD CASCADE;
 DROP TABLE IF EXISTS ABSENCE CASCADE;
-DROP TABLE IF EXISTS REGISTRY_ABSENCE CASCADE;
 DROP TABLE IF EXISTS TEACHERS CASCADE;
 DROP TABLE IF EXISTS TEACHING_HOURS CASCADE;
 DROP TABLE IF EXISTS TIMETABLE_GROUP CASCADE;
@@ -16,7 +17,7 @@ DROP SEQUENCE IF EXISTS registry_id_seq;
 CREATE SEQUENCE teaching_hours_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
 CREATE SEQUENCE timetable_group_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
 CREATE SEQUENCE absence_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
-CREATE SEQUENCE registry_id_seq START WITH 1 INCREMENT BY 1 NO NO CYCLE;
+CREATE SEQUENCE registry_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
 
 
 /*==============================================================*/
@@ -83,7 +84,6 @@ CREATE TABLE absence (
     start_hour TIME,
     end_hour TIME,
     teacher_id VARCHAR(9),
-    is_assigned BOOLEAN,
 /*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
     creation_date TIMESTAMP NOT NULL,
     cod_user_modification VARCHAR(255),
@@ -103,7 +103,7 @@ CREATE TABLE REGISTRY (
     guard_teacher_id VARCHAR(9),
     observation TEXT,
     assigned_time TIMESTAMP,
-    is_assigned BOOLEAN NOT NULL,
+    is_assigned BOOLEAN NOT NULL DEFAULT FALSE,
 /*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
     creation_date TIMESTAMP NOT NULL,
     cod_user_modification VARCHAR(255),
@@ -177,7 +177,6 @@ CREATE TABLE absence_aud (
     start_hour TIME,
     end_hour TIME,
     teacher_id VARCHAR(9),
-    is_assigned BOOLEAN,
 /*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
     creation_date TIMESTAMP NOT NULL,
     cod_user_modification VARCHAR(255),
@@ -189,7 +188,7 @@ CREATE TABLE absence_aud (
 /*==============================================================*/
 /* Table: REGISTRY_AUD                                          */
 /*==============================================================*/
-CREATE TABLE REGISTRY (
+CREATE TABLE REGISTRY_AUD (
     registry_id BIGINT,
     absence_id BIGINT,
     timetable_group_id BIGINT,

@@ -43,7 +43,6 @@ public class AbsenceService implements AbsenceServicePort {
     checkAbsenceIsBeforeToday(absence);
     throwExceptionIfExistsAbsence(absence);
     List<Absence> absencesList = new ArrayList<>();
-    log.info(teacher.toString());
     List<TimeInterval> timeIntervalAbsences =
         TimeInterval.generateIntervals(absence.getTimeInterval());
     timeIntervalAbsences.forEach(
@@ -102,9 +101,8 @@ public class AbsenceService implements AbsenceServicePort {
 
   private void checkAbsenceIsBeforeToday(Absence absence) {
     var today = LocalDate.now();
-    if (today.isEqual(absence.getAbsenceDate())
-        || today.isAfter(absence.getAbsenceDate())
-            && LocalTime.now().isAfter(absence.getTimeInterval().getStartHour())) {
+    if (today.isAfter(absence.getAbsenceDate())
+            || LocalTime.now().isAfter(absence.getTimeInterval().getStartHour())) {
       throw new AbsenceCannotBeModifiedOrDeletedException("Absence cannot be modified or deleted.");
     }
   }

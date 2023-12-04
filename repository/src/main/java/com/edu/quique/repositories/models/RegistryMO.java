@@ -1,7 +1,7 @@
 package com.edu.quique.repositories.models;
 
+import java.io.Serializable;
 import java.time.OffsetDateTime;
-import java.util.Date;
 
 import javax.persistence.*;
 
@@ -14,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(name = "registry")
-public class RegistryMO {
+public class RegistryMO implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
