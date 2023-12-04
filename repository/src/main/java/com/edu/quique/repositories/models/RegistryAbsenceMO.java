@@ -14,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(name = "registry")
-public class RegistryMO implements Serializable {
+public class RegistryAbsenceMO implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -11,8 +11,8 @@ import java.time.OffsetDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Registry implements Comparable<Registry> {
-  private Long registryId;
+public class RegistryAbsence implements Comparable<RegistryAbsence> {
+  private Long registryAbsenceId;
   private Absence absence;
   private TimetableGroup timetableGroup;
   private Teacher teacherGuard;
@@ -23,19 +23,19 @@ public class Registry implements Comparable<Registry> {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if ((o instanceof Registry registry)) {
-      return this.registryId.equals(registry.getRegistryId());
+    if ((o instanceof RegistryAbsence registryAbsence)) {
+      return this.registryAbsenceId.equals(registryAbsence.getRegistryAbsenceId());
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    return this.registryId.hashCode();
+    return this.registryAbsenceId.hashCode();
   }
 
   @Override
-  public int compareTo(Registry o) {
-    return this.registryId.compareTo(o.getRegistryId());
+  public int compareTo(RegistryAbsence o) {
+    return this.registryAbsenceId.compareTo(o.getRegistryAbsenceId());
   }
 }

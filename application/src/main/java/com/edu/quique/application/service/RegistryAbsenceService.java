@@ -1,12 +1,12 @@
 package com.edu.quique.application.service;
 
 import com.edu.quique.application.domain.Absence;
-import com.edu.quique.application.domain.Registry;
+import com.edu.quique.application.domain.RegistryAbsence;
 import com.edu.quique.application.domain.TimetableGroup;
 import com.edu.quique.application.ports.in.services.AbsenceServicePort;
-import com.edu.quique.application.ports.in.services.RegistryServicePort;
+import com.edu.quique.application.ports.in.services.RegistryAbsenceServicePort;
 import com.edu.quique.application.ports.in.services.TimetableGroupServicePort;
-import com.edu.quique.application.ports.out.RegistryRepositoryPort;
+import com.edu.quique.application.ports.out.RegistryAbsenceRepositoryPort;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,14 +19,14 @@ import java.util.List;
 @Service
 @Transactional
 @Slf4j
-public class RegistryService implements RegistryServicePort {
-  private RegistryRepositoryPort registryRepositoryPort;
+public class RegistryAbsenceService implements RegistryAbsenceServicePort {
+  private RegistryAbsenceRepositoryPort registryAbsenceRepositoryPort;
   private AbsenceServicePort absenceService;
   private TimetableGroupServicePort timetableGroupService;
 
   @Override
-  public Registry save(Registry registry) {
-    return registryRepositoryPort.save(registry);
+  public RegistryAbsence save(RegistryAbsence registryAbsence) {
+    return registryAbsenceRepositoryPort.save(registryAbsence);
   }
 
   @Override
@@ -41,7 +41,7 @@ public class RegistryService implements RegistryServicePort {
                       absence.getDayOfWeek(),
                       absence.getTimeInterval(),
                       absence.getAbsentTeacher());
-              return Registry.builder()
+              return RegistryAbsence.builder()
                   .absence(absence)
                   .timetableGroup(timetableGroup)
                   .isAssigned(Boolean.FALSE)

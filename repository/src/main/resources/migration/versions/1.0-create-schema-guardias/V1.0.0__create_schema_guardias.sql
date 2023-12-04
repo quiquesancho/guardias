@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS REGISTRY CASCADE;
-DROP TABLE IF EXISTS REGISTRY_AUD CASCADE;
+DROP TABLE IF EXISTS REGISTRY_ABSENCE CASCADE;
+DROP TABLE IF EXISTS REGISTRY_ABSENCE_AUD CASCADE;
 DROP TABLE IF EXISTS ABSENCE CASCADE;
 DROP TABLE IF EXISTS TEACHERS CASCADE;
 DROP TABLE IF EXISTS TEACHING_HOURS CASCADE;
@@ -12,12 +12,12 @@ DROP TABLE IF EXISTS TIMETABLE_GROUP_AUD CASCADE;
 DROP SEQUENCE IF EXISTS teaching_hours_id_seq;
 DROP SEQUENCE IF EXISTS timetable_group_id_seq;
 DROP SEQUENCE IF EXISTS absence_id_seq;
-DROP SEQUENCE IF EXISTS registry_id_seq;
+DROP SEQUENCE IF EXISTS registry_absence_id_seq;
 
 CREATE SEQUENCE teaching_hours_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
 CREATE SEQUENCE timetable_group_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
 CREATE SEQUENCE absence_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
-CREATE SEQUENCE registry_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
+CREATE SEQUENCE registry_absence_id_seq START WITH 1 INCREMENT BY 1 NO CYCLE;
 
 
 /*==============================================================*/
@@ -94,10 +94,10 @@ CREATE TABLE absence (
 );
 
 /*==============================================================*/
-/* Table: REGISTRY                                              */
+/* Table: REGISTRY_ABSENCE                                      */
 /*==============================================================*/
 CREATE TABLE REGISTRY (
-    registry_id BIGINT DEFAULT nextval('registry_id_seq'::regclass),
+    registry_absence_id BIGINT DEFAULT nextval('registry_absence_id_seq'::regclass),
     absence_id BIGINT,
     timetable_group_id BIGINT,
     guard_teacher_id VARCHAR(9),
@@ -186,10 +186,10 @@ CREATE TABLE absence_aud (
 
 
 /*==============================================================*/
-/* Table: REGISTRY_AUD                                          */
+/* Table: REGISTRY_ABSENCE_AUD                                  */
 /*==============================================================*/
 CREATE TABLE REGISTRY_AUD (
-    registry_id BIGINT,
+    registry_absence_id BIGINT,
     absence_id BIGINT,
     timetable_group_id BIGINT,
     guard_teacher_id VARCHAR(9),
