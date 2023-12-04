@@ -18,7 +18,7 @@ public class TimetableGroupMO implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "timetable_group_id")
-  private Long timeTableGroupId;
+  private Long timetableGroupId;
 
   @Column(name = "day_of_week", length = 1)
   private String dayOfWeek;

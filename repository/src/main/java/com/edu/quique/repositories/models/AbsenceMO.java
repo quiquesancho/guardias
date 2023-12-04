@@ -36,7 +36,4 @@ public class AbsenceMO implements Serializable {
   @ManyToOne
   @JoinColumn(name = "teacher_id")
   private TeacherMO absentTeacher;
-
-  @Column(name = "is_assigned")
-  private Boolean isAssigned;
 }

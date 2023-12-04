@@ -37,13 +37,17 @@ public class AbsenceService implements AbsenceServicePort {
   }
 
   @Override
+  public List<Absence> findAbsencesNotRegistred() {
+    return absenceRepository.findAbsencesForTodayWithoutRegistry();
+  }
+
+  @Override
   public List<Absence> createAbsence(Absence absence) {
     Teacher teacher = teacherService.findByEmail(absence.getAbsentTeacher().getEmail());
     absence.setAbsentTeacher(teacher);
     checkAbsenceIsBeforeToday(absence);
     throwExceptionIfExistsAbsence(absence);
     List<Absence> absencesList = new ArrayList<>();
-    log.info(teacher.toString());
     List<TimeInterval> timeIntervalAbsences =
         TimeInterval.generateIntervals(absence.getTimeInterval());
     timeIntervalAbsences.forEach(
@@ -57,7 +61,6 @@ public class AbsenceService implements AbsenceServicePort {
                         .absenceDate(absence.getAbsenceDate())
                         .timeInterval(timeInterval)
                         .absentTeacher(teacher)
-                        .isAssigned(Boolean.FALSE)
                         .build())));
     return absencesList;
   }
@@ -103,9 +106,8 @@ public class AbsenceService implements AbsenceServicePort {
 
   private void checkAbsenceIsBeforeToday(Absence absence) {
     var today = LocalDate.now();
-    if (today.isEqual(absence.getAbsenceDate())
-        || today.isAfter(absence.getAbsenceDate())
-            && LocalTime.now().isAfter(absence.getTimeInterval().getStartHour())) {
+    if (today.isAfter(absence.getAbsenceDate())
+        || LocalTime.now().isAfter(absence.getTimeInterval().getStartHour())) {
       throw new AbsenceCannotBeModifiedOrDeletedException("Absence cannot be modified or deleted.");
     }
   }

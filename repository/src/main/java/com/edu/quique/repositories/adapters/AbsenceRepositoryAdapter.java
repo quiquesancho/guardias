@@ -24,6 +24,11 @@ public class AbsenceRepositoryAdapter implements AbsenceRepositoryPort {
   }
 
   @Override
+  public List<Absence> findAbsencesForTodayWithoutRegistry() {
+    return absenceMOMapper.fromAbsenceMOList(absenceJpaRepository.findAbsencesForTodayWithoutRegistry());
+  }
+
+  @Override
   public boolean existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacher_Email(Absence absence) {
     return absenceJpaRepository.existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacher_Email(
         absence.getAbsenceDate(),
@@ -37,12 +42,14 @@ public class AbsenceRepositoryAdapter implements AbsenceRepositoryPort {
       Absence absence) {
     AbsenceMO absenceMO = absenceMOMapper.toAbsenceMO(absence);
     return absenceMOMapper.fromAbsenceMOList(
-        absenceJpaRepository.findByAbsenceDateAndStartHourOrAbsenceDateAndEndHourAndAbsentTeacher(
-            absenceMO.getAbsenceDate(),
-            absenceMO.getStartHour(),
-            absenceMO.getAbsenceDate(),
-            absenceMO.getEndHour(),
-            absenceMO.getAbsentTeacher()));
+        absenceJpaRepository
+            .findByAbsenceDateAndStartHourAndAbsentTeacherOrAbsenceDateAndEndHourAndAbsentTeacher(
+                absenceMO.getAbsenceDate(),
+                absenceMO.getStartHour(),
+                absenceMO.getAbsentTeacher(),
+                absenceMO.getAbsenceDate(),
+                absenceMO.getEndHour(),
+                absenceMO.getAbsentTeacher()));
   }
 
   @Override
