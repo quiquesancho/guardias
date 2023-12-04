@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface AbsenceRepositoryPort {
   Optional<Absence> findById(Long id);
+  List<Absence> findAbsencesForTodayWithoutRegistry();
   boolean existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacher_Email(Absence absence);
   List<Absence> findByAbsenceDateAndStartHourOrAbsenceDateAndEndHourAndAbsentTeacher(Absence absence);
   Absence save(Absence absence);

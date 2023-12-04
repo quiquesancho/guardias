@@ -24,6 +24,11 @@ public class AbsenceRepositoryAdapter implements AbsenceRepositoryPort {
   }
 
   @Override
+  public List<Absence> findAbsencesForTodayWithoutRegistry() {
+    return absenceMOMapper.fromAbsenceMOList(absenceJpaRepository.findAbsencesForTodayWithoutRegistry());
+  }
+
+  @Override
   public boolean existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacher_Email(Absence absence) {
     return absenceJpaRepository.existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacher_Email(
         absence.getAbsenceDate(),
