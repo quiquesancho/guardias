@@ -89,7 +89,7 @@ public class DocumentService implements DocumentServicePort {
   }
 
   private void processTeacherElement(Element elem2, Map<String, Teacher> teachersMap) {
-    Teacher teacher =
+    var teacher =
         Teacher.builder()
             .teacherId(elem2.getAttribute(DOCUMENT))
             .email(elem2.getAttribute(EMAIL))

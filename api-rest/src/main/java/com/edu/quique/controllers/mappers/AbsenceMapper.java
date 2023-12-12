@@ -6,7 +6,6 @@ import com.edu.quique.application.domain.Absence;
 import com.edu.quique.application.dto.AbsenceResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Mapper(componentModel = "spring", uses = {TeacherMapper.class})
 public interface AbsenceMapper {

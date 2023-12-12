@@ -3,7 +3,6 @@ package com.edu.quique.repositories.adapters;
 import com.edu.quique.application.domain.Absence;
 import com.edu.quique.application.ports.out.AbsenceRepositoryPort;
 import com.edu.quique.repositories.mappers.AbsenceMOMapper;
-import com.edu.quique.repositories.models.AbsenceMO;
 import com.edu.quique.repositories.repositories.AbsenceJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,13 +23,8 @@ public class AbsenceRepositoryAdapter implements AbsenceRepositoryPort {
   }
 
   @Override
-  public List<Absence> findAbsencesForTodayWithoutRegistry() {
-    return absenceMOMapper.fromAbsenceMOList(absenceJpaRepository.findAbsencesForTodayWithoutRegistry());
-  }
-
-  @Override
-  public boolean existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacher_Email(Absence absence) {
-    return absenceJpaRepository.existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacher_Email(
+  public boolean existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacherEmail(Absence absence) {
+    return absenceJpaRepository.existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacherEmail(
         absence.getAbsenceDate(),
         absence.getTimeInterval().getStartHour(),
         absence.getTimeInterval().getEndHour(),
@@ -40,7 +34,7 @@ public class AbsenceRepositoryAdapter implements AbsenceRepositoryPort {
   @Override
   public List<Absence> findByAbsenceDateAndStartHourOrAbsenceDateAndEndHourAndAbsentTeacher(
       Absence absence) {
-    AbsenceMO absenceMO = absenceMOMapper.toAbsenceMO(absence);
+    var absenceMO = absenceMOMapper.toAbsenceMO(absence);
     return absenceMOMapper.fromAbsenceMOList(
         absenceJpaRepository
             .findByAbsenceDateAndStartHourAndAbsentTeacherOrAbsenceDateAndEndHourAndAbsentTeacher(

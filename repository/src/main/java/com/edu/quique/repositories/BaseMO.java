@@ -17,7 +17,7 @@ import java.time.OffsetDateTime;
 @Audited
 @EntityListeners({AuditingEntityListener.class})
 public abstract class BaseMO {
-    //TODO Configurar campos de autitorías.
+    /*
     @CreatedBy
     @Column(
             name = "cod_user_creation",
@@ -89,5 +89,5 @@ public abstract class BaseMO {
     public String toString() {
         String var10000 = this.getCreatedBy();
         return "Auditable(createdBy=" + var10000 + ", createdDate=" + this.getCreatedDate() + ", lastModifiedBy=" + this.getLastModifiedBy() + ", lastModifiedDate=" + this.getLastModifiedDate() + ")";
-    }
+    }*/
 }

@@ -3,10 +3,12 @@ info:
   title: Guardias IES La Vereda API
   version: 1.0.0
 tags:
-  - name: Docente Views
-    description: Operation related with docents
   - name: Document Actions
     description: Operation related with documents
+  - name: Absence Actions
+    description: Operation related with login
+  - name: Teachers Actions
+    description: Operation related with docents
   - name: Login Actions
     description: Operation related with login
 paths:
@@ -15,6 +17,8 @@ paths:
       summary: Create a absence
       description: Create a absence
       operationId: createAbsence
+      tags:
+        - Absence Actions
       requestBody:
         required: true
         content:
@@ -38,6 +42,8 @@ paths:
       summary: Modify a absence
       description: Modify a absence
       operationId: modifyAbsence
+      tags:
+        - Absence Actions
       requestBody:
         required: true
         content:
@@ -61,6 +67,8 @@ paths:
       summary: Delete a absence
       description: Delete a absence
       operationId: deleteAbsence
+      tags:
+        - Absence Actions
       parameters:
         - $ref: '#/components/parameters/AbsenceIdParam'
       responses:
@@ -77,6 +85,8 @@ paths:
       summary: Update XML
       description: Update XML data using a file
       operationId: updateXML
+      tags:
+        - Document Actions
       requestBody:
         required: true
         content:
@@ -156,6 +166,7 @@ components:
       properties:
         absenceId:
           type: integer
+          format: int64
           description: ID of the absence
         dayOfWeek:
           type: string
@@ -168,6 +179,25 @@ components:
           $ref: '#/components/schemas/TimeInterval'
         absentTeacher:
           $ref: '#/components/schemas/Teacher'
+        timetableGroup:
+          $ref: '#/components/schemas/TimetableGroup'
+    TimetableGroup:
+      type: object
+      description: TimetableGroup information
+      properties:
+        timetableGroupId:
+          type: integer
+          format: int64
+          description: ID of the absence
+        group:
+          type: string
+          description: Group of classroom
+        classroom:
+          type: string
+          description: Classroom of highschool
+        content:
+          type: string
+          description: Content of group
     AbsenceResponse:
       type: object
       description: Absence response
