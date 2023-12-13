@@ -11,6 +11,8 @@ tags:
     description: Operation related with docents
   - name: Login Actions
     description: Operation related with login
+  - name: TeachingHours Actions
+    description: Operation related with teaching hours
 paths:
   /absence:
     post:
@@ -80,6 +82,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorType'
+  /teachingHours:
+    get:
+      summary: Get teaching hours guard
+      description: Obtain the on-call timetable of teachers
+      operationId: getTeachingHoursGuards
+      tags:
+        - TeachingHours Actions
+      responses:
+        '200':
+          description: Timetable Hours get succesfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeachingHours'
+
   /document/updateXML:
     post:
       summary: Update XML
@@ -198,6 +215,24 @@ components:
         content:
           type: string
           description: Content of group
+    TeachingHours:
+      type: object
+      description: TeachingHours information
+      properties:
+        teachingHoursId:
+          type: integer
+          format: int64
+          description: ID of the Teaching hours
+        timeInterval:
+          $ref: '#/components/schemas/TimeInterval'
+        dayOfWeek:
+          type: string
+          description: Day of the week
+        teacher:
+          $ref: '#/components/schemas/Teacher'
+        occupation:
+          type: string
+          description: matter to be given
     AbsenceResponse:
       type: object
       description: Absence response

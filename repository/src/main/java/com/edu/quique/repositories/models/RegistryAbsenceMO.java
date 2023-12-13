@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.edu.quique.repositories.BaseMO;
 import lombok.*;
 
 @Entity
@@ -13,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(name = "registry_absence")
-public class RegistryAbsenceMO implements Serializable {
+public class RegistryAbsenceMO extends BaseMO implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

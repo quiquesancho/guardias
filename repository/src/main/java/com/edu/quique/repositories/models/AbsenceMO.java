@@ -1,5 +1,6 @@
 package com.edu.quique.repositories.models;
 
+import com.edu.quique.repositories.BaseMO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "absence")
-public class AbsenceMO implements Serializable {
+public class AbsenceMO extends BaseMO implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
