@@ -1,10 +1,12 @@
 package com.edu.quique.repositories.models;
 
+import com.edu.quique.repositories.BaseMO;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -14,7 +16,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "absence")
-public class AbsenceMO implements Serializable {
+public class AbsenceMO extends BaseMO implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,4 +38,14 @@ public class AbsenceMO implements Serializable {
   @ManyToOne
   @JoinColumn(name = "teacher_id")
   private TeacherMO absentTeacher;
+
+  @ManyToOne
+  @JoinColumn(name = "timetable_group_id")
+  private TimetableGroupMO timetableGroup;
+
+  @Column(name = "is_assigned")
+  private Boolean isAssigned;
+
+  @Column(name = "assigned_time")
+  private LocalDateTime assignedTime;
 }

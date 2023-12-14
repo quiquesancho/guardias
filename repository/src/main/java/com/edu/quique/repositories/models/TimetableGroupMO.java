@@ -1,5 +1,6 @@
 package com.edu.quique.repositories.models;
 
+import com.edu.quique.repositories.BaseMO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "timetable_group")
-public class TimetableGroupMO implements Serializable {
+public class TimetableGroupMO extends BaseMO implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

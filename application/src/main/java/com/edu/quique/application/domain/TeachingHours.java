@@ -1,6 +1,8 @@
 package com.edu.quique.application.domain;
 
 import java.time.LocalTime;
+
+import com.edu.quique.application.utils.TimeInterval;
 import lombok.*;
 
 @Data
@@ -9,8 +11,7 @@ import lombok.*;
 @Builder
 public class TeachingHours implements Comparable<TeachingHours> {
   private Long teachingHoursId;
-  private LocalTime startHour;
-  private LocalTime endHour;
+  private TimeInterval timeInterval;
   private String dayOfWeek;
   private Teacher teacher;
   private String occupation;

@@ -2,6 +2,7 @@ package com.edu.quique.repositories.models;
 
 import javax.persistence.*;
 
+import com.edu.quique.repositories.BaseMO;
 import lombok.*;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Table(name = "teachers")
-public class TeacherMO implements Serializable {
+public class TeacherMO extends BaseMO implements Serializable {
 
   @Id
   @Column(name = "teacher_id", length = 9)

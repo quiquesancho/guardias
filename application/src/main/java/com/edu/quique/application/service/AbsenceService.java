@@ -1,12 +1,12 @@
 package com.edu.quique.application.service;
 
 import com.edu.quique.application.domain.Absence;
-import com.edu.quique.application.domain.Teacher;
 import com.edu.quique.application.exceptions.AbsenceAlreadyExistsException;
 import com.edu.quique.application.exceptions.AbsenceCannotBeModifiedOrDeletedException;
 import com.edu.quique.application.exceptions.AbsenceNotFoundException;
 import com.edu.quique.application.ports.in.services.AbsenceServicePort;
 import com.edu.quique.application.ports.in.services.TeacherServicePort;
+import com.edu.quique.application.ports.in.services.TimetableGroupServicePort;
 import com.edu.quique.application.ports.out.AbsenceRepositoryPort;
 import com.edu.quique.application.utils.DaysOfWeek;
 import com.edu.quique.application.utils.TimeInterval;
@@ -28,6 +28,7 @@ import java.util.List;
 public class AbsenceService implements AbsenceServicePort {
   private TeacherServicePort teacherService;
   private AbsenceRepositoryPort absenceRepository;
+  private TimetableGroupServicePort timetableGroupService;
 
   @Override
   public Absence findById(Long id) {
@@ -37,14 +38,10 @@ public class AbsenceService implements AbsenceServicePort {
   }
 
   @Override
-  public List<Absence> findAbsencesNotRegistred() {
-    return absenceRepository.findAbsencesForTodayWithoutRegistry();
-  }
-
-  @Override
   public List<Absence> createAbsence(Absence absence) {
-    Teacher teacher = teacherService.findByEmail(absence.getAbsentTeacher().getEmail());
+    var teacher = teacherService.findByEmail(absence.getAbsentTeacher().getEmail());
     absence.setAbsentTeacher(teacher);
+    String dayOfWeek = DaysOfWeek.valueOf(absence.getAbsenceDate().getDayOfWeek().name()).getDay();
     checkAbsenceIsBeforeToday(absence);
     throwExceptionIfExistsAbsence(absence);
     List<Absence> absencesList = new ArrayList<>();
@@ -55,26 +52,28 @@ public class AbsenceService implements AbsenceServicePort {
             absencesList.add(
                 absenceRepository.save(
                     Absence.builder()
-                        .dayOfWeek(
-                            DaysOfWeek.valueOf(absence.getAbsenceDate().getDayOfWeek().name())
-                                .getDay())
+                        .dayOfWeek(dayOfWeek)
                         .absenceDate(absence.getAbsenceDate())
                         .timeInterval(timeInterval)
-                        .absentTeacher(teacher)
+                        .absentTeacher(absence.getAbsentTeacher())
+                        .timetableGroup(
+                            timetableGroupService.findByDayOfWeekAndStartHourAndEndHourAndTeacher(
+                                dayOfWeek, timeInterval, absence.getAbsentTeacher()))
+                        .isAssigned(Boolean.FALSE)
                         .build())));
     return absencesList;
   }
 
   @Override
   public void deleteAbsence(Long id) {
-    Absence absenceToDelete = findById(id);
+    var absenceToDelete = findById(id);
     checkAbsenceIsBeforeToday(absenceToDelete);
     absenceRepository.deleteAbsence(absenceToDelete);
   }
 
   @Override
   public Absence modifyAbsence(Absence absence) {
-    Absence absenceToModify = findById(absence.getAbsenceId());
+    var absenceToModify = findById(absence.getAbsenceId());
     checkAbsenceIsBeforeToday(absenceToModify);
     checkAbsenceIsBeforeToday(absence);
     checkIfExistsAbsenceInThisDateAndHours(absence);
@@ -84,7 +83,7 @@ public class AbsenceService implements AbsenceServicePort {
   }
 
   private void checkIfExistsAbsenceInThisDateAndHours(Absence absence) {
-    if (absenceRepository.existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacher_Email(absence))
+    if (absenceRepository.existsByAbsenceDateAndStartHourAndEndHourAndAbsentTeacherEmail(absence))
       throw new AbsenceAlreadyExistsException(
           String.format(
               "Already exists absences for this date: %s and between the hours %s",
@@ -107,7 +106,7 @@ public class AbsenceService implements AbsenceServicePort {
   private void checkAbsenceIsBeforeToday(Absence absence) {
     var today = LocalDate.now();
     if (today.isAfter(absence.getAbsenceDate())
-        || LocalTime.now().isAfter(absence.getTimeInterval().getStartHour())) {
+        && LocalTime.now().isAfter(absence.getTimeInterval().getStartHour())) {
       throw new AbsenceCannotBeModifiedOrDeletedException("Absence cannot be modified or deleted.");
     }
   }

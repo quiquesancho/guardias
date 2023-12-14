@@ -14,11 +14,9 @@ import java.time.OffsetDateTime;
 public class RegistryAbsence implements Comparable<RegistryAbsence> {
   private Long registryAbsenceId;
   private Absence absence;
-  private TimetableGroup timetableGroup;
   private Teacher teacherGuard;
   private String observation;
-  private OffsetDateTime assignedTime;
-  private Boolean isAssigned;
+  private OffsetDateTime checkGuard;
 
   @Override
   public boolean equals(Object o) {

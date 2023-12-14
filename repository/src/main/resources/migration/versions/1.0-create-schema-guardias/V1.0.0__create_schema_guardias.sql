@@ -84,33 +84,33 @@ CREATE TABLE absence (
     start_hour TIME,
     end_hour TIME,
     teacher_id VARCHAR(9),
+    timetable_group_id BIGINT,
+    is_assigned BOOLEAN DEFAULT FALSE,
+    assigned_time TIMESTAMP,
 /*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
     creation_date TIMESTAMP NOT NULL,
     cod_user_modification VARCHAR(255),
     modification_date TIMESTAMP,*/
     PRIMARY KEY (absence_id),
     FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id),
+    FOREIGN KEY (timetable_group_id) REFERENCES timetable_group (timetable_group_id),
     CONSTRAINT absence_unq UNIQUE (absence_date, start_hour, end_hour, teacher_id)
 );
 
 /*==============================================================*/
 /* Table: REGISTRY_ABSENCE                                      */
 /*==============================================================*/
-CREATE TABLE REGISTRY (
+CREATE TABLE REGISTRY_ABSENCE (
     registry_absence_id BIGINT DEFAULT nextval('registry_absence_id_seq'::regclass),
     absence_id BIGINT,
-    timetable_group_id BIGINT,
     guard_teacher_id VARCHAR(9),
     observation TEXT,
-    assigned_time TIMESTAMP,
-    is_assigned BOOLEAN NOT NULL DEFAULT FALSE,
 /*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
     creation_date TIMESTAMP NOT NULL,
     cod_user_modification VARCHAR(255),
     modification_date TIMESTAMP,*/
-    PRIMARY KEY (registry_id),
-    FOREIGN KEY (guard_teacher_id) REFERENCES teachers (teacher_id),
-    FOREIGN KEY (timetable_group_id) REFERENCES timetable_group (timetable_group_id)
+    PRIMARY KEY (registry_absence_id),
+    FOREIGN KEY (guard_teacher_id) REFERENCES teachers (teacher_id)
 );
 
 /*==============================================================*/
@@ -177,30 +177,31 @@ CREATE TABLE absence_aud (
     start_hour TIME,
     end_hour TIME,
     teacher_id VARCHAR(9),
+    timetable_group_id BIGINT,
+    is_assigned BOOLEAN DEFAULT FALSE,
+    assigned_time TIMESTAMP,
 /*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
     creation_date TIMESTAMP NOT NULL,
     cod_user_modification VARCHAR(255),
     modification_date TIMESTAMP,*/
-    PRIMARY KEY (absence_id)
+    PRIMARY KEY (absence_id),
+    FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id),
+    FOREIGN KEY (timetable_group_id) REFERENCES timetable_group (timetable_group_id)
 );
 
 
 /*==============================================================*/
 /* Table: REGISTRY_ABSENCE_AUD                                  */
 /*==============================================================*/
-CREATE TABLE REGISTRY_AUD (
+CREATE TABLE REGISTRY_ABSENCE_AUD (
     registry_absence_id BIGINT,
     absence_id BIGINT,
-    timetable_group_id BIGINT,
     guard_teacher_id VARCHAR(9),
     observation TEXT,
-    assigned_time TIMESTAMP,
-    is_assigned BOOLEAN NOT NULL,
 /*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
     creation_date TIMESTAMP NOT NULL,
     cod_user_modification VARCHAR(255),
     modification_date TIMESTAMP,*/
-    PRIMARY KEY (registry_id),
-    FOREIGN KEY (guard_teacher_id) REFERENCES teachers (teacher_id),
-    FOREIGN KEY (timetable_group_id) REFERENCES timetable_group (timetable_group_id)
+    PRIMARY KEY (registry_absence_id),
+    FOREIGN KEY (guard_teacher_id) REFERENCES teachers (teacher_id)
 );

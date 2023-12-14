@@ -5,6 +5,7 @@ import java.time.LocalTime;
 
 import javax.persistence.*;
 
+import com.edu.quique.repositories.BaseMO;
 import lombok.*;
 
 @Entity
@@ -14,7 +15,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(name="teaching_hours")
-public class TeachingHoursMO implements Serializable {
+public class TeachingHoursMO extends BaseMO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

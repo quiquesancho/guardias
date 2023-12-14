@@ -20,6 +20,7 @@ import com.edu.quique.application.ports.in.services.TeacherServicePort;
 import com.edu.quique.application.ports.in.services.TeachingHoursServicePort;
 import com.edu.quique.application.ports.in.services.TimetableGroupServicePort;
 import com.edu.quique.application.utils.DaysOfWeek;
+import com.edu.quique.application.utils.TimeInterval;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -89,7 +90,7 @@ public class DocumentService implements DocumentServicePort {
   }
 
   private void processTeacherElement(Element elem2, Map<String, Teacher> teachersMap) {
-    Teacher teacher =
+    var teacher =
         Teacher.builder()
             .teacherId(elem2.getAttribute(DOCUMENT))
             .email(elem2.getAttribute(EMAIL))
@@ -103,8 +104,11 @@ public class DocumentService implements DocumentServicePort {
   private void processTeachingHoursElement(Element elem2, Map<String, Teacher> teachersMap) {
     TeachingHours teachingHours =
         TeachingHours.builder()
-            .startHour(LocalTime.parse(elem2.getAttribute(START_HOUR), FORMAT_TIME))
-            .endHour(LocalTime.parse(elem2.getAttribute(END_HOUR), FORMAT_TIME))
+            .timeInterval(
+                TimeInterval.builder()
+                    .startHour(LocalTime.parse(elem2.getAttribute(START_HOUR), FORMAT_TIME))
+                    .endHour(LocalTime.parse(elem2.getAttribute(END_HOUR), FORMAT_TIME))
+                    .build())
             .dayOfWeek(DaysOfWeek.getByDay(elem2.getAttribute(DAY_OF_WEEK)).getDay())
             .teacher(teachersMap.getOrDefault(elem2.getAttribute(DOCUMENT), null))
             .occupation(elem2.getAttribute(OCCUPATION))

@@ -1,23 +1,17 @@
 package com.edu.quique.repositories;
 
-import lombok.Generated;
 import org.hibernate.envers.Audited;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
+
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import java.time.OffsetDateTime;
 
 @MappedSuperclass
 @Audited
 @EntityListeners({AuditingEntityListener.class})
 public abstract class BaseMO {
-    //TODO Configurar campos de autitorías.
+    /*
     @CreatedBy
     @Column(
             name = "cod_user_creation",
@@ -89,5 +83,5 @@ public abstract class BaseMO {
     public String toString() {
         String var10000 = this.getCreatedBy();
         return "Auditable(createdBy=" + var10000 + ", createdDate=" + this.getCreatedDate() + ", lastModifiedBy=" + this.getLastModifiedBy() + ", lastModifiedDate=" + this.getLastModifiedDate() + ")";
-    }
+    }*/
 }
