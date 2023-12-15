@@ -15,7 +15,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(name="teaching_hours")
-public class TeachingHoursMO extends BaseMO implements Serializable {
+public class TeachingHourMO extends BaseMO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

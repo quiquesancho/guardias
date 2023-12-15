@@ -1,8 +1,11 @@
 package com.edu.quique.application.ports.in.services;
 
-import com.edu.quique.application.domain.TeachingHours;
+import com.edu.quique.application.domain.TeachingHour;
+
+import java.util.List;
 
 public interface TeachingHoursServicePort {
-    TeachingHours save(TeachingHours teachingHours);
-    void deleteAll();
+  List<TeachingHour> findAllTeachingHoursGuard();
+  TeachingHour save(TeachingHour teachingHour);
+  void deleteAll();
 }

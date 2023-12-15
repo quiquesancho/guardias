@@ -12,7 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import com.edu.quique.application.domain.Teacher;
-import com.edu.quique.application.domain.TeachingHours;
+import com.edu.quique.application.domain.TeachingHour;
 import com.edu.quique.application.domain.TimetableGroup;
 import com.edu.quique.application.exceptions.ErrorUpdateXMLException;
 import com.edu.quique.application.ports.in.services.DocumentServicePort;
@@ -102,8 +102,8 @@ public class DocumentService implements DocumentServicePort {
   }
 
   private void processTeachingHoursElement(Element elem2, Map<String, Teacher> teachersMap) {
-    TeachingHours teachingHours =
-        TeachingHours.builder()
+    TeachingHour teachingHour =
+        TeachingHour.builder()
             .timeInterval(
                 TimeInterval.builder()
                     .startHour(LocalTime.parse(elem2.getAttribute(START_HOUR), FORMAT_TIME))
@@ -113,7 +113,7 @@ public class DocumentService implements DocumentServicePort {
             .teacher(teachersMap.getOrDefault(elem2.getAttribute(DOCUMENT), null))
             .occupation(elem2.getAttribute(OCCUPATION))
             .build();
-    teachingHoursService.save(teachingHours);
+    teachingHoursService.save(teachingHour);
   }
 
   private void processTimetableGroupElement(Element elem2, Map<String, Teacher> teachersMap) {

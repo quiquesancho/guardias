@@ -1,7 +1,5 @@
 package com.edu.quique.application.domain;
 
-import java.time.LocalTime;
-
 import com.edu.quique.application.utils.TimeInterval;
 import lombok.*;
 
@@ -9,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TeachingHours implements Comparable<TeachingHours> {
+public class TeachingHour implements Comparable<TeachingHour> {
   private Long teachingHoursId;
   private TimeInterval timeInterval;
   private String dayOfWeek;
@@ -19,7 +17,7 @@ public class TeachingHours implements Comparable<TeachingHours> {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if ((o instanceof TeachingHours teachingHours)) {
+    if ((o instanceof TeachingHour teachingHours)) {
       return this.teachingHoursId.equals(teachingHours.getTeachingHoursId());
     }
     return false;
@@ -31,7 +29,7 @@ public class TeachingHours implements Comparable<TeachingHours> {
   }
 
   @Override
-  public int compareTo(TeachingHours o) {
+  public int compareTo(TeachingHour o) {
     return this.teachingHoursId.compareTo(o.getTeachingHoursId());
   }
 }
