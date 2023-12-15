@@ -1,9 +1,12 @@
 package com.edu.quique.repositories.repositories;
 
 
-import com.edu.quique.repositories.models.TeachingHoursMO;
+import com.edu.quique.repositories.models.TeachingHourMO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TeachingHoursJpaRepository extends JpaRepository<TeachingHoursMO, Long> {
+import java.util.List;
 
+public interface TeachingHoursJpaRepository extends JpaRepository<TeachingHourMO, Long> {
+
+    List<TeachingHourMO> findAllByOccupation(String occupation);
 }

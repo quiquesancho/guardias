@@ -95,7 +95,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TeachingHours'
+                $ref: '#/components/schemas/TeachingHoursResponse'
 
   /document/updateXML:
     post:
@@ -215,7 +215,7 @@ components:
         content:
           type: string
           description: Content of group
-    TeachingHours:
+    TeachingHour:
       type: object
       description: TeachingHours information
       properties:
@@ -241,6 +241,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Absence'
+    TeachingHoursResponse:
+      type: object
+      description: Teaching hours response
+      properties:
+        teachingHours:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeachingHour'
     ErrorType:
       type: object
       description: Error response
