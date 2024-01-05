@@ -38,6 +38,11 @@ public class AbsenceService implements AbsenceServicePort {
   }
 
   @Override
+  public List<Absence> findAbsenseToday() {
+    return absenceRepository.findAbsenceByDate(LocalDate.now());
+  }
+
+  @Override
   public List<Absence> createAbsence(Absence absence) {
     var teacher = teacherService.findByEmail(absence.getAbsentTeacher().getEmail());
     absence.setAbsentTeacher(teacher);

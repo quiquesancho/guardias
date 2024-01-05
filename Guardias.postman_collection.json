@@ -49,7 +49,12 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"absenceDate\": \"2023-12-18\",\n    \"timeInterval\": {\n        \"startHour\": \"8:15\",\n        \"endHour\": \"15:10\"\n    },\n    \"absentTeacher\": {\n        \"email\": \"nec.cursus.a@ante.edu\"\n    }\n}"
+							"raw": "{\n    \"absenceDate\": \"2024-01-08\",\n    \"timeInterval\": {\n        \"startHour\": \"8:15\",\n        \"endHour\": \"15:10\"\n    },\n    \"absentTeacher\": {\n        \"email\": \"nec.cursus.a@ante.edu\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "{{baseURL}}/absence",
@@ -102,6 +107,24 @@
 							],
 							"path": [
 								"absence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Absence Today",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/absence/absence-summary",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"absence",
+								"absence-summary"
 							]
 						}
 					},

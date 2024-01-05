@@ -6,8 +6,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Getter
@@ -47,5 +47,5 @@ public class AbsenceMO extends BaseMO implements Serializable {
   private Boolean isAssigned;
 
   @Column(name = "assigned_time")
-  private LocalDateTime assignedTime;
+  private OffsetDateTime assignedTime;
 }

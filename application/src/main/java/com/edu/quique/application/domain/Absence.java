@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Data
 @Builder
@@ -21,7 +21,7 @@ public class Absence implements Comparable<Absence> {
   private Teacher absentTeacher;
   private TimetableGroup timetableGroup;
   private Boolean isAssigned;
-  private LocalDateTime assignedTime;
+  private OffsetDateTime assignedTime;
 
   @Override
   public boolean equals(Object o) {
