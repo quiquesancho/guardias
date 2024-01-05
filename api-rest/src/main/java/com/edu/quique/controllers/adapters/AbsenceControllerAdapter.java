@@ -49,4 +49,10 @@ public class AbsenceControllerAdapter implements AbsenceApi {
     deleteAbsenceUseCase.execute(absenceId);
     return ResponseEntity.ok().build();
   }
+
+  @Override
+  public ResponseEntity<AbsenceResponse> getAbsenceSummary() {
+    log.info("GET /absence/absence-summary");
+    return AbsenceApi.super.getAbsenceSummary();
+  }
 }

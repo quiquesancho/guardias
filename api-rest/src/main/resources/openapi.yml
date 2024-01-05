@@ -82,6 +82,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorType'
+  /absence/absence-summary:
+    get:
+      summary: Find a absence summary for today
+      description: Find a absence summary for today
+      operationId: getAbsenceSummary
+      tags:
+        - Absence Actions
+      responses:
+        '200':
+          description: Absences summary successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AbsenceResponse'
   /teachingHours:
     get:
       summary: Get teaching hours guard
