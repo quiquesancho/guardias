@@ -82,6 +82,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorType'
+  /absence/absence-summary:
+    get:
+      summary: Find a absence summary for today
+      description: Find a absence summary for today
+      operationId: getAbsenceSummary
+      tags:
+        - Absence Actions
+      responses:
+        '200':
+          description: Absences summary successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AbsenceResponse'
   /teachingHours:
     get:
       summary: Get teaching hours guard
@@ -198,6 +212,13 @@ components:
           $ref: '#/components/schemas/Teacher'
         timetableGroup:
           $ref: '#/components/schemas/TimetableGroup'
+        isAssigned:
+          type: boolean
+          description: Is absence assigned by guard's teacher
+        assignedTime:
+          type: string
+          format: date-time
+          description: Date and hours when absence
     TimetableGroup:
       type: object
       description: TimetableGroup information
@@ -254,7 +275,7 @@ components:
       description: Error response
       properties:
         code:
-          type: string
+          type: integer
           description: Error code
         description:
           type: string
@@ -263,5 +284,5 @@ components:
         - code
         - description
       example:
-        code: "400"
+        code: 400
         description: "Bad Request"

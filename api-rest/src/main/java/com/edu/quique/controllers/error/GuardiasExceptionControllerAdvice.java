@@ -16,7 +16,7 @@ public class GuardiasExceptionControllerAdvice {
   public ResponseEntity<ErrorType> handleTeacherNotFoundException(TeacherNotFoundException ex) {
     log.error("TeacherNotFoundException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
-    errorType = errorType.code(HttpStatus.NOT_FOUND.toString()).description(ex.getMessage());
+    errorType = errorType.code(HttpStatus.NOT_FOUND.value()).description(ex.getMessage());
     return ResponseEntity.status(HttpStatus.OK).body(errorType);
   }
 
@@ -24,7 +24,7 @@ public class GuardiasExceptionControllerAdvice {
   public ResponseEntity<ErrorType> handleErrorUpdateXMLException(ErrorUpdateXMLException ex) {
     log.error("TeacherNotFoundException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
-    errorType = errorType.code(HttpStatus.INTERNAL_SERVER_ERROR.toString()).description(ex.getMessage());
+    errorType = errorType.code(HttpStatus.INTERNAL_SERVER_ERROR.value()).description(ex.getMessage());
     return ResponseEntity.status(HttpStatus.OK).body(errorType);
   }
 
@@ -32,7 +32,7 @@ public class GuardiasExceptionControllerAdvice {
   public ResponseEntity<ErrorType> handelAbsenceAlreadyExistsException(AbsenceAlreadyExistsException ex) {
     log.error("AbsenceAlreadyExistsException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
-    errorType = errorType.code(HttpStatus.BAD_REQUEST.toString()).description(ex.getMessage());
+    errorType = errorType.code(HttpStatus.BAD_REQUEST.value()).description(ex.getMessage());
     return ResponseEntity.status(HttpStatus.OK).body(errorType);
   }
 
@@ -40,7 +40,7 @@ public class GuardiasExceptionControllerAdvice {
   public ResponseEntity<ErrorType> handleAbsenceCannotBeModifiedException(AbsenceCannotBeModifiedOrDeletedException ex) {
     log.error("AbsenceAlreadyInCurseException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
-    errorType = errorType.code(HttpStatus.BAD_REQUEST.toString()).description(ex.getMessage());
+    errorType = errorType.code(HttpStatus.BAD_REQUEST.value()).description(ex.getMessage());
     return ResponseEntity.status(HttpStatus.OK).body(errorType);
   }
 
@@ -48,7 +48,7 @@ public class GuardiasExceptionControllerAdvice {
   public ResponseEntity<ErrorType> handleAbsenceNotFoundException(AbsenceNotFoundException ex) {
     log.error("AbsenceNotFoundException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
-    errorType = errorType.code(HttpStatus.BAD_REQUEST.toString()).description(ex.getMessage());
+    errorType = errorType.code(HttpStatus.BAD_REQUEST.value()).description(ex.getMessage());
     return ResponseEntity.status(HttpStatus.OK).body(errorType);
   }
 }

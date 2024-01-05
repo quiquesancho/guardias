@@ -7,6 +7,7 @@ import com.edu.quique.api.model.AbsenceResponse;
 import com.edu.quique.application.dto.AbsenceResponseDTO;
 import com.edu.quique.application.ports.in.usecases.CreateAbsenceUseCasePort;
 import com.edu.quique.application.ports.in.usecases.DeleteAbsenceUseCasePort;
+import com.edu.quique.application.ports.in.usecases.GetAbsenceTodayUseCasePort;
 import com.edu.quique.application.ports.in.usecases.ModifyAbsenceUseCasePort;
 import com.edu.quique.controllers.mappers.AbsenceMapper;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class AbsenceControllerAdapter implements AbsenceApi {
   private CreateAbsenceUseCasePort createAbsenceUseCase;
   private DeleteAbsenceUseCasePort deleteAbsenceUseCase;
   private ModifyAbsenceUseCasePort modifyAbsenceUseCase;
+  private GetAbsenceTodayUseCasePort getAbsenceTodayUseCase;
   private AbsenceMapper absenceMapper;
 
   @Override
@@ -48,5 +50,13 @@ public class AbsenceControllerAdapter implements AbsenceApi {
     log.info("DELETE /absence?absenceId={}", absenceId);
     deleteAbsenceUseCase.execute(absenceId);
     return ResponseEntity.ok().build();
+  }
+
+  @Override
+  public ResponseEntity<AbsenceResponse> getAbsenceSummary() {
+    log.info("GET /absence/absence-summary");
+    var responseDTO =
+        AbsenceResponseDTO.builder().absences(getAbsenceTodayUseCase.execute()).build();
+    return ResponseEntity.ok(absenceMapper.toAbsenceResponse(responseDTO));
   }
 }

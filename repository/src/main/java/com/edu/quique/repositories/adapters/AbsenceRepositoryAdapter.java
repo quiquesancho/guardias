@@ -7,6 +7,7 @@ import com.edu.quique.repositories.repositories.AbsenceJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,11 @@ public class AbsenceRepositoryAdapter implements AbsenceRepositoryPort {
   public Optional<Absence> findById(Long id) {
     return Optional.ofNullable(
         absenceMOMapper.fromAbsenceMO(absenceJpaRepository.findByAbsenceId(id)));
+  }
+
+  @Override
+  public List<Absence> findAbsenceByDate(LocalDate date) {
+    return absenceMOMapper.fromAbsenceMOList(absenceJpaRepository.findByAbsenceDate(date));
   }
 
   @Override
