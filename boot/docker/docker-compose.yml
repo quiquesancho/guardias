@@ -10,3 +10,20 @@ services:
       POSTGRES_DB: guardias
     ports:
       - "5432:5432"
+
+  openldap:
+    image: osixia/openldap:1.5.0
+    container_name: openldap-container
+    environment:
+      - LDAP_ORGANISATION=IES La Vereda
+      - LDAP_DOMAIN=ieslavereda.local
+      - LDAP_ADMIN_PASSWORD=123456789
+    ports:
+      - "389:389"
+#    volumes:
+#      - ./custom.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom.ldif
+    networks:
+      - ldap-network
+
+networks:
+  ldap-network:
