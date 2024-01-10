@@ -131,6 +131,26 @@ paths:
       responses:
         '201':
           description: Update XML successfully
+  /login:
+    post:
+      summary: Login
+      description: Login with LDAP service
+      operationId: login
+      tags:
+        - Login Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
 components:
   parameters:
     AbsenceIdParam:
@@ -141,6 +161,24 @@ components:
       schema:
         $ref: '#/components/schemas/AbsenceIdSchema'
   schemas:
+    LoginRequest:
+      type: object
+      description: Login request
+      properties:
+        username:
+          type: string
+          #format: email
+          description: email with login
+        password:
+          type: string
+          description: password with login
+    LoginResponse:
+      type: object
+      description: Login request
+      properties:
+        token:
+          type: string
+          description: token with login
     AbsenceIdSchema:
       type: integer
       format: int64

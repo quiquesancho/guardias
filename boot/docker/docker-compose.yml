@@ -17,7 +17,7 @@ services:
     environment:
       - LDAP_ORGANISATION=IES La Vereda
       - LDAP_DOMAIN=ieslavereda.local
-      - LDAP_ADMIN_PASSWORD=123456789
+      - LDAP_ADMIN_PASSWORD=12345678
     ports:
       - "389:389"
 #    volumes:
