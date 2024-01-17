@@ -1,17 +1,24 @@
 package com.edu.quique.repositories;
 
+import lombok.Generated;
 import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
+import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Audited
 @EntityListeners({AuditingEntityListener.class})
 public abstract class BaseMO {
-    /*
+
     @CreatedBy
     @Column(
             name = "cod_user_creation",
@@ -26,7 +33,7 @@ public abstract class BaseMO {
             nullable = false,
             updatable = false
     )
-    private OffsetDateTime createdDate;
+    private LocalDateTime createdDate;
     @LastModifiedBy
     @Column(
             name = "cod_user_modification"
@@ -36,7 +43,7 @@ public abstract class BaseMO {
     @Column(
             name = "modification_date"
     )
-    private OffsetDateTime lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
 
     @Generated
@@ -45,7 +52,7 @@ public abstract class BaseMO {
     }
 
     @Generated
-    public OffsetDateTime getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return this.createdDate;
     }
 
@@ -55,7 +62,7 @@ public abstract class BaseMO {
     }
 
     @Generated
-    public OffsetDateTime getLastModifiedDate() {
+    public LocalDateTime getLastModifiedDate() {
         return this.lastModifiedDate;
     }
 
@@ -65,7 +72,7 @@ public abstract class BaseMO {
     }
 
     @Generated
-    protected void setCreatedDate(final OffsetDateTime createdDate) {
+    protected void setCreatedDate(final LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -75,7 +82,7 @@ public abstract class BaseMO {
     }
 
     @Generated
-    protected void setLastModifiedDate(final OffsetDateTime lastModifiedDate) {
+    protected void setLastModifiedDate(final LocalDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
@@ -83,5 +90,5 @@ public abstract class BaseMO {
     public String toString() {
         String var10000 = this.getCreatedBy();
         return "Auditable(createdBy=" + var10000 + ", createdDate=" + this.getCreatedDate() + ", lastModifiedBy=" + this.getLastModifiedBy() + ", lastModifiedDate=" + this.getLastModifiedDate() + ")";
-    }*/
+    }
 }

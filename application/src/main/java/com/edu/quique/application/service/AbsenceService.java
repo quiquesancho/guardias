@@ -47,8 +47,8 @@ public class AbsenceService implements AbsenceServicePort {
     var teacher = teacherService.findByEmail(absence.getAbsentTeacher().getEmail());
     absence.setAbsentTeacher(teacher);
     String dayOfWeek = DaysOfWeek.valueOf(absence.getAbsenceDate().getDayOfWeek().name()).getDay();
-    checkAbsenceIsBeforeToday(absence);
-    throwExceptionIfExistsAbsence(absence);
+    checkAbsenceIsModifiable(absence);
+    checkIfExistsAbsence(absence);
     List<Absence> absencesList = new ArrayList<>();
     List<TimeInterval> timeIntervalAbsences =
         TimeInterval.generateIntervals(absence.getTimeInterval());
@@ -72,15 +72,15 @@ public class AbsenceService implements AbsenceServicePort {
   @Override
   public void deleteAbsence(Long id) {
     var absenceToDelete = findById(id);
-    checkAbsenceIsBeforeToday(absenceToDelete);
+    checkAbsenceIsModifiable(absenceToDelete);
     absenceRepository.deleteAbsence(absenceToDelete);
   }
 
   @Override
   public Absence modifyAbsence(Absence absence) {
     var absenceToModify = findById(absence.getAbsenceId());
-    checkAbsenceIsBeforeToday(absenceToModify);
-    checkAbsenceIsBeforeToday(absence);
+    checkAbsenceIsModifiable(absenceToModify);
+    checkAbsenceIsModifiable(absence);
     checkIfExistsAbsenceInThisDateAndHours(absence);
     absenceToModify.setAbsenceDate(absence.getAbsenceDate());
     absenceToModify.setTimeInterval(absence.getTimeInterval());
@@ -96,7 +96,7 @@ public class AbsenceService implements AbsenceServicePort {
               absence.getTimeInterval().toStringHours()));
   }
 
-  private void throwExceptionIfExistsAbsence(Absence absence) {
+  private void checkIfExistsAbsence(Absence absence) {
     List<Absence> absencesList =
         absenceRepository.findByAbsenceDateAndStartHourOrAbsenceDateAndEndHourAndAbsentTeacher(
             absence);
@@ -108,10 +108,12 @@ public class AbsenceService implements AbsenceServicePort {
               absence.getTimeInterval().toStringHours()));
   }
 
-  private void checkAbsenceIsBeforeToday(Absence absence) {
+  private void checkAbsenceIsModifiable(Absence absence) {
     var today = LocalDate.now();
-    if (today.isAfter(absence.getAbsenceDate())
-        && LocalTime.now().isAfter(absence.getTimeInterval().getStartHour())) {
+    var now = LocalTime.now();
+    if (absence.getAbsenceDate().isBefore(today)
+        || (absence.getAbsenceDate().isEqual(today)
+            && absence.getTimeInterval().getStartHour().isBefore(now))) {
       throw new AbsenceCannotBeModifiedOrDeletedException("Absence cannot be modified or deleted.");
     }
   }

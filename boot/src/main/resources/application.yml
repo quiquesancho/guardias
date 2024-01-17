@@ -18,6 +18,10 @@ spring:
           enabled: true
           store_data_at_delete: true
           audit_table_suffix: _aud
+    repositories:
+      enabled: true
+    auditing:
+      enabled: true
   flyway:
     locations: classpath:migration/versions
     baselineOnMigrate: true
@@ -26,3 +30,7 @@ spring:
     password: root
 server:
   port: 8081
+
+jwt:
+  secret: fghjFDGSLKJHsdfgsh
+  expiration: 300000000

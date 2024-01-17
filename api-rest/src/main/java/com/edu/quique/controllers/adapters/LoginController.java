@@ -14,17 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 public class LoginController implements LoginApi {
-  private final AuthenticationManager authenticacionManager;
+  private final AuthenticationManager authenticationManager;
 
   @Override
   public ResponseEntity<LoginResponse> login(LoginRequest loginRequest) {
-    Authentication authentication =
-        authenticacionManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                loginRequest.getUsername(), loginRequest.getPassword()));
-    SecurityContextHolder.getContext().setAuthentication(authentication);
+    authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
     var res = new LoginResponse();
-    res.setToken("Login check!!");
+    res.setToken(SecurityContextHolder.getContext().toString());
     return ResponseEntity.ok(res);
+  }
+
+  private void authenticateUser(String username, String password) {
+    Authentication authentication =
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(username, password));
+    SecurityContextHolder.getContext().setAuthentication(authentication);
   }
 }

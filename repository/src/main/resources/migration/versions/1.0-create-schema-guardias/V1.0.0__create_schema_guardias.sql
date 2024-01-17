@@ -29,10 +29,10 @@ CREATE TABLE teachers (
     name VARCHAR(255),
     first_surname VARCHAR(255),
     second_surname VARCHAR(255),
-/*    cod_user_creation VARCHAR(255) DEFAULT 'Guardias-back-app' NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
+    creation_date TIMESTAMP DEFAULT now() NOT NULL,
+    cod_user_creation VARCHAR(255) DEFAULT 'Guardias-back-app' NOT NULL,
+    modification_date TIMESTAMP NULL,
     cod_user_modification VARCHAR(255),
-    modification_date TIMESTAMP,*/
     PRIMARY KEY (teacher_id)
 );
 
@@ -46,10 +46,10 @@ CREATE TABLE teaching_hours (
     day_of_week VARCHAR(255),
     teacher_id VARCHAR(9),
     occupation VARCHAR(255),
-/*    cod_user_creation VARCHAR(255) DEFAULT 'Guardias-back-app' NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
+    creation_date TIMESTAMP DEFAULT now() NOT NULL,
+    cod_user_creation VARCHAR(255) DEFAULT 'Guardias-back-app' NOT NULL,
+    modification_date TIMESTAMP NULL,
     cod_user_modification VARCHAR(255),
-    modification_date TIMESTAMP,*/
     PRIMARY KEY (teaching_hours_id),
     FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id)
 );
@@ -66,10 +66,10 @@ CREATE TABLE timetable_group (
     classroom VARCHAR(255),
     content VARCHAR(255),
     teacher_id VARCHAR(9),
-/*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
-    creation_date TIMESTAMP NOT NULL,
+    creation_date TIMESTAMP DEFAULT now() NOT NULL,
+    cod_user_creation VARCHAR(255) DEFAULT 'Guardias-back-app' NOT NULL,
+    modification_date TIMESTAMP NULL,
     cod_user_modification VARCHAR(255),
-    modification_date TIMESTAMP,*/
     PRIMARY KEY (timetable_group_id),
     FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id)
 );
@@ -87,10 +87,10 @@ CREATE TABLE absence (
     timetable_group_id BIGINT,
     is_assigned BOOLEAN DEFAULT FALSE,
     assigned_time TIMESTAMP,
-/*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
-    creation_date TIMESTAMP NOT NULL,
+    creation_date TIMESTAMP DEFAULT now() NOT NULL,
+    cod_user_creation VARCHAR(255) DEFAULT 'Guardias-back-app' NOT NULL,
+    modification_date TIMESTAMP NULL,
     cod_user_modification VARCHAR(255),
-    modification_date TIMESTAMP,*/
     PRIMARY KEY (absence_id),
     FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id),
     FOREIGN KEY (timetable_group_id) REFERENCES timetable_group (timetable_group_id),
@@ -105,10 +105,10 @@ CREATE TABLE REGISTRY_ABSENCE (
     absence_id BIGINT,
     guard_teacher_id VARCHAR(9),
     observation TEXT,
-/*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
-    creation_date TIMESTAMP NOT NULL,
+    creation_date TIMESTAMP DEFAULT now() NOT NULL,
+    cod_user_creation VARCHAR(255) DEFAULT 'Guardias-back-app' NOT NULL,
+    modification_date TIMESTAMP NULL,
     cod_user_modification VARCHAR(255),
-    modification_date TIMESTAMP,*/
     PRIMARY KEY (registry_absence_id),
     FOREIGN KEY (guard_teacher_id) REFERENCES teachers (teacher_id)
 );
@@ -122,10 +122,10 @@ CREATE TABLE teachers_aud (
     name VARCHAR(255),
     first_surname VARCHAR(255),
     second_surname VARCHAR(255),
-/*    cod_user_creation VARCHAR(255) NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
+    cod_user_creation VARCHAR(255),
+    creation_date TIMESTAMP,
     cod_user_modification VARCHAR(255),
-    modification_date TIMESTAMP,*/
+    modification_date TIMESTAMP,
     PRIMARY KEY (teacher_id)
 );
 
@@ -139,10 +139,10 @@ CREATE TABLE teaching_hours_aud (
     day_of_week VARCHAR(255),
     teacher_id VARCHAR(9),
     occupation VARCHAR(255),
-/*    cod_user_creation VARCHAR(255) NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
+    cod_user_creation VARCHAR(255),
+    creation_date TIMESTAMP,
     cod_user_modification VARCHAR(255),
-    modification_date TIMESTAMP,*/
+    modification_date TIMESTAMP,
     PRIMARY KEY (teaching_hours_id),
     FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id)
 );
@@ -159,10 +159,10 @@ CREATE TABLE timetable_group_aud (
     classroom VARCHAR(255),
     content VARCHAR(255),
     teacher_id VARCHAR(9),
-/*    cod_user_creation VARCHAR(255) NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
+    cod_user_creation VARCHAR(255),
+    creation_date TIMESTAMP,
     cod_user_modification VARCHAR(255),
-    modification_date TIMESTAMP,*/
+    modification_date TIMESTAMP,
     PRIMARY KEY (timetable_group_id),
     FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id)
 );
@@ -180,10 +180,10 @@ CREATE TABLE absence_aud (
     timetable_group_id BIGINT,
     is_assigned BOOLEAN DEFAULT FALSE,
     assigned_time TIMESTAMP,
-/*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
-    creation_date TIMESTAMP NOT NULL,
+    cod_user_creation VARCHAR(255),
+    creation_date TIMESTAMP,
     cod_user_modification VARCHAR(255),
-    modification_date TIMESTAMP,*/
+    modification_date TIMESTAMP,
     PRIMARY KEY (absence_id),
     FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id),
     FOREIGN KEY (timetable_group_id) REFERENCES timetable_group (timetable_group_id)
@@ -198,10 +198,10 @@ CREATE TABLE REGISTRY_ABSENCE_AUD (
     absence_id BIGINT,
     guard_teacher_id VARCHAR(9),
     observation TEXT,
-/*    cod_user_creation VARCHAR(255) NOT NULL DEFAULT 'Guardias-back-app',
-    creation_date TIMESTAMP NOT NULL,
+    cod_user_creation VARCHAR(255),
+    creation_date TIMESTAMP,
     cod_user_modification VARCHAR(255),
-    modification_date TIMESTAMP,*/
+    modification_date TIMESTAMP,
     PRIMARY KEY (registry_absence_id),
     FOREIGN KEY (guard_teacher_id) REFERENCES teachers (teacher_id)
 );
