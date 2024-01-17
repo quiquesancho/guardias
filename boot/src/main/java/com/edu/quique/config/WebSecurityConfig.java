@@ -1,5 +1,6 @@
 package com.edu.quique.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.auditing.DateTimeProvider;
@@ -18,6 +19,19 @@ import java.util.Optional;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+  @Value("${config.ldap.user-search-filter}")
+  private String USER_SEARCH_FILTER;
+  @Value("${config.ldap.search-base}")
+  private String SEARCH_BASE;
+  @Value("${config.ldap.group-search-filter}")
+  private String GROUP_SEARCH_FILTER;
+  @Value("${config.ldap.url}")
+  private String URL;
+  @Value("${config.ldap.admin-user}")
+  private String USER;
+  @Value("${config.ldap.admin-pass}")
+  private String PASS;
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf()
@@ -34,14 +48,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.ldapAuthentication()
-        .userSearchFilter("(mail={0})")
-        .userSearchBase("ou=Users,dc=ieslavereda,dc=local")
-        .groupSearchFilter("cn={0}")
-        .groupSearchBase("ou=Users,dc=ieslavereda,dc=local")
+        .userSearchFilter(USER_SEARCH_FILTER)
+        .userSearchBase(SEARCH_BASE)
+        .groupSearchFilter(GROUP_SEARCH_FILTER)
+        .groupSearchBase(SEARCH_BASE)
         .contextSource()
-        .url("ldap://localhost:389")
-        .managerDn("cn=admin,dc=ieslavereda,dc=local")
-        .managerPassword("123456789");
+        .url(URL)
+        .managerDn(USER)
+        .managerPassword(PASS);
   }
 
   @Override

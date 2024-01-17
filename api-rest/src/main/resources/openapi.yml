@@ -167,7 +167,7 @@ components:
       properties:
         username:
           type: string
-          #format: email
+          format: email
           description: email with login
         password:
           type: string
@@ -176,9 +176,8 @@ components:
       type: object
       description: Login request
       properties:
-        token:
-          type: string
-          description: token with login
+        teacher:
+          $ref: '#/components/schemas/Teacher'
     AbsenceIdSchema:
       type: integer
       format: int64
