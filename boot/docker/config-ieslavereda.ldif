@@ -1,0 +1,277 @@
+version: 1
+dn: dc=ieslavereda,dc=local
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+dc: ieslavereda
+o: ieslavereda.local
+
+dn: cn=admin,dc=ieslavereda,dc=local
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+userPassword:: e1NIQX1mQ0l2c3BKOWdvcnlMMWtoTk9pVEpJQmpmQTA9
+
+dn: ou=Idmap,dc=ieslavereda,dc=local
+objectClass: organizationalUnit
+ou: Idmap
+
+dn: ou=Users,dc=ieslavereda,dc=local
+objectClass: organizationalUnit
+ou: Users
+
+dn: uid=admin,ou=Users,dc=ieslavereda,dc=local
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: person
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: profesor
+objectClass: top
+cn: admin
+gidNumber: 6566
+homeDirectory: /hom/admin
+mail: admin@admin.com
+sambaSID: 1234567890987
+sn: 4537678997562
+uid: admin
+uidNumber: 3345
+userPassword:: e1NIQX1rekFhMm9GMzlMZUVGaUNFZnowRzFCL3IzUjA9
+
+dn: uid=nobody,ou=Users,dc=ieslavereda,dc=local
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: person
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: profesor
+objectClass: top
+cn: sdf
+displayName: nobody
+gidNumber: 2341
+homeDirectory: /fasdfa
+sambaSID: fasdfasdfas
+sn: asdfa
+uid: nobody
+uidNumber: 435345
+
+dn: uid=prueba,ou=Users,dc=ieslavereda,dc=local
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: person
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: profesor
+objectClass: top
+cn: prueba
+displayName: Quique Sancho Caballer
+gidNumber: 2202
+homeDirectory: /home/prueba
+mail: prueba@prueba.com
+sambaSID: 31241513896759679457
+sn: Sancho Caballer
+uid: prueba
+uidNumber: 2222
+userPassword:: e1NIQX1rekFhMm9GMzlMZUVGaUNFZnowRzFCL3IzUjA9
+
+dn: uid=clopezf,ou=Users,dc=ieslavereda,dc=local
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: person
+objectClass: sambaSamAccount
+objectClass: shadowAccount
+objectClass: profesor
+objectClass: top
+cn: dfsa
+displayName: Clemente Lopez Ferrer
+gidNumber: 34234
+homeDirectory: /hoe
+macAddress: 01:23:45:67:89:ab
+mail: lrodriguezr@gva.es
+mobile: 611111111
+sambaSID: dfgs
+sn: fdg
+uid: lrodriguezr
+uidNumber: 56
+
+dn: ou=Groups,dc=ieslavereda,dc=local
+objectClass: organizationalUnit
+ou: Groups
+
+dn: cn=sudo,ou=Groups,dc=ieslavereda,dc=local
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: top
+cn: sudo
+gidNumber: 27
+memberUid: jalonso
+sambaGroupType: 2
+sambaSID: S-1-5-21-2252255531-4061614174-2474224977-1055
+
+dn: cn=Admin,ou=Groups,dc=ieslavereda,dc=local
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: top
+cn: Admin
+gidNumber: 5055
+memberUid: admin
+sambaGroupType: 123456789010
+sambaSID: 100987654321
+
+dn: cn=Docente,ou=Groups,dc=ieslavereda,dc=local
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: top
+cn: Docente
+gidNumber: 1101
+memberUid: jalonso
+memberUid: clopezf
+memberUid: prueba
+sambaGroupType: 2
+sambaSID: S-1-5-21-2252255531-4061614174-2474224977-3203
+
+dn: cn=Secretaria,ou=Groups,dc=ieslavereda,dc=local
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+objectClass: top
+cn: Secretaria
+gidNumber: 4044
+memberUid: secretaria
+sambaGroupType: 2435367568456
+sambaSID: 46458745674
+
+dn: cn=Replicators,ou=Groups,dc=ieslavereda,dc=local
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: Replicators
+description: Netbios Domain Supports file replication in a sambaDomainName
+displayName: Replicators
+gidNumber: 552
+sambaGroupType: 4
+sambaSID: S-1-5-32-552
+
+dn: cn=Domain Users,ou=Groups,dc=ieslavereda,dc=local
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: Domain Users
+description: Netbios Domain Users
+displayName: Domain Users
+gidNumber: 513
+sambaGroupType: 2
+sambaSID: S-1-5-21-2252255531-4061614174-2474224977-513
+
+dn: cn=Domain Admins,ou=Groups,dc=ieslavereda,dc=local
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: Domain Admins
+description: Netbios Domain Administrators
+displayName: Domain Admins
+gidNumber: 512
+memberUid: root
+sambaGroupType: 2
+sambaSID: S-1-5-21-2252255531-4061614174-2474224977-512
+
+dn: cn=Domain Guests,ou=Groups,dc=ieslavereda,dc=local
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: Domain Guests
+description: Netbios Domain Guests Users
+displayName: Domain Guests
+gidNumber: 514
+sambaGroupType: 2
+sambaSID: S-1-5-21-2252255531-4061614174-2474224977-514
+
+dn: cn=Administrators,ou=Groups,dc=ieslavereda,dc=local
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: Administrators
+description: Netbios Domain Members can fully administer the computer/sambaDomainName
+displayName: Administrators
+gidNumber: 544
+memberUid: jalonso
+sambaGroupType: 4
+sambaSID: S-1-5-32-544
+
+dn: cn=Print Operators,ou=Groups,dc=ieslavereda,dc=local
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: Print Operators
+description: Netbios Domain Print Operators
+displayName: Print Operators
+gidNumber: 550
+sambaGroupType: 4
+sambaSID: S-1-5-32-550
+
+dn: cn=Backup Operators,ou=Groups,dc=ieslavereda,dc=local
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: Backup Operators
+description: Netbios Domain Members can bypass file security to back up files
+displayName: Backup Operators
+gidNumber: 551
+sambaGroupType: 4
+sambaSID: S-1-5-32-551
+
+dn: cn=Domain Computers,ou=Groups,dc=ieslavereda,dc=local
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: Domain Computers
+description: Netbios Domain Computers accounts
+displayName: Domain Computers
+gidNumber: 515
+sambaGroupType: 2
+sambaSID: S-1-5-21-2252255531-4061614174-2474224977-515
+
+dn: cn=Account Operators,ou=Groups,dc=ieslavereda,dc=local
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: Account Operators
+description: Netbios Domain Users to manipulate users accounts
+displayName: Account Operators
+gidNumber: 548
+sambaGroupType: 4
+sambaSID: S-1-5-32-548
+
+dn: ou=Computers,dc=ieslavereda,dc=local
+objectClass: organizationalUnit
+ou: Computers
+
+dn: sambaDomainName=MINTLDAP,dc=ieslavereda,dc=local
+objectClass: sambaDomain
+sambaAlgorithmicRidBase: 1000
+sambaDomainName: MINTLDAP
+sambaForceLogoff: -1
+sambaLockoutDuration: 30
+sambaLockoutObservationWindow: 30
+sambaLockoutThreshold: 0
+sambaLogonToChgPwd: 0
+sambaMaxPwdAge: -1
+sambaMinPwdAge: 0
+sambaMinPwdLength: 5
+sambaNextUserRid: 1000
+sambaPwdHistoryLength: 0
+sambaRefuseMachinePwdChange: 0
+sambaSID: S-1-5-21-2759239183-4164442664-222799282
+
+dn: sambaDomainName=ieslavereda.local,dc=ieslavereda,dc=local
+objectClass: sambaDomain
+objectClass: sambaUnixIdPool
+gidNumber: 1000
+sambaDomainName: ieslavereda.local
+sambaNextRid: 1000
+sambaSID: S-1-5-21-2252255531-4061614174-2474224977
+uidNumber: 1000
