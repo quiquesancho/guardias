@@ -21,10 +21,12 @@ import java.util.Optional;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Value("${config.ldap.user-search-filter}")
   private String USER_SEARCH_FILTER;
-  @Value("${config.ldap.search-base}")
-  private String SEARCH_BASE;
+  @Value("${config.ldap.user-search-base}")
+  private String USER_SEARCH_BASE;
   @Value("${config.ldap.group-search-filter}")
   private String GROUP_SEARCH_FILTER;
+  @Value("${config.ldap.group-search-base}")
+  private String GROUP_SEARCH_BASE;
   @Value("${config.ldap.url}")
   private String URL;
   @Value("${config.ldap.admin-user}")
@@ -49,9 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.ldapAuthentication()
         .userSearchFilter(USER_SEARCH_FILTER)
-        .userSearchBase(SEARCH_BASE)
+        .userSearchBase(USER_SEARCH_BASE)
         .groupSearchFilter(GROUP_SEARCH_FILTER)
-        .groupSearchBase(SEARCH_BASE)
+        .groupSearchBase(GROUP_SEARCH_BASE)
         .contextSource()
         .url(URL)
         .managerDn(USER)

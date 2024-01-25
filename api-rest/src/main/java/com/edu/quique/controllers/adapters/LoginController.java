@@ -26,6 +26,7 @@ public class LoginController implements LoginApi {
   public ResponseEntity<LoginResponse> login(LoginRequest loginRequest) {
     log.info("POST /login Username: {}", loginRequest.getUsername());
     authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
+    log.info(SecurityContextHolder.getContext().getAuthentication().toString());
     var res = new LoginResponse();
     res.setTeacher(
         teacherMapper.toTeacherModel(getTeacherByEmailUseCase.execute(loginRequest.getUsername())));

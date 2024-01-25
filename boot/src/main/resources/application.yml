@@ -34,8 +34,9 @@ server:
 config:
   ldap:
     user-search-filter: (mail={0})
-    search-base: ou=Users,dc=ieslavereda,dc=local
+    user-search-base: ou=Users,dc=ieslavereda,dc=local
     group-search-filter: cn={0}
+    group-search-base: ou=Groups,dc=ieslavereda,dc=local
     url: ldap://localhost:389
     admin-user: cn=admin,dc=ieslavereda,dc=local
     admin-pass: 123456789
