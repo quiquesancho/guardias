@@ -176,8 +176,10 @@ components:
       type: object
       description: Login request
       properties:
-        teacher:
-          $ref: '#/components/schemas/Teacher'
+#        teacher:
+#          $ref: '#/components/schemas/Teacher'
+        token:
+          type: string
     AbsenceIdSchema:
       type: integer
       format: int64
@@ -228,6 +230,11 @@ components:
         secondSurname:
           type: string
           description: Second surname of teacher
+        role:
+          type: array
+          description: Role's list of teacher
+          items:
+            type: string
     Absence:
       type: object
       description: Absence information

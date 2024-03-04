@@ -28,6 +28,11 @@ spring:
     baselineVersion: 0
     user: sa
     password: root
+  ldap:
+    urls: ldap://localhost:389
+    base: ou=Users,dc=ieslavereda,dc=local
+    username: cn=admin,dc=ieslavereda,dc=local
+    password: 123456789
 server:
   port: 8081
 

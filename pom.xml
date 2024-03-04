@@ -23,7 +23,8 @@
 		<module>application</module>
 		<module>boot</module>
 		<module>repository</module>
-	</modules>
+        <module>repository-ldap</module>
+    </modules>
 
 	<properties>
 		<java.version>17</java.version>
@@ -49,6 +50,11 @@
 			<dependency>
 				<groupId>com.edu.quique</groupId>
 				<artifactId>repository</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.edu.quique</groupId>
+				<artifactId>repository-ldap</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
