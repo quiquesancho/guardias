@@ -45,3 +45,5 @@ config:
     url: ldap://localhost:389
     admin-user: cn=admin,dc=ieslavereda,dc=local
     admin-pass: 123456789
+  security:
+    secret-key: 0:*5X-!YD!PEe.DVg-j.ctrrPCqf8-,%bMw[z?QN4RRNJ$rZ1S

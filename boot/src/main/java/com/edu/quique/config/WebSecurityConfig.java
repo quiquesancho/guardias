@@ -33,6 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private String USER;
   @Value("${config.ldap.admin-pass}")
   private String PASS;
+  @Value("${config.security.secret-key}")
+  private String SECRET_KEY;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
