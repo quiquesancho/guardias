@@ -5,7 +5,7 @@ import com.edu.quique.api.model.LoginRequest;
 import com.edu.quique.api.model.LoginResponse;
 import com.edu.quique.application.ports.in.usecases.GetOUsUseCasePort;
 import com.edu.quique.application.ports.in.usecases.GetTeacherByEmailUseCasePort;
-import com.edu.quique.application.utils.JwtUtils;
+import com.edu.quique.controllers.mappers.TeacherMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,22 +22,19 @@ public class LoginController implements LoginApi {
   private final AuthenticationManager authenticationManager;
   private final GetTeacherByEmailUseCasePort getTeacherByEmailUseCase;
   private final GetOUsUseCasePort getOUsUseCase;
+  private final TeacherMapper teacherMapper;
 
   @Override
   public ResponseEntity<LoginResponse> login(LoginRequest loginRequest) {
     log.info("POST /login Username: {}", loginRequest.getUsername());
     authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
     var roles = getOUsUseCase.execute(loginRequest.getUsername());
+    var teacher = getTeacherByEmailUseCase.execute(loginRequest.getUsername());
+    var teacherResponse = teacherMapper.toTeacherModel(teacher);
+    teacherResponse.setRole(roles);
     var res = new LoginResponse();
-    var teacherResponse = getTeacherByEmailUseCase.execute(loginRequest.getUsername());
-          res.setToken(
-              JwtUtils.generateToken(
-                  teacherResponse.getEmail(),
-                  teacherResponse.getName(),
-                  teacherResponse.getFirstSurname(),
-                  teacherResponse.getSecondSurname(),
-                  roles));
-      return ResponseEntity.ok(res);
+    res.setTeacher(teacherResponse);
+    return ResponseEntity.ok(res);
   }
 
   private void authenticateUser(String username, String password) {

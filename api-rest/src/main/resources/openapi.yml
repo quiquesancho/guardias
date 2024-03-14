@@ -13,6 +13,8 @@ tags:
     description: Operation related with login
   - name: TeachingHours Actions
     description: Operation related with teaching hours
+  - name: Logout Actions
+    description: Operations related with logout
 paths:
   /absence:
     post:
@@ -151,6 +153,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
+  /logout:
+    post:
+      summary: Logout
+      description: Logout with LDAP service
+      operationId: Logout
+      tags:
+        - Logout Actions
+      responses:
+        '200':
+          description: Login successfully
 components:
   parameters:
     AbsenceIdParam:
@@ -176,10 +188,8 @@ components:
       type: object
       description: Login request
       properties:
-#        teacher:
-#          $ref: '#/components/schemas/Teacher'
-        token:
-          type: string
+        teacher:
+          $ref: '#/components/schemas/Teacher'
     AbsenceIdSchema:
       type: integer
       format: int64
