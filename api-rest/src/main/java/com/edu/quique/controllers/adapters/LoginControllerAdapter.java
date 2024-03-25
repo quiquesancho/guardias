@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @Slf4j
-public class LoginController implements LoginApi {
+public class LoginControllerAdapter implements LoginApi {
   private final AuthenticationManager authenticationManager;
   private final GetTeacherByEmailUseCasePort getTeacherByEmailUseCase;
   private final GetOUsUseCasePort getOUsUseCase;
