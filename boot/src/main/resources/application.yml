@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: guardiaslavereda
+  datasource:
+    username: sa
+    password: root
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/guardias
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        ddl-auto: update
+        envers:
+          enabled: true
+          store_data_at_delete: true
+          audit_table_suffix: _aud
+    repositories:
+      enabled: true
+    auditing:
+      enabled: true
+  flyway:
+    locations: classpath:migration/versions
+    baselineOnMigrate: true
+    baselineVersion: 0
+    user: sa
+    password: root
+  ldap:
+    urls: ldap://localhost:389
+    base: ou=Users,dc=ieslavereda,dc=local
+    username: cn=admin,dc=ieslavereda,dc=local
+    password: 123456789
+server:
+  port: 8081
+
+config:
+  ldap:
+    user-search-filter: (mail={0})
+    user-search-base: ou=Users,dc=ieslavereda,dc=local
+    group-search-filter: memberUid={0}
+    group-search-base: ou=Groups,dc=ieslavereda,dc=local
+    url: ldap://localhost:389
+    admin-user: cn=admin,dc=ieslavereda,dc=local
+    admin-pass: 123456789

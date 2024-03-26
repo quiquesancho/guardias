@@ -1,0 +1,342 @@
+openapi: 3.0.0
+info:
+  title: Guardias IES La Vereda API
+  version: 1.0.0
+tags:
+  - name: Document Actions
+    description: Operation related with documents
+  - name: Absence Actions
+    description: Operation related with login
+  - name: Teachers Actions
+    description: Operation related with docents
+  - name: Login Actions
+    description: Operation related with login
+  - name: TeachingHours Actions
+    description: Operation related with teaching hours
+  - name: Logout Actions
+    description: Operations related with logout
+paths:
+  /absence:
+    post:
+      summary: Create a absence
+      description: Create a absence
+      operationId: createAbsence
+      tags:
+        - Absence Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbsenceRequest'
+      responses:
+        '201':
+          description: Absence create successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AbsenceResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorType'
+    patch:
+      summary: Modify a absence
+      description: Modify a absence
+      operationId: modifyAbsence
+      tags:
+        - Absence Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbsenceRequest'
+      responses:
+        '201':
+          description: Absence modified successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Absence'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorType'
+    delete:
+      summary: Delete a absence
+      description: Delete a absence
+      operationId: deleteAbsence
+      tags:
+        - Absence Actions
+      parameters:
+        - $ref: '#/components/parameters/AbsenceIdParam'
+      responses:
+        '200':
+          description: Absence deleted successfully
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorType'
+  /absence/absence-summary:
+    get:
+      summary: Find a absence summary for today
+      description: Find a absence summary for today
+      operationId: getAbsenceSummary
+      tags:
+        - Absence Actions
+      responses:
+        '200':
+          description: Absences summary successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AbsenceResponse'
+  /teachingHours:
+    get:
+      summary: Get teaching hours guard
+      description: Obtain the on-call timetable of teachers
+      operationId: getTeachingHoursGuards
+      tags:
+        - TeachingHours Actions
+      responses:
+        '200':
+          description: Timetable Hours get succesfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeachingHoursResponse'
+
+  /document/updateXML:
+    post:
+      summary: Update XML
+      description: Update XML data using a file
+      operationId: updateXML
+      tags:
+        - Document Actions
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Update XML successfully
+  /login:
+    post:
+      summary: Login
+      description: Login with LDAP service
+      operationId: login
+      tags:
+        - Login Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+  /logout:
+    post:
+      summary: Logout
+      description: Logout with LDAP service
+      operationId: Logout
+      tags:
+        - Logout Actions
+      responses:
+        '200':
+          description: Login successfully
+components:
+  parameters:
+    AbsenceIdParam:
+      name: absenceId
+      in: query
+      required: true
+      description: ID of the absence to delete
+      schema:
+        $ref: '#/components/schemas/AbsenceIdSchema'
+  schemas:
+    LoginRequest:
+      type: object
+      description: Login request
+      properties:
+        username:
+          type: string
+          format: email
+          description: email with login
+        password:
+          type: string
+          description: password with login
+    LoginResponse:
+      type: object
+      description: Login request
+      properties:
+        teacher:
+          $ref: '#/components/schemas/Teacher'
+    AbsenceIdSchema:
+      type: integer
+      format: int64
+    AbsenceRequest:
+      type: object
+      description: AbsenceRequest information
+      properties:
+        absenceId:
+          type: integer
+          format: int64
+          description: ID of the absence
+        dayOfWeek:
+          type: string
+          description: Day of the week
+        absenceDate:
+          type: string
+          format: date
+          description: Date of the absence
+        timeInterval:
+          $ref: '#/components/schemas/TimeInterval'
+        absentTeacher:
+          $ref: '#/components/schemas/Teacher'
+    TimeInterval:
+      type: object
+      description: Time interval
+      properties:
+        startHour:
+          type: string
+          format: time
+          description: Start date of the interval
+        endHour:
+          type: string
+          format: time
+          description: End date of the interval
+    Teacher:
+      type: object
+      description: TeacherExtended information
+      properties:
+        email:
+          type: string
+          description: Email of teacher
+        name:
+          type: string
+          description: Name of teacher
+        firstSurname:
+          type: string
+          description: First surname of teacher
+        secondSurname:
+          type: string
+          description: Second surname of teacher
+        role:
+          type: array
+          description: Role's list of teacher
+          items:
+            type: string
+    Absence:
+      type: object
+      description: Absence information
+      properties:
+        absenceId:
+          type: integer
+          format: int64
+          description: ID of the absence
+        dayOfWeek:
+          type: string
+          description: Day of the week
+        absenceDate:
+          type: string
+          format: date
+          description: Date of the absence
+        timeInterval:
+          $ref: '#/components/schemas/TimeInterval'
+        absentTeacher:
+          $ref: '#/components/schemas/Teacher'
+        timetableGroup:
+          $ref: '#/components/schemas/TimetableGroup'
+        isAssigned:
+          type: boolean
+          description: Is absence assigned by guard's teacher
+        assignedTime:
+          type: string
+          format: date-time
+          description: Date and hours when absence
+    TimetableGroup:
+      type: object
+      description: TimetableGroup information
+      properties:
+        timetableGroupId:
+          type: integer
+          format: int64
+          description: ID of the absence
+        group:
+          type: string
+          description: Group of classroom
+        classroom:
+          type: string
+          description: Classroom of highschool
+        content:
+          type: string
+          description: Content of group
+    TeachingHour:
+      type: object
+      description: TeachingHours information
+      properties:
+        teachingHoursId:
+          type: integer
+          format: int64
+          description: ID of the Teaching hours
+        timeInterval:
+          $ref: '#/components/schemas/TimeInterval'
+        dayOfWeek:
+          type: string
+          description: Day of the week
+        teacher:
+          $ref: '#/components/schemas/Teacher'
+        occupation:
+          type: string
+          description: matter to be given
+    AbsenceResponse:
+      type: object
+      description: Absence response
+      properties:
+        absences:
+          type: array
+          items:
+            $ref: '#/components/schemas/Absence'
+    TeachingHoursResponse:
+      type: object
+      description: Teaching hours response
+      properties:
+        teachingHours:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeachingHour'
+    ErrorType:
+      type: object
+      description: Error response
+      properties:
+        code:
+          type: integer
+          description: Error code
+        description:
+          type: string
+          description: Error description
+      required:
+        - code
+        - description
+      example:
+        code: 400
+        description: "Bad Request"

@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14.9
+    container_name: guardias-bbdd-container
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: sa
+      POSTGRES_DB: guardias
+    ports:
+      - "5432:5432"
+
+  openldap:
+    image: osixia/openldap:1.5.0
+    container_name: openldap-container
+    environment:
+      - LDAP_ORGANISATION=IES La Vereda
+      - LDAP_DOMAIN=ieslavereda.local
+      - LDAP_ADMIN_PASSWORD=12345678
+    ports:
+      - "389:389"
+#    volumes:
+#      - ./boot/custom/ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom.ldif
+    networks:
+      - ldap-network
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    container_name: phpldapadmin-container
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: "openldap"
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - "9001:80"
+    networks:
+      - ldap-network
+    depends_on:
+      - openldap
+
+networks:
+  ldap-network:
