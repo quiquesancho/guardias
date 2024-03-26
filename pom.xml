@@ -6,7 +6,7 @@
 
 	<groupId>com.edu.quique</groupId>
 	<artifactId>guardias</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<name>guardias</name>
 	<description>Back Gestión de guardias IES La Vereda</description>
