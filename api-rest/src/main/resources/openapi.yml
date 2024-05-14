@@ -153,16 +153,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
-  /logout:
-    post:
-      summary: Logout
-      description: Logout with LDAP service
-      operationId: Logout
-      tags:
-        - Logout Actions
-      responses:
-        '200':
-          description: Login successfully
 components:
   parameters:
     AbsenceIdParam:
