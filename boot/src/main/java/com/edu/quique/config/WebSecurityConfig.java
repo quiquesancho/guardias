@@ -45,8 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Value("${config.ldap.admin-pass}")
   private String PASS;
 
-  @Autowired
-  JWTAuthorizationFilter jwtAuthorizationFilter;
+  @Autowired JWTAuthorizationFilter jwtAuthorizationFilter;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -59,7 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll()
         .anyRequest()
         .authenticated()
-            .and().addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+        .and()
+        .addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
   }
 
   @Override
