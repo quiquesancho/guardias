@@ -25,15 +25,21 @@ import java.util.stream.Collectors;
 @Slf4j
 public class LoginControllerAdapter implements LoginApi {
   private final AuthenticationManager authenticationManager;
+  private final GetTeacherByEmailUseCasePort getTeacherByEmailUseCase;
   private final GetOUsUseCasePort getOUsUseCase;
+  private final TeacherMapper teacherMapper;
   private final JWTAuthtenticationConfig jwtAuthtenticationConfig;
 
   @Override
   public ResponseEntity<LoginResponse> login(LoginRequest loginRequest) {
     log.info("POST /login Username: {}", loginRequest.getUsername());
+    var teacher = getTeacherByEmailUseCase.execute(loginRequest.getUsername());
     var roles = getOUsUseCase.execute(loginRequest.getUsername());
     authenticateUser(loginRequest.getUsername(), loginRequest.getPassword(), roles);
+    var teacherResponse = teacherMapper.toTeacherModel(teacher);
+    teacherResponse.setRole(roles);
     var res = new LoginResponse();
+    res.setTeacher(teacherResponse);
     res.setToken(jwtAuthtenticationConfig.getJWTToken(loginRequest.getUsername(), roles));
     return ResponseEntity.ok(res);
   }
