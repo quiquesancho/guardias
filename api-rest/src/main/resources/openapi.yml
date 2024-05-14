@@ -188,8 +188,8 @@ components:
       type: object
       description: Login request
       properties:
-        teacher:
-          $ref: '#/components/schemas/Teacher'
+        token:
+          type: string
     AbsenceIdSchema:
       type: integer
       format: int64
