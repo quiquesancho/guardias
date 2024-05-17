@@ -205,3 +205,6 @@ CREATE TABLE REGISTRY_ABSENCE_AUD (
     PRIMARY KEY (registry_absence_id),
     FOREIGN KEY (guard_teacher_id) REFERENCES teachers (teacher_id)
 );
+
+INSERT INTO teachers (teacher_id,email,"name",first_surname,second_surname,creation_date,cod_user_creation,modification_date,cod_user_modification)
+VALUES ('12345678C','admin@admin.com','Admin','Admin','Admin',current_date,'anonymousUser',current_date,'anonymousUser');
