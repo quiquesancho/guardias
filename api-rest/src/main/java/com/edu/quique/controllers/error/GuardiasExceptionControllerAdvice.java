@@ -18,7 +18,7 @@ public class GuardiasExceptionControllerAdvice {
     log.error("TeacherNotFoundException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
     errorType = errorType.code(HttpStatus.NOT_FOUND.value()).description(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.OK).body(errorType);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorType);
   }
 
   @ExceptionHandler(ErrorUpdateXMLException.class)
@@ -26,7 +26,7 @@ public class GuardiasExceptionControllerAdvice {
     log.error("TeacherNotFoundException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
     errorType = errorType.code(HttpStatus.INTERNAL_SERVER_ERROR.value()).description(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.OK).body(errorType);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorType);
   }
 
   @ExceptionHandler(AbsenceAlreadyExistsException.class)
@@ -34,7 +34,7 @@ public class GuardiasExceptionControllerAdvice {
     log.error("AbsenceAlreadyExistsException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
     errorType = errorType.code(HttpStatus.BAD_REQUEST.value()).description(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.OK).body(errorType);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorType);
   }
 
   @ExceptionHandler(AbsenceCannotBeModifiedOrDeletedException.class)
@@ -42,7 +42,7 @@ public class GuardiasExceptionControllerAdvice {
     log.error("AbsenceAlreadyInCurseException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
     errorType = errorType.code(HttpStatus.BAD_REQUEST.value()).description(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.OK).body(errorType);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorType);
   }
 
   @ExceptionHandler(AbsenceNotFoundException.class)
@@ -50,7 +50,7 @@ public class GuardiasExceptionControllerAdvice {
     log.error("AbsenceNotFoundException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
     errorType = errorType.code(HttpStatus.BAD_REQUEST.value()).description(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.OK).body(errorType);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorType);
   }
 
   @ExceptionHandler(BadCredentialsException.class)
@@ -58,6 +58,6 @@ public class GuardiasExceptionControllerAdvice {
     log.error("BadCredentialsException: {}", ex.getMessage());
     ErrorType errorType = new ErrorType();
     errorType = errorType.code(HttpStatus.UNAUTHORIZED.value()).description(ex.getMessage());
-    return ResponseEntity.status(HttpStatus.OK).body(errorType);
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorType);
   }
 }

@@ -59,7 +59,7 @@ public class DocumentService implements DocumentServicePort {
 
     teachingHoursService.deleteAll();
     timetableGroupService.deleteAll();
-    teacherService.deleteAll();
+    teacherService.deleteAllTeachers();
 
     processNodeList(nodeList, teachersMap);
   }
