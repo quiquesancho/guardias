@@ -16,6 +16,8 @@ spring:
         ddl-auto: update
         envers:
           enabled: true
+          revision_field_name: rev
+          revision_type_field_name: revtype
           store_data_at_delete: true
           audit_table_suffix: _aud
     repositories:

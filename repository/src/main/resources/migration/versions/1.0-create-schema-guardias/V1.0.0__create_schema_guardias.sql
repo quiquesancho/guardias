@@ -126,8 +126,15 @@ CREATE TABLE teachers_aud (
     creation_date TIMESTAMP,
     cod_user_modification VARCHAR(255),
     modification_date TIMESTAMP,
-    PRIMARY KEY (teacher_id)
+    REV INTEGER NOT NULL,
+    REVTYPE INTEGER NOT NULL,
+    CONSTRAINT TEACHERS_AUD_PKEY PRIMARY KEY (teacher_id, REV)
 );
+
+COMMENT
+  ON COLUMN TEACHERS_AUD.REV IS 'Identificador, Ejemplo: 1';
+COMMENT
+  ON COLUMN TEACHERS_AUD.REVTYPE IS 'Tipo de operación realizada por el usuario, Ejemplo: 0-Creado, 1-Modificado, 2-Eliminado';
 
 /*==============================================================*/
 /* Table: TEACHING_HOURS_AUD                                    */
@@ -143,9 +150,15 @@ CREATE TABLE teaching_hours_aud (
     creation_date TIMESTAMP,
     cod_user_modification VARCHAR(255),
     modification_date TIMESTAMP,
-    PRIMARY KEY (teaching_hours_id),
-    FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id)
+    REV INTEGER NOT NULL,
+    REVTYPE INTEGER NOT NULL,
+    CONSTRAINT TEACHING_HOURS_AUD_PKEY PRIMARY KEY (teaching_hours_id, REV)
 );
+
+COMMENT
+  ON COLUMN TEACHING_HOURS_AUD.REV IS 'Identificador, Ejemplo: 1';
+COMMENT
+  ON COLUMN TEACHING_HOURS_AUD.REVTYPE IS 'Tipo de operación realizada por el usuario, Ejemplo: 0-Creado, 1-Modificado, 2-Eliminado';
 
 /*==============================================================*/
 /* Table: TIMETABLE_GROUP_AUD                                   */
@@ -163,9 +176,15 @@ CREATE TABLE timetable_group_aud (
     creation_date TIMESTAMP,
     cod_user_modification VARCHAR(255),
     modification_date TIMESTAMP,
-    PRIMARY KEY (timetable_group_id),
-    FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id)
+    REV INTEGER NOT NULL,
+    REVTYPE INTEGER NOT NULL,
+    CONSTRAINT TIMETABLE_GROUP_AUD_PKEY PRIMARY KEY (timetable_group_id, REV)
 );
+
+COMMENT
+  ON COLUMN TIMETABLE_GROUP_AUD.REV IS 'Identificador, Ejemplo: 1';
+COMMENT
+  ON COLUMN TIMETABLE_GROUP_AUD.REVTYPE IS 'Tipo de operación realizada por el usuario, Ejemplo: 0-Creado, 1-Modificado, 2-Eliminado';
 
 /*==============================================================*/
 /* Table: ABSENCE_AUD                                           */
@@ -184,10 +203,15 @@ CREATE TABLE absence_aud (
     creation_date TIMESTAMP,
     cod_user_modification VARCHAR(255),
     modification_date TIMESTAMP,
-    PRIMARY KEY (absence_id),
-    FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id),
-    FOREIGN KEY (timetable_group_id) REFERENCES timetable_group (timetable_group_id)
+    REV INTEGER NOT NULL,
+    REVTYPE INTEGER NOT NULL,
+    CONSTRAINT ABSENCE_AUD_PKEY PRIMARY KEY (absence_id , REV)
 );
+
+COMMENT
+  ON COLUMN absence_aud.REV IS 'Identificador, Ejemplo: 1';
+COMMENT
+  ON COLUMN absence_aud.REVTYPE IS 'Tipo de operación realizada por el usuario, Ejemplo: 0-Creado, 1-Modificado, 2-Eliminado';
 
 
 /*==============================================================*/
@@ -202,9 +226,15 @@ CREATE TABLE REGISTRY_ABSENCE_AUD (
     creation_date TIMESTAMP,
     cod_user_modification VARCHAR(255),
     modification_date TIMESTAMP,
-    PRIMARY KEY (registry_absence_id),
-    FOREIGN KEY (guard_teacher_id) REFERENCES teachers (teacher_id)
+    REV INTEGER NOT NULL,
+    REVTYPE INTEGER NOT NULL,
+    CONSTRAINT REGISTRY_ABSENCE_AUD_PKEY PRIMARY KEY (registry_absence_id, REV)
 );
+
+COMMENT
+  ON COLUMN REGISTRY_ABSENCE_AUD.REV IS 'Identificador, Ejemplo: 1';
+COMMENT
+  ON COLUMN REGISTRY_ABSENCE_AUD.REVTYPE IS 'Tipo de operación realizada por el usuario, Ejemplo: 0-Creado, 1-Modificado, 2-Eliminado';
 
 INSERT INTO teachers (teacher_id,email,"name",first_surname,second_surname,creation_date,cod_user_creation,modification_date,cod_user_modification)
 VALUES ('12345678C','admin@admin.com','Admin','Admin','Admin',current_date,'anonymousUser',current_date,'anonymousUser');
