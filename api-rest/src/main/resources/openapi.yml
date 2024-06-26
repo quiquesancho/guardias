@@ -6,17 +6,35 @@ tags:
   - name: Document Actions
     description: Operation related with documents
   - name: Absence Actions
-    description: Operation related with login
+    description: Operation related with absences
   - name: Teachers Actions
     description: Operation related with docents
   - name: Login Actions
     description: Operation related with login
   - name: TeachingHours Actions
     description: Operation related with teaching hours
-  - name: Logout Actions
-    description: Operations related with logout
 paths:
   /absence:
+    get:
+      summary: Get absences by user and date
+      description: Get absences by user logged and date
+      operationId: getAbsencesByDate
+      tags:
+        - Absence Actions
+      parameters:
+        - name: absenceDate
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Absences find successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AbsenceResponse'
     post:
       summary: Create a absence
       description: Create a absence

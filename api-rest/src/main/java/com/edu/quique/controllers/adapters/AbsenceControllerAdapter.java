@@ -5,16 +5,16 @@ import com.edu.quique.api.model.Absence;
 import com.edu.quique.api.model.AbsenceRequest;
 import com.edu.quique.api.model.AbsenceResponse;
 import com.edu.quique.application.dto.AbsenceResponseDTO;
-import com.edu.quique.application.ports.in.usecases.CreateAbsenceUseCasePort;
-import com.edu.quique.application.ports.in.usecases.DeleteAbsenceUseCasePort;
-import com.edu.quique.application.ports.in.usecases.GetAbsenceTodayUseCasePort;
-import com.edu.quique.application.ports.in.usecases.ModifyAbsenceUseCasePort;
+import com.edu.quique.application.ports.in.usecases.*;
 import com.edu.quique.controllers.mappers.AbsenceMapper;
+import com.edu.quique.controllers.utils.ContextUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
 
 @RestController
 @AllArgsConstructor
@@ -24,6 +24,7 @@ public class AbsenceControllerAdapter implements AbsenceApi {
   private DeleteAbsenceUseCasePort deleteAbsenceUseCase;
   private ModifyAbsenceUseCasePort modifyAbsenceUseCase;
   private GetAbsenceTodayUseCasePort getAbsenceTodayUseCase;
+  private GetAbsencesByTeacherAndDateUseCasePort getAbsencesByTeacherAndDateUseCase;
   private AbsenceMapper absenceMapper;
 
   @Override
@@ -57,6 +58,16 @@ public class AbsenceControllerAdapter implements AbsenceApi {
     log.info("GET /absence/absence-summary");
     var responseDTO =
         AbsenceResponseDTO.builder().absences(getAbsenceTodayUseCase.execute()).build();
+    return ResponseEntity.ok(absenceMapper.toAbsenceResponse(responseDTO));
+  }
+
+  @Override
+  public ResponseEntity<AbsenceResponse> getAbsencesByDate(LocalDate absenceDate) {
+    log.info("GET /absence?absenceDate={}", absenceDate);
+    var responseDTO =
+        AbsenceResponseDTO.builder()
+            .absences(getAbsencesByTeacherAndDateUseCase.execute(ContextUtils.getSubject(), absenceDate))
+            .build();
     return ResponseEntity.ok(absenceMapper.toAbsenceResponse(responseDTO));
   }
 }
