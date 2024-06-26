@@ -16,6 +16,8 @@ public interface AbsenceJpaRepository extends JpaRepository<AbsenceMO, Long> {
 
   List<AbsenceMO> findByAbsenceDate(LocalDate date);
 
+  List<AbsenceMO> findByAbsentTeacherAndAbsenceDate(TeacherMO absentTeacher, LocalDate absenceDate);
+
   List<AbsenceMO>
       findByAbsenceDateAndStartHourAndAbsentTeacherOrAbsenceDateAndEndHourAndAbsentTeacher(
           LocalDate absenceDate,

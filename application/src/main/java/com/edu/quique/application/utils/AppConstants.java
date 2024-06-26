@@ -2,6 +2,7 @@ package com.edu.quique.application.utils;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class AppConstants {
   private AppConstants() {
@@ -28,4 +29,5 @@ public class AppConstants {
   public static final LocalTime BREAK_END_HOUR = LocalTime.parse("11:30", FORMAT_TIME);
   public static final Long INTERVAL_MINUTES = 55L;
   public static final String OCCUPATION_GUARD = "3249454";
+  public static final List<String> CORE_USERS = List.of("admin@admin.com", "secretaria@secretaria.com");
 }

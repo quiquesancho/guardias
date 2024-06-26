@@ -7,10 +7,20 @@ import com.edu.quique.application.ports.out.TeacherRepositoryPort;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.edu.quique.application.utils.AppConstants.CORE_USERS;
+
 @Service
 @AllArgsConstructor
 public class TeacherService implements TeacherServicePort {
   private TeacherRepositoryPort teacherRepository;
+
+  @Override
+  public List<Teacher> findAll() {
+    return teacherRepository.findAll();
+  }
 
   @Override
   public Teacher findByEmail(String id) {
@@ -26,7 +36,18 @@ public class TeacherService implements TeacherServicePort {
   }
 
   @Override
+  public void deleteAllTeachers() {
+    teacherRepository.deleteAll(removeCoreUsers(this.findAll()));
+  }
+
+  @Override
   public Teacher save(Teacher teacher) {
     return teacherRepository.save(teacher);
+  }
+
+  private List<Teacher> removeCoreUsers(List<Teacher> teachers) {
+    return teachers.stream()
+        .filter(teacher -> !CORE_USERS.contains(teacher.getEmail()))
+        .collect(Collectors.toList());
   }
 }

@@ -11,7 +11,6 @@
 
     <docente nombre="Enrique" apellido1="Sancho" apellido2="Caballer" documento="12345678A" correo="prueba@prueba.com" />
     <docente nombre="Secretaria" apellido1="Secretaria" apellido2="Secretaria" documento="12345678B" correo="secretaria@secretaria.com" />
-    <docente nombre="Admin" apellido1="Admin" apellido2="Admin" documento="12345678C" correo="admin@admin.com" />
       <!-- Aci van tots els docents del centre / en l'etiqueta <docente> van més atributs però no són relevants-->
    </docentes>
    <horarios_ocupaciones>

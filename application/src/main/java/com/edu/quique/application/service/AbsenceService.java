@@ -43,6 +43,12 @@ public class AbsenceService implements AbsenceServicePort {
   }
 
   @Override
+  public List<Absence> findAbsenseByTeacherAndDate(String email, LocalDate date) {
+    var teacher = teacherService.findByEmail(email);
+    return absenceRepository.findAbsenceByTeacherAndEmail(teacher, date);
+  }
+
+  @Override
   public List<Absence> createAbsence(Absence absence) {
     var teacher = teacherService.findByEmail(absence.getAbsentTeacher().getEmail());
     absence.setAbsentTeacher(teacher);
