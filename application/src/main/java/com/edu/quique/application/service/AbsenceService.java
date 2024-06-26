@@ -1,6 +1,7 @@
 package com.edu.quique.application.service;
 
 import com.edu.quique.application.domain.Absence;
+import com.edu.quique.application.domain.queryparams.AbsenceQueryParams;
 import com.edu.quique.application.exceptions.AbsenceAlreadyExistsException;
 import com.edu.quique.application.exceptions.AbsenceCannotBeModifiedOrDeletedException;
 import com.edu.quique.application.exceptions.AbsenceNotFoundException;
@@ -39,13 +40,19 @@ public class AbsenceService implements AbsenceServicePort {
 
   @Override
   public List<Absence> findAbsenseToday() {
-    return absenceRepository.findAbsenceByDate(LocalDate.now());
+    return this.findAll(
+        AbsenceQueryParams.builder().absenceDate(LocalDate.now()).build());
+  }
+
+  @Override
+  public List<Absence> findAll(AbsenceQueryParams params) {
+    return absenceRepository.findAll(params);
   }
 
   @Override
   public List<Absence> findAbsenseByTeacherAndDate(String email, LocalDate date) {
-    var teacher = teacherService.findByEmail(email);
-    return absenceRepository.findAbsenceByTeacherAndEmail(teacher, date);
+    return this.findAll(
+        AbsenceQueryParams.builder().absenceDate(date).email(email).build());
   }
 
   @Override
