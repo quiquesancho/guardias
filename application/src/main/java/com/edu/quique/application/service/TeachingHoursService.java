@@ -7,7 +7,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
+
+import static com.edu.quique.application.utils.AppConstants.BREAKS;
 
 @Service
 @AllArgsConstructor
@@ -17,7 +20,10 @@ public class TeachingHoursService implements TeachingHoursServicePort {
 
   @Override
   public List<TeachingHour> findAllTeachingHoursGuard() {
-    return teachingHoursPort.findAllTeachingHoursGuard();
+    var teachingHoursList = teachingHoursPort.findAllTeachingHoursGuard();
+    teachingHoursList.addAll(BREAKS);
+    Collections.sort(teachingHoursList);
+    return teachingHoursList;
   }
 
   @Override

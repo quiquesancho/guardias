@@ -1,5 +1,6 @@
 package com.edu.quique.application.domain;
 
+import com.edu.quique.application.utils.DaysOfWeek;
 import com.edu.quique.application.utils.TimeInterval;
 import lombok.*;
 
@@ -30,6 +31,12 @@ public class TeachingHour implements Comparable<TeachingHour> {
 
   @Override
   public int compareTo(TeachingHour o) {
-    return this.teachingHoursId.compareTo(o.getTeachingHoursId());
+    int thisDayOrder = DaysOfWeek.getByDay(this.getDayOfWeek()).getOrder();
+    int otherDayOrder = DaysOfWeek.getByDay(o.getDayOfWeek()).getOrder();
+    if (thisDayOrder != otherDayOrder) {
+      return Integer.compare(thisDayOrder, otherDayOrder);
+    }
+
+    return this.timeInterval.getStartHour().compareTo(o.timeInterval.getStartHour());
   }
 }
