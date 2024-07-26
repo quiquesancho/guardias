@@ -1,5 +1,8 @@
 package com.edu.quique.application.utils;
 
+import com.edu.quique.application.domain.Teacher;
+import com.edu.quique.application.domain.TeachingHour;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -27,7 +30,38 @@ public class AppConstants {
   public static final DateTimeFormatter FORMAT_TIME = DateTimeFormatter.ofPattern("H:mm");
   public static final LocalTime BREAK_START_HOUR = LocalTime.parse("11:00", FORMAT_TIME);
   public static final LocalTime BREAK_END_HOUR = LocalTime.parse("11:30", FORMAT_TIME);
+  public static final TimeInterval BREAK_TIME_INTERVAL =
+      TimeInterval.builder().startHour(BREAK_START_HOUR).endHour(BREAK_END_HOUR).build();
+  private static final Teacher TEACHER_BREAK = Teacher.builder().name("Patio").firstSurname("").secondSurname("").build();
   public static final Long INTERVAL_MINUTES = 55L;
   public static final String OCCUPATION_GUARD = "3249454";
-  public static final List<String> CORE_USERS = List.of("admin@admin.com", "secretaria@secretaria.com");
+  public static final List<String> CORE_USERS =
+      List.of("admin@admin.com", "secretaria@secretaria.com");
+  public static final List<TeachingHour> BREAKS =
+      List.of(
+          TeachingHour.builder()
+              .timeInterval(BREAK_TIME_INTERVAL)
+              .dayOfWeek("L")
+              .teacher(TEACHER_BREAK)
+              .build(),
+          TeachingHour.builder()
+              .timeInterval(BREAK_TIME_INTERVAL)
+              .dayOfWeek("M")
+              .teacher(TEACHER_BREAK)
+              .build(),
+          TeachingHour.builder()
+              .timeInterval(BREAK_TIME_INTERVAL)
+              .dayOfWeek("X")
+              .teacher(TEACHER_BREAK)
+              .build(),
+          TeachingHour.builder()
+              .timeInterval(BREAK_TIME_INTERVAL)
+              .dayOfWeek("J")
+              .teacher(TEACHER_BREAK)
+              .build(),
+          TeachingHour.builder()
+              .timeInterval(BREAK_TIME_INTERVAL)
+              .dayOfWeek("V")
+              .teacher(TEACHER_BREAK)
+              .build());
 }

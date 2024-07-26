@@ -1,24 +1,24 @@
 package com.edu.quique.repositories.adapters;
 
 import com.edu.quique.application.domain.Absence;
-import com.edu.quique.application.domain.Teacher;
+import com.edu.quique.application.domain.queryparams.AbsenceQueryParams;
 import com.edu.quique.application.ports.out.AbsenceRepositoryPort;
 import com.edu.quique.repositories.mappers.AbsenceMOMapper;
-import com.edu.quique.repositories.mappers.TeacherMOMapper;
 import com.edu.quique.repositories.repositories.AbsenceJpaRepository;
+import com.edu.quique.repositories.specifications.AbsenceSpecification;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class AbsenceRepositoryAdapter implements AbsenceRepositoryPort {
   private AbsenceJpaRepository absenceJpaRepository;
   private AbsenceMOMapper absenceMOMapper;
-  private TeacherMOMapper teacherMOMapper;
+  private AbsenceSpecification absenceSpecification;
 
   @Override
   public Optional<Absence> findById(Long id) {
@@ -27,15 +27,10 @@ public class AbsenceRepositoryAdapter implements AbsenceRepositoryPort {
   }
 
   @Override
-  public List<Absence> findAbsenceByDate(LocalDate date) {
-    return absenceMOMapper.fromAbsenceMOList(absenceJpaRepository.findByAbsenceDate(date));
-  }
-
-  @Override
-  public List<Absence> findAbsenceByTeacherAndEmail(Teacher teacher, LocalDate date) {
-    return absenceMOMapper.fromAbsenceMOList(
-        absenceJpaRepository.findByAbsentTeacherAndAbsenceDate(
-            teacherMOMapper.toTeacherMO(teacher), date));
+  public List<Absence> findAll(AbsenceQueryParams params) {
+    return absenceJpaRepository.findAll(absenceSpecification.getSpecification(params)).stream()
+        .map(absenceMOMapper::fromAbsenceMO)
+        .collect(Collectors.toList());
   }
 
   @Override

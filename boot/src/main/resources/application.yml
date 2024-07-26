@@ -19,9 +19,9 @@ spring:
             revision_type_field_name: revtype
             store_data_at_delete: true
             audit_table_suffix: _aud
+            ddl-auto: update
       hibernate:
         format_sql: true
-        ddl-auto: update
     repositories:
       enabled: true
     auditing:
