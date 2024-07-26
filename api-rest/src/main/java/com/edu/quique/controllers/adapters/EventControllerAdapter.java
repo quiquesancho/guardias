@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.time.OffsetDateTime;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Slf4j
 @RestController
@@ -37,8 +35,10 @@ public class EventControllerAdapter implements EventApi {
   public void listen(RegistryAbsence event) {
     String topicDestinarion = String.format(USER_TOPIC_MASK, event.getTeacherGuard().getEmail());
     EventEntity eventEntity =
-        new EventEntity(OffsetDateTime.now(), EventResponse.builder().nombre(event.getTeacherGuard().getEmail()).build());
-    log.info("Evento publicado: {}", event.getTeacherGuard().getEmail());
+        new EventEntity(
+            OffsetDateTime.now(),
+            EventResponse.builder().registryAbsence(event).build());
+    log.info("Evento publicado: {}", event.getRegistryAbsenceId());
     broker.publish(topicDestinarion, eventEntity);
   }
 }
