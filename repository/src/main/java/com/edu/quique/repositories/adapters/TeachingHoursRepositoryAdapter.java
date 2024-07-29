@@ -2,6 +2,7 @@ package com.edu.quique.repositories.adapters;
 
 import com.edu.quique.application.domain.TeachingHour;
 import com.edu.quique.application.ports.out.TeachingHoursRepositoryPort;
+import com.edu.quique.repositories.mappers.CycleAvoidingMappingContext;
 import com.edu.quique.repositories.mappers.TeachingHourMOMapper;
 import com.edu.quique.repositories.repositories.TeachingHoursJpaRepository;
 import lombok.AllArgsConstructor;
@@ -20,13 +21,17 @@ public class TeachingHoursRepositoryAdapter implements TeachingHoursRepositoryPo
   @Override
   public List<TeachingHour> findAllTeachingHoursGuard() {
     return teachingHoursMOMapper.toTeachingHours(
-        teachingHoursJpaRepository.findAllByOccupation(OCCUPATION_GUARD));
+        teachingHoursJpaRepository.findAllByOccupation(OCCUPATION_GUARD),
+        new CycleAvoidingMappingContext());
   }
 
   @Override
   public TeachingHour save(TeachingHour teachingHour) {
     return teachingHoursMOMapper.toTeachingHours(
-        teachingHoursJpaRepository.save(teachingHoursMOMapper.toTeachingHoursMO(teachingHour)));
+        teachingHoursJpaRepository.save(
+            teachingHoursMOMapper.toTeachingHoursMO(
+                teachingHour, new CycleAvoidingMappingContext())),
+        new CycleAvoidingMappingContext());
   }
 
   @Override

@@ -37,8 +37,8 @@ public class EventControllerAdapter implements EventApi {
     EventEntity eventEntity =
         new EventEntity(
             OffsetDateTime.now(),
-            EventResponse.builder().registryAbsence(event).build());
-    log.info("Evento publicado: {}", event.getRegistryAbsenceId());
+            EventResponse.builder().nombre(event.getTeacherGuard().getEmail()).build());
+    log.info("Evento publicado: {}", event.getTeacherGuard().getEmail());
     broker.publish(topicDestinarion, eventEntity);
   }
 }

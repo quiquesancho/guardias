@@ -6,6 +6,7 @@ import com.edu.quique.repositories.BaseMO;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,4 +32,7 @@ public class TeacherMO extends BaseMO implements Serializable {
 
   @Column(name = "second_surname")
   private String secondSurname;
+
+  @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
+  private List<TeachingHourMO> teachingHours;
 }
