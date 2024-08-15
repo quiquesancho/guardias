@@ -33,12 +33,12 @@ public class EventControllerAdapter implements EventApi {
 
   @EventListener(RegistryAbsence.class)
   public void listen(RegistryAbsence event) {
-    String topicDestinarion = String.format(USER_TOPIC_MASK, event.getTeacherGuard().getEmail());
+    String topicDestination = String.format(USER_TOPIC_MASK, event.getTeacherGuard().getEmail());
     EventEntity eventEntity =
         new EventEntity(
             OffsetDateTime.now(),
-            EventResponse.builder().nombre(event.getTeacherGuard().getEmail()).build());
+            EventResponse.builder().registryAbsence(event).build());
     log.info("Evento publicado: {}", event.getTeacherGuard().getEmail());
-    broker.publish(topicDestinarion, eventEntity);
+    broker.publish(topicDestination, eventEntity);
   }
 }

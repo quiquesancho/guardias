@@ -1,6 +1,7 @@
 package com.edu.quique.application.service;
 
 import com.edu.quique.application.domain.Teacher;
+import com.edu.quique.application.domain.queryparams.TeacherQueryParams;
 import com.edu.quique.application.exceptions.TeacherNotFoundException;
 import com.edu.quique.application.ports.in.services.TeacherServicePort;
 import com.edu.quique.application.ports.out.TeacherRepositoryPort;
@@ -20,6 +21,11 @@ public class TeacherService implements TeacherServicePort {
   @Override
   public List<Teacher> findAll() {
     return teacherRepository.findAll();
+  }
+
+  @Override
+  public List<Teacher> findAll(TeacherQueryParams params) {
+    return teacherRepository.findAll(params);
   }
 
   @Override

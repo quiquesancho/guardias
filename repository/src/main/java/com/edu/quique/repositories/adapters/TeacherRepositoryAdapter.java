@@ -1,10 +1,12 @@
 package com.edu.quique.repositories.adapters;
 
 import com.edu.quique.application.domain.Teacher;
+import com.edu.quique.application.domain.queryparams.TeacherQueryParams;
 import com.edu.quique.application.ports.out.TeacherRepositoryPort;
 import com.edu.quique.repositories.mappers.CycleAvoidingMappingContext;
 import com.edu.quique.repositories.mappers.TeacherMOMapper;
 import com.edu.quique.repositories.repositories.TeacherJpaRepository;
+import com.edu.quique.repositories.specifications.TeacherSpecification;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +18,19 @@ import java.util.Optional;
 public class TeacherRepositoryAdapter implements TeacherRepositoryPort {
   private TeacherJpaRepository teacherJpaRepository;
   private TeacherMOMapper teacherMOMapper;
+  private TeacherSpecification teacherSpecification;
 
   @Override
   public List<Teacher> findAll() {
     return teacherMOMapper.toTeacher(
         teacherJpaRepository.findAll(), new CycleAvoidingMappingContext());
+  }
+
+  @Override
+  public List<Teacher> findAll(TeacherQueryParams params) {
+    var specs = teacherSpecification.getSpecification(params);
+    return teacherMOMapper.toTeacher(
+        teacherJpaRepository.findAll(specs), new CycleAvoidingMappingContext());
   }
 
   @Override

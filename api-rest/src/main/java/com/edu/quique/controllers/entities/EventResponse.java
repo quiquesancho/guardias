@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 @Builder
 public class EventResponse {
-    //private RegistryAbsence registryAbsence;
-    private String nombre;
+    private RegistryAbsence registryAbsence;
+    //private String nombre
 }

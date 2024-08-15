@@ -5,6 +5,8 @@ import com.edu.quique.repositories.models.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +25,7 @@ public class TeacherSpecificationImpl implements TeacherSpecification {
     if (params.getName() != null) {
       specs.add(getName(params.getName()));
     }
-    if (params.getDayOfWeek() != null) {
-      specs.add(getDayOfWeek(params.getDayOfWeek()));
-    }
+    specs.add(getTeachingHoursSpecifications(params));
     return specs.stream().reduce(Specification::and).orElse(null);
   }
 
@@ -41,6 +41,18 @@ public class TeacherSpecificationImpl implements TeacherSpecification {
     return (root, query, cb) -> cb.equal(root.get(TeacherMO_.name), name);
   }
 
+  private Specification<TeacherMO> getTeachingHoursSpecifications(TeacherQueryParams teacherQueryParams) {
+    return (root, query, cb) -> {
+      Join<TeacherMO, TeachingHourMO> join = root.join(TeacherMO_.teachingHours, JoinType.LEFT);
+      return cb.and(
+              teacherQueryParams.getDayOfWeek() != null ? cb.equal(join.get(TeachingHourMO_.dayOfWeek), teacherQueryParams.getDayOfWeek()) : cb.conjunction(),
+              teacherQueryParams.getInstantNow() != null ? cb.lessThanOrEqualTo(join.get(TeachingHourMO_.startHour), teacherQueryParams.getInstantNow()) : cb.conjunction(),
+              teacherQueryParams.getInstantNow() != null ? cb.greaterThanOrEqualTo(join.get(TeachingHourMO_.endHour), teacherQueryParams.getInstantNow()) : cb.conjunction(),
+              teacherQueryParams.getOccupation() != null ? cb.equal(join.get(TeachingHourMO_.occupation), teacherQueryParams.getOccupation()) : cb.conjunction()
+      );
+    };
+  }
+
   private Specification<TeacherMO> getDayOfWeek(String dayOfWeek) {
     return (root, query, cb) ->
         cb.equal(root.join(TeacherMO_.teachingHours).get(TeachingHourMO_.dayOfWeek), dayOfWeek);
@@ -48,13 +60,18 @@ public class TeacherSpecificationImpl implements TeacherSpecification {
 
   private Specification<TeacherMO> getStartHour(LocalTime startHour) {
     return (root, query, cb) ->
-        cb.greaterThanOrEqualTo(
+        cb.lessThanOrEqualTo(
             root.join(TeacherMO_.teachingHours).get(TeachingHourMO_.startHour), startHour);
   }
 
   private Specification<TeacherMO> getEndHour(LocalTime endHour) {
     return (root, query, cb) ->
-        cb.lessThanOrEqualTo(
+        cb.greaterThanOrEqualTo(
             root.join(TeacherMO_.teachingHours).get(TeachingHourMO_.endHour), endHour);
+  }
+
+  private Specification<TeacherMO> getOccupation(String occupation) {
+    return (root, query, cb) ->
+        cb.equal(root.join(TeacherMO_.teachingHours).get(TeachingHourMO_.occupation), occupation);
   }
 }
