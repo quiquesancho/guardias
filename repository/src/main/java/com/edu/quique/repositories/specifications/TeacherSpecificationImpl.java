@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,27 +50,5 @@ public class TeacherSpecificationImpl implements TeacherSpecification {
               teacherQueryParams.getOccupation() != null ? cb.equal(join.get(TeachingHourMO_.occupation), teacherQueryParams.getOccupation()) : cb.conjunction()
       );
     };
-  }
-
-  private Specification<TeacherMO> getDayOfWeek(String dayOfWeek) {
-    return (root, query, cb) ->
-        cb.equal(root.join(TeacherMO_.teachingHours).get(TeachingHourMO_.dayOfWeek), dayOfWeek);
-  }
-
-  private Specification<TeacherMO> getStartHour(LocalTime startHour) {
-    return (root, query, cb) ->
-        cb.lessThanOrEqualTo(
-            root.join(TeacherMO_.teachingHours).get(TeachingHourMO_.startHour), startHour);
-  }
-
-  private Specification<TeacherMO> getEndHour(LocalTime endHour) {
-    return (root, query, cb) ->
-        cb.greaterThanOrEqualTo(
-            root.join(TeacherMO_.teachingHours).get(TeachingHourMO_.endHour), endHour);
-  }
-
-  private Specification<TeacherMO> getOccupation(String occupation) {
-    return (root, query, cb) ->
-        cb.equal(root.join(TeacherMO_.teachingHours).get(TeachingHourMO_.occupation), occupation);
   }
 }
