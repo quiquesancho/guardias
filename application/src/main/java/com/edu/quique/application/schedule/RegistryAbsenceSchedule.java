@@ -3,6 +3,7 @@ package com.edu.quique.application.schedule;
 import com.edu.quique.application.domain.RegistryAbsence;
 import com.edu.quique.application.domain.Teacher;
 import com.edu.quique.application.domain.queryparams.TeacherQueryParams;
+import com.edu.quique.application.ports.in.services.RegistryAbsenceServicePort;
 import com.edu.quique.application.ports.in.services.TeacherServicePort;
 import com.edu.quique.application.ports.out.RegistryAbsenceScheduleRespositoryPort;
 import com.edu.quique.application.utils.DaysOfWeek;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import static com.edu.quique.application.utils.AppConstants.OCCUPATION_GUARD;
@@ -23,19 +25,14 @@ import static com.edu.quique.application.utils.AppConstants.OCCUPATION_GUARD;
 @Slf4j
 public class RegistryAbsenceSchedule implements RegistryAbsenceScheduleRespositoryPort {
   private TeacherServicePort teacherServicePort;
+  private RegistryAbsenceServicePort registryAbsenceServicePort;
   private ApplicationEventPublisher publisher;
 
   @Override
   @Scheduled(cron = "*/10 * * * * *")
-  public void publish() {
-    /*var teachers = getGuardTeachers();
-    teachers.forEach(
-        teacher -> publisher.publishEvent(RegistryAbsence.builder().teacherGuard(teacher).build()));
-     */
-    publisher.publishEvent(
-        RegistryAbsence.builder()
-            .teacherGuard(Teacher.builder().email("admin@admin.com").build())
-            .build());
+  public void sendEvent() {
+    var teachers = getGuardTeachers();
+    teachers.forEach(this::publishRegistryAbsence);
   }
 
   private List<Teacher> getGuardTeachers() {
@@ -46,5 +43,24 @@ public class RegistryAbsenceSchedule implements RegistryAbsenceScheduleResposito
             .occupation(OCCUPATION_GUARD)
             .build();
     return teacherServicePort.findAll(queryParams);
+  }
+
+  private List<RegistryAbsence> getRegistryAbsences(Teacher teacher) {
+    return registryAbsenceServicePort.findByTeacherGuard(teacher);
+  }
+
+  private void publishRegistryAbsence(Teacher teacher) {
+    var registryAbsenceList = getRegistryAbsences(teacher);
+    if (isAvailableGuard(registryAbsenceList)) {
+      publisher.publishEvent(RegistryAbsence.builder().teacherGuard(teacher).build());
+    }
+  }
+
+  private boolean isAvailableGuard(List<RegistryAbsence> registryAbsenceList) {
+    return registryAbsenceList.stream()
+        .noneMatch(
+            registryAbsence ->
+                registryAbsence.isChecked()
+                    && OffsetDateTime.now().isAfter(registryAbsence.getCheckGuard()));
   }
 }
