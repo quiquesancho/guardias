@@ -2,6 +2,8 @@ package com.edu.quique.application.domain;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -12,6 +14,7 @@ public class Teacher implements Comparable<Teacher> {
   private String name;
   private String firstSurname;
   private String secondSurname;
+  private List<TeachingHour> teachingHours;
 
   @Override
   public boolean equals(Object o) {

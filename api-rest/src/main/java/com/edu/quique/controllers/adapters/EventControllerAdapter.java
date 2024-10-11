@@ -23,9 +23,9 @@ public class EventControllerAdapter implements EventApi {
   @Override
   public SseEmitter userEvents(String userId, Long lastEventId) {
     String topic = String.format(USER_TOPIC_MASK, userId);
-    log.info("New connection for topic: '{}' ", topic);
+    log.info("New connection for topic: '{}'", topic);
 
-    SseEmitter emitter = new SseEmitter();
+    SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
     broker.subscribe(topic, emitter);
 
     return emitter;
@@ -33,12 +33,12 @@ public class EventControllerAdapter implements EventApi {
 
   @EventListener(RegistryAbsence.class)
   public void listen(RegistryAbsence event) {
-    String topicDestinarion = String.format(USER_TOPIC_MASK, event.getTeacherGuard().getEmail());
+    String topicDestination = String.format(USER_TOPIC_MASK, event.getTeacherGuard().getEmail());
     EventEntity eventEntity =
         new EventEntity(
             OffsetDateTime.now(),
             EventResponse.builder().registryAbsence(event).build());
-    log.info("Evento publicado: {}", event.getRegistryAbsenceId());
-    broker.publish(topicDestinarion, eventEntity);
+    log.info("Evento publicado: {}", event.getTeacherGuard().getEmail());
+    broker.publish(topicDestination, eventEntity);
   }
 }

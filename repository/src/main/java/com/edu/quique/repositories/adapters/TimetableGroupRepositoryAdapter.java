@@ -4,6 +4,7 @@ import com.edu.quique.application.domain.Teacher;
 import com.edu.quique.application.domain.TimetableGroup;
 import com.edu.quique.application.ports.out.TimetableGroupRepositoryPort;
 import com.edu.quique.application.utils.TimeInterval;
+import com.edu.quique.repositories.mappers.CycleAvoidingMappingContext;
 import com.edu.quique.repositories.mappers.TeacherMOMapper;
 import com.edu.quique.repositories.mappers.TimetableGroupMOMapper;
 import com.edu.quique.repositories.repositories.TimetableGroupJpaRepository;
@@ -25,7 +26,7 @@ public class TimetableGroupRepositoryAdapter implements TimetableGroupRepository
             dayOfWeek,
             hours.getStartHour(),
             hours.getEndHour(),
-            teacherMOMapper.toTeacherMO(teacher)));
+            teacherMOMapper.toTeacherMO(teacher, new CycleAvoidingMappingContext())));
   }
 
   @Override

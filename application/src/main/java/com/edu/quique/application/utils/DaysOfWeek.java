@@ -26,4 +26,11 @@ public enum DaysOfWeek {
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("No enum constant for day: " + day));
   }
+
+  public static DaysOfWeek getByOrder(int order) {
+    return Arrays.stream(values())
+            .filter(d -> d.getOrder() == order)
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("No enum constant for order: " + order));
+  }
 }

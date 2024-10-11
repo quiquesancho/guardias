@@ -18,6 +18,10 @@ public class RegistryAbsence implements Comparable<RegistryAbsence> {
   private String observation;
   private OffsetDateTime checkGuard;
 
+  public boolean isChecked() {
+    return this.checkGuard != null;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

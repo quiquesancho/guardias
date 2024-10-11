@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<centro codigo="46022543" denominacion="IES LA VEREDA" curso="2020" fechaExportacion="23/04/2021 16:05:21" version="1.0">  
-  <docentes>    
+<centro codigo="46022543" denominacion="IES LA VEREDA" curso="2020" fechaExportacion="23/04/2021 16:05:21" version="1.0">
+  <docentes>
     <docente nombre="Orli" apellido1="Blevins" apellido2="Pena" documento="60543413D" correo="non@eueuismod.net" />
     <docente nombre="Ciara" apellido1="Velez" apellido2="Hardy" documento="82405120G" correo="ullamcorper@interdumlibero.edu" />
     <docente nombre="Charity" apellido1="Thompson" apellido2="Vang" documento="57831832X" correo="eu@dictumeu.com" />
@@ -55,10 +55,81 @@
     <horario_ocupacion dia_semana="V" hora_desde="14:15" hora_hasta="15:10" ocupacion="3249454" documento="82405120G" />
       <!-- Aci van totes les ocupacions dels docents a les aules del centre / en l'etiqueta <horario_ocupacion> van més atributs però no són relevants-->
       <!-- La ocupació 3249454 és la de guàrdia -->
+
+       <!-- Horario para usuario admin para pruebas -->
+       <horario_ocupacion dia_semana="L" hora_desde="8:15" hora_hasta="9:10" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="9:10" hora_hasta="10:05" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="10:05" hora_hasta="11:00" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="11:30" hora_hasta="12:25" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="12:25" hora_hasta="13:20" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="13:20" hora_hasta="14:15" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="14:15" hora_hasta="15:10" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="15:10" hora_hasta="16:05" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="16:05" hora_hasta="17:00" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="17:00" hora_hasta="17:55" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="17:55" hora_hasta="18:50" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="18:50" hora_hasta="19:45" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="L" hora_desde="19:45" hora_hasta="20:40" ocupacion="3249454" documento="12345678C" />
+
+       <horario_ocupacion dia_semana="M" hora_desde="8:15" hora_hasta="9:10" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="9:10" hora_hasta="10:05" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="10:05" hora_hasta="11:00" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="11:30" hora_hasta="12:25" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="12:25" hora_hasta="13:20" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="13:20" hora_hasta="14:15" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="14:15" hora_hasta="15:10" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="15:10" hora_hasta="16:05" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="16:05" hora_hasta="17:00" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="17:00" hora_hasta="17:55" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="17:55" hora_hasta="18:50" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="18:50" hora_hasta="19:45" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="M" hora_desde="19:45" hora_hasta="20:40" ocupacion="3249454" documento="12345678C" />
+
+       <horario_ocupacion dia_semana="X" hora_desde="8:15" hora_hasta="9:10" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="9:10" hora_hasta="10:05" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="10:05" hora_hasta="11:00" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="11:30" hora_hasta="12:25" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="12:25" hora_hasta="13:20" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="13:20" hora_hasta="14:15" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="14:15" hora_hasta="15:10" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="15:10" hora_hasta="16:05" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="16:05" hora_hasta="17:00" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="17:00" hora_hasta="17:55" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="17:55" hora_hasta="18:50" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="18:50" hora_hasta="19:45" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="X" hora_desde="19:45" hora_hasta="20:40" ocupacion="3249454" documento="12345678C" />
+
+       <horario_ocupacion dia_semana="J" hora_desde="8:15" hora_hasta="9:10" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="9:10" hora_hasta="10:05" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="10:05" hora_hasta="11:00" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="11:30" hora_hasta="12:25" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="12:25" hora_hasta="13:20" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="13:20" hora_hasta="14:15" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="14:15" hora_hasta="15:10" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="15:10" hora_hasta="16:05" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="16:05" hora_hasta="17:00" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="17:00" hora_hasta="17:55" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="17:55" hora_hasta="18:50" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="18:50" hora_hasta="19:45" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="J" hora_desde="19:45" hora_hasta="20:40" ocupacion="3249454" documento="12345678C" />
+
+       <horario_ocupacion dia_semana="V" hora_desde="8:15" hora_hasta="9:10" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="9:10" hora_hasta="10:05" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="10:05" hora_hasta="11:00" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="11:30" hora_hasta="12:25" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="12:25" hora_hasta="13:20" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="13:20" hora_hasta="14:15" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="14:15" hora_hasta="15:10" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="15:10" hora_hasta="16:05" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="16:05" hora_hasta="17:00" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="17:00" hora_hasta="17:55" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="17:55" hora_hasta="18:50" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="18:50" hora_hasta="19:45" ocupacion="3249454" documento="12345678C" />
+       <horario_ocupacion dia_semana="V" hora_desde="19:45" hora_hasta="20:40" ocupacion="3249454" documento="12345678C" />
     </horarios_ocupaciones>
 
   <horarios_grupo>
-  
+
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="08:15" hora_hasta="09:10" grupo="4ESOB" contenido="VLLLOMCE" docente="66373099U" aula="1.01" idioma="V"/>
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="09:10" hora_hasta="10:05" grupo="1ESOC" contenido="VLLLOMCE" docente="66373099U" aula="0.03" idioma="V"/>
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="10:05" hora_hasta="11:00" grupo="2ESOA" contenido="VLLLOMCE" docente="66373099U" aula="0.04" idioma="V"/>
@@ -98,8 +169,8 @@
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="12:25" hora_hasta="13:20" grupo="4ESOA" contenido="VLLLOMCE" docente="66373099U" aula="1.17" idioma="V"/>
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="13:20" hora_hasta="14:15" grupo="2ESOB" contenido="VLLLOMCE" docente="66373099U" aula="1.06" idioma="V"/>
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="14:15" hora_hasta="15:10" grupo="1ESOB" contenido="VLLLOMCE" docente="66373099U" aula="0.08" idioma="V"/>
-    
-  
+
+
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="08:15" hora_hasta="09:10" grupo="4ESOB" contenido="VLLLOMCE" docente="37541261L" aula="1.01" idioma="V"/>
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="09:10" hora_hasta="10:05" grupo="1ESOC" contenido="VLLLOMCE" docente="37541261L" aula="0.03" idioma="V"/>
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="10:05" hora_hasta="11:00" grupo="2ESOA" contenido="VLLLOMCE" docente="37541261L" aula="0.04" idioma="V"/>
@@ -139,8 +210,8 @@
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="12:25" hora_hasta="13:20" grupo="4ESOA" contenido="VLLLOMCE" docente="37541261L" aula="1.17" idioma="V"/>
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="13:20" hora_hasta="14:15" grupo="2ESOB" contenido="VLLLOMCE" docente="37541261L" aula="1.06" idioma="V"/>
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="14:15" hora_hasta="15:10" grupo="1ESOB" contenido="VLLLOMCE" docente="37541261L" aula="0.08" idioma="V"/>
-    
-  
+
+
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="08:15" hora_hasta="09:10" grupo="4ESOB" contenido="VLLLOMCE" docente="61144366L" aula="1.01" idioma="V"/>
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="09:10" hora_hasta="10:05" grupo="1ESOC" contenido="VLLLOMCE" docente="61144366L" aula="0.03" idioma="V"/>
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="10:05" hora_hasta="11:00" grupo="2ESOA" contenido="VLLLOMCE" docente="61144366L" aula="0.04" idioma="V"/>
@@ -180,8 +251,8 @@
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="12:25" hora_hasta="13:20" grupo="4ESOA" contenido="VLLLOMCE" docente="61144366L" aula="1.17" idioma="V"/>
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="13:20" hora_hasta="14:15" grupo="2ESOB" contenido="VLLLOMCE" docente="61144366L" aula="1.06" idioma="V"/>
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="14:15" hora_hasta="15:10" grupo="1ESOB" contenido="VLLLOMCE" docente="61144366L" aula="0.08" idioma="V"/>
-    
-      
+
+
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="08:15" hora_hasta="09:10" grupo="4ESOB" contenido="VLLLOMCE" docente="81932825N" aula="1.01" idioma="V"/>
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="09:10" hora_hasta="10:05" grupo="1ESOC" contenido="VLLLOMCE" docente="81932825N" aula="0.03" idioma="V"/>
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="10:05" hora_hasta="11:00" grupo="2ESOA" contenido="VLLLOMCE" docente="81932825N" aula="0.04" idioma="V"/>
@@ -302,7 +373,7 @@
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="13:20" hora_hasta="14:15" grupo="2ESOB" contenido="VLLLOMCE" docente="82405120G" aula="1.06" idioma="V"/>
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="14:15" hora_hasta="15:10" grupo="1ESOB" contenido="VLLLOMCE" docente="82405120G" aula="0.08" idioma="V"/>
 
-      
+
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="08:15" hora_hasta="09:10" grupo="4ESOB" contenido="VLLLOMCE" docente="57831832X" aula="1.01" idioma="V"/>
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="09:10" hora_hasta="10:05" grupo="1ESOC" contenido="VLLLOMCE" docente="57831832X" aula="0.03" idioma="V"/>
       <horario_grupo dia_semana="L" sesion_orden="1" hora_desde="10:05" hora_hasta="11:00" grupo="2ESOA" contenido="VLLLOMCE" docente="57831832X" aula="0.04" idioma="V"/>
@@ -342,6 +413,6 @@
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="12:25" hora_hasta="13:20" grupo="4ESOA" contenido="VLLLOMCE" docente="57831832X" aula="1.17" idioma="V"/>
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="13:20" hora_hasta="14:15" grupo="2ESOB" contenido="VLLLOMCE" docente="57831832X" aula="1.06" idioma="V"/>
       <horario_grupo dia_semana="V" sesion_orden="1" hora_desde="14:15" hora_hasta="15:10" grupo="1ESOB" contenido="VLLLOMCE" docente="57831832X" aula="0.08" idioma="V"/>
-    
+
     </horarios_grupo>
 </centro>

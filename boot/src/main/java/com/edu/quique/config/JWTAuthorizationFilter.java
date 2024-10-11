@@ -31,7 +31,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     String jwtToken = request.getHeader(HEADER_AUTHORIZACION_KEY).replace(TOKEN_BEARER_PREFIX, "");
 
     return Jwts.parserBuilder()
-        .setSigningKey(getSigningKey(SUPER_SECRET_KEY))
+        .setSigningKey(getSigningKey())
         .build()
         .parseClaimsJws(jwtToken)
         .getBody();
@@ -74,12 +74,11 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
       response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
-      return;
     }
   }
 
-  private Key getSigningKey(String secret) {
-    byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+  private Key getSigningKey() {
+    byte[] keyBytes = JWTAuthorizationFilter.SUPER_SECRET_KEY.getBytes(StandardCharsets.UTF_8);
     return Keys.hmacShaKeyFor(keyBytes);
   }
 }
